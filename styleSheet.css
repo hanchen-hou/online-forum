@@ -1,11 +1,13 @@
 body {margin: 0 auto; word-spacing: 5}
 p {margin:10px}
-#Category {background-color:rgb(235,140,164); width: 10%;height: 100%;float: left;position: fixed;overflow: scroll}
-#Post_Field{background-color: rgb(148,214,218); width: 90%;height: 630px ;float: left;margin-left: 10%;margin-right: 0 }
-#User_Field{background-color: #45b97c; width: 100%;height: 8%;text-align: right;padding-top: 8px;}
+#Category {background-color:rgb(230,226,175); width: 10%;height: 100%;float: left;position: fixed;overflow: scroll}
+#Post_Field{background-color: rgb(239,236,202); width: 90%;height: 630px ;float: left;margin-left: 10%;margin-right: 0 }
+#User_Field{background-color: rgb(0,47,47); width: 100%;height: 8%;text-align: right;padding-top: 8px;border-radius: 20px}
 #Category_Item li{margin-top: 50px}
 #title{width: 100%;height: 8%;}
-#Post_Info{background-color: white; width: 95%;height: 500px; margin: 0px;text-align: left;overflow: scroll}
-#textArea{width: 90%;height:auto!important; height:280px; min-height:280px }
-#Write_Post{background-color:rgb(148,214,218);width: 150%;height:50%;text-align: left;padding-top: 15px}
+#Post_Info{background-color: white; width: 100%;height: 500px;padding: 10px ; margin: 0px;text-align: left;overflow: scroll;border-radius: 20px}
+#textArea{width: 90%;height:auto!important; height:250px; min-height:250px }
+#Write_Post{background-color:rgb(167,163,126);width: 150%;height:50%;text-align: left;padding-top: 15px}
 #post_content{width: 800px }
+a:hover{background-color: yellow;}
+.category_style li{list-style:none }
