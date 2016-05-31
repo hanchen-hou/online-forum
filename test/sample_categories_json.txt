@@ -1,0 +1,29 @@
+[
+	{
+		"name": "Life"
+	},
+	{
+		"name": "Books"
+	},
+	{
+		"name": "Travel"
+	},
+	{
+		"name": "Fashion"
+	},
+	{
+		"name": "Games"
+	},
+	{
+		"name": "Movies&TV Shows"
+	},
+	{
+		"name": "Food"
+	},
+	{
+		"name": "Music"
+	},
+	{
+		"name": "Family"
+	}
+]

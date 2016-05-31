@@ -2,13 +2,10 @@
 
 require_once (dirname(dirname(__FILE__)).'/lib/common.php');
 
-define('CATEGORIES_TABLE', 'CS_CATEGORIES');
-
 class CategoriesTable{
 	
 	// Require:
 	/* [
-	 * 'id'=> INT
 	 * 'name'=> STR
 	 * ]
 	 */ 
@@ -16,14 +13,15 @@ class CategoriesTable{
 		if(is_null($data)) return;
 		
 		$conn = connect_db();
-		$sql = "insert into ".CATEGORIES_TABLE." (id, name) values
-			(:id, :name)";
+		$sql = "insert into ".CATEGORIES_TABLE." (name) values
+			(:name)";
 		$stmt = oci_parse($conn, $sql);
-		oci_bind_by_name($stmt, ":id", $data['id']);
 		oci_bind_by_name($stmt, ":name", $data['name']);
 		
-		oci_execute($stmt);
+		$result = oci_execute($stmt);
 		oci_close($conn);
+		
+		return $result;
 	}
 	
 	// select by user_id
@@ -42,13 +40,63 @@ class CategoriesTable{
 		return $row;
 	}
 	
-	static function create(){
+	static function select_all(){
 		$conn = connect_db();
-		$sql = "create table ".CATEGORIES_TABLE." (id INT PRIMARY KEY,
-			name VARCHAR2(20) NOT NULL";
+		$sql = "select * from ".CATEGORIES_TABLE;
 		$stmt = oci_parse($conn, $sql);
 		oci_execute($stmt);
 		oci_close($conn);
+		
+		$row = oci_fetch_all($stmt, $res);
+		return $res;
+	}
+	
+	static function create(){
+		$conn = connect_db();
+		$sql_1 = "create table ".CATEGORIES_TABLE." 
+			(
+			id INT PRIMARY KEY,
+			name VARCHAR2(20) NOT NULL
+			)";
+		$sql_2 = "CREATE SEQUENCE ".CATEGORIES_SEQ;
+		$sql_3 = "CREATE OR REPLACE TRIGGER ".CATEGORIES_TRIGGER." 
+			BEFORE INSERT ON ".CATEGORIES_TABLE." 
+			FOR EACH ROW
+			BEGIN
+			  SELECT ".CATEGORIES_SEQ.".NEXTVAL
+			  INTO   :new.id
+			  FROM   dual;
+			END;";
+		$stmt_1 = oci_parse($conn, $sql_1);
+		$result = oci_execute($stmt_1);
+		$stmt_2 = oci_parse($conn, $sql_2);
+		$result = oci_execute($stmt_2) && $result;
+		$stmt_3 = oci_parse($conn, $sql_3);
+		$result = oci_execute($stmt_3) && $result;
+		oci_close($conn);
+		
+		return $result;
+		
+		$result = oci_execute($stmt);
+		oci_close($conn);
+		
+		return $result;
+	}
+	
+	static function drop(){
+		$conn = connect_db();
+		$sql_1 = "DROP TRIGGER ".CATEGORIES_TRIGGER;
+		$sql_2 = "DROP SEQUENCE ".CATEGORIES_SEQ;
+		$sql_3 = "DROP TABLE ".CATEGORIES_TABLE;
+		$stmt_1 = oci_parse($conn, $sql_1);
+		$result = oci_execute($stmt_1);
+		$stmt_2 = oci_parse($conn, $sql_2);
+		$result = oci_execute($stmt_2) && $result;
+		$stmt_3 = oci_parse($conn, $sql_3);
+		$result = oci_execute($stmt_3) && $result;
+		
+		oci_close($conn);
+		return $result;
 	}
 }
 

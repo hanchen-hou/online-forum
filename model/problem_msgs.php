@@ -24,8 +24,10 @@ class ProblemMsgsTable{
 		oci_bind_by_name($stmt, ":reason", $data['reason']);
 		//oci_bind_by_name($stmt, ":datetime", $data['datetime']); // use CURRENT_TIMESTAMP
 		
-		oci_execute($stmt);
+		$result = oci_execute($stmt);
 		oci_close($conn);
+		
+		return $result;
 	}
 	
 	static function update_by_id($id, $data){
@@ -41,8 +43,10 @@ class ProblemMsgsTable{
 		oci_bind_by_name($stmt, ":result", $data['result']);
 		oci_bind_by_name($stmt, ":id", $id);
 		
-		oci_execute($stmt);
+		$result = oci_execute($stmt);
 		oci_close($conn);
+		
+		return $result;
 	}
 	
 	static function select_by_id($id){
@@ -61,7 +65,7 @@ class ProblemMsgsTable{
 	
 	static function create(){
 		$conn = connect_db();
-		$sql_1 = "create table ".USERS_MANAGE_TABLE." 
+		$sql_1 = "create table ".PROBLEM_MSGS_TABLE." 
 			(
 			id INT PRIMARY KEY,
 			msg_id INT NOT NULL,
@@ -75,22 +79,40 @@ class ProblemMsgsTable{
 			FOREIGN KEY (user_id) REFERENCES ".USERS_TABLE."(id),
 			FOREIGN KEY (admin_id) REFERENCES ".ADMINS_TABLE."(id)
 			)";
-		$sql_2 = "CREATE SEQUENCE problem_msgs_seq";
-		$sql_3 = "CREATE OR REPLACE TRIGGER add_problem_msgs
-			BEFORE INSERT ON ".USERS_MANAGE_TABLE." 
+		$sql_2 = "CREATE SEQUENCE ".PROBLEM_MSGS_SEQ;
+		$sql_3 = "CREATE OR REPLACE TRIGGER ".PROBLEM_MSGS_TRIGGER." 
+			BEFORE INSERT ON ".PROBLEM_MSGS_TABLE." 
 			FOR EACH ROW
 			BEGIN
-			  SELECT problem_msgs_seq.NEXTVAL
+			  SELECT ".PROBLEM_MSGS_SEQ.".NEXTVAL
 			  INTO   :new.id
 			  FROM   dual;
 			END;";
 		$stmt_1 = oci_parse($conn, $sql_1);
-		oci_execute($stmt_1);
+		$result = oci_execute($stmt_1);
 		$stmt_2 = oci_parse($conn, $sql_2);
-		oci_execute($stmt_2);
+		$result = oci_execute($stmt_2) && $result;
 		$stmt_3 = oci_parse($conn, $sql_3);
-		oci_execute($stmt_3);
+		$result = oci_execute($stmt_3) && $result;
 		oci_close($conn);
+		
+		return $result;
+	}
+	
+	static function drop(){
+		$conn = connect_db();
+		$sql_1 = "DROP TRIGGER ".PROBLEM_MSGS_TRIGGER;
+		$sql_2 = "DROP SEQUENCE ".PROBLEM_MSGS_SEQ;
+		$sql_3 = "DROP TABLE ".PROBLEM_MSGS_TABLE;
+		$stmt_1 = oci_parse($conn, $sql_1);
+		$result = oci_execute($stmt_1);
+		$stmt_2 = oci_parse($conn, $sql_2);
+		$result = oci_execute($stmt_2) && $result;
+		$stmt_3 = oci_parse($conn, $sql_3);
+		$result = oci_execute($stmt_3) && $result;
+		
+		oci_close($conn);
+		return $result;
 	}
 }
 
