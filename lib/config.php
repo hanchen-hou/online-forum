@@ -1,10 +1,10 @@
 <?php
 
 /* Database User Name */
-define('DB_USER', 'ora_a3o0b');
+define('DB_USER', '');
 
 /* Database Password */
-define('DB_PASS', 'a11754158');
+define('DB_PASS', '');
 
 /* Database Name */
 define('DB_DATABASENAME', 'dbhost.ugrad.cs.ubc.ca:1522/ug');
