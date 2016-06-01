@@ -92,10 +92,9 @@
             </div>
         </div>
 
-        <div class="container" style="overflow-x: hidden;overflow-y: scroll;">
-            <div style="height: 60px"></div>
-            <div class="content" id="category_field" >
-                <ul class="list-group" >
+        <div class="container-fluid" style="overflow-x: hidden;overflow-y: scroll;">
+            <div class="content" id="category_field" style="margin-top:5%;margin-right:2%" >
+                <ul class="list-group" style="width:90%" >
                     <label>Admin</label>
                     <li>
                         <a class="list-group-item" href="Admin_changePassword.html">Change password</a>
@@ -139,14 +138,15 @@
                         <p>
                             I like cat. I prefer to have a cat with a pink noise.
                         </p>
-                        <a href="#" style="float: right">Manage Message</a>
+                 
                     </div>
                     <form method="post" action="#">
                         <div class="form-group">
                             <label for="user name">Reason:</label>
-                            <textarea class="form-control textarea" id="reason" placeholder="report reason" row=4></textarea>
+                            <textarea class="form-control textarea" id="reason" placeholder="report reason" row=4 name="baned_reason"></textarea>
                         </div>
-                        <input type="radio" value="Ban" />
+                       <label>Ban</label><input type="radio" name="ban" />
+                       <label>Skip</label><input type="radio" name="skip" /><br />
                         <input type="submit" class="btn btn-default " id="submit" value="submit" style="margin-top:10px">
                     </form>
                 </div>
