@@ -7,8 +7,7 @@ if(isset($_POST['user_name']) && isset($_POST['email']) && isset($_POST['passwor
 	$data['name'] =  $_POST['user_name'];
 	$data['email'] =  $_POST['email'];
 	$data['password'] =  $_POST['password'];
-	
-	if(!is_null($data['name']) && !is_null($data['email']) && !is_null($data['password'])){
+	if(!empty($data['name']) && !empty($data['email']) && !empty($data['password'])){
 		if(UsersTable::insert($data)){
 			exit('register successed');
 		}
@@ -103,7 +102,7 @@ if(isset($_POST['user_name']) && isset($_POST['email']) && isset($_POST['passwor
 		</div>
 		<div class="container">
 			<div style="height:115px;"></div>
-			<form name="form" method="post" action="signup.php">
+			<form name="form" method="post" action="#">
 				<div class="form-group">
 					<label for="user name">User Name address</label>
 					<input type="text" class="form-control" name="user_name" id="user_name" placeholder="user name">

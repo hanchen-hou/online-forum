@@ -21,6 +21,8 @@ class UsersTable {
 		if (!isset($data['password']))
 			return FALSE;
 
+		$conn = connect_db();
+		
 		//generate a unique random id
 		do {
 			$new_id = create_random_num(USER_ID_LENGTH);
@@ -29,8 +31,7 @@ class UsersTable {
 		$salt = create_random_string(SALT_LENGTH);
 		$pw_md5 = md5($data['password'] . $salt);
 		$statue = 0;
-
-		$conn = connect_db();
+		
 		$sql = "insert into " . USERS_TABLE . " 
 			(id, email, name, pw_md5, salt, register_datetime, status) values
 			(:id, :email, :name, :pw_md5, :salt, CURRENT_TIMESTAMP, :status)";
@@ -56,7 +57,7 @@ class UsersTable {
 		oci_execute($stmt);
 		oci_close($conn);
 
-		$row = oci_fetch_all($stmt, $res);
+		$row = oci_fetch_array($stmt, $res);
 		return $res;
 	}
 
@@ -70,8 +71,20 @@ class UsersTable {
 		oci_bind_by_name($stmt, ":user_id", $user_id);
 		oci_execute($stmt);
 
-		$row = oci_fetch_row($stmt);
-		return $row;
+		return oci_fetch_array($stmt);
+	}
+	
+	static function select_by_name($user_name) {
+		if (is_null($user_name))
+			return FALSE;
+
+		$conn = connect_db();
+		$sql = "select * from " . USERS_TABLE . " where name=:user_name";
+		$stmt = oci_parse($conn, $sql);
+		oci_bind_by_name($stmt, ":user_name", $user_name);
+		oci_execute($stmt);
+
+		return oci_fetch_array($stmt);
 	}
 
 	static function ban_user($user_id) {
@@ -111,8 +124,8 @@ class UsersTable {
 		$sql = "create table " . USERS_TABLE . " 
 			(
 			id INT PRIMARY KEY,
-			email VARCHAR2(256) NOT NULL,
-			name VARCHAR2(15) NOT NULL,
+			email VARCHAR2(256) UNIQUE NOT NULL,
+			name VARCHAR2(15) UNIQUE NOT NULL,
 			pw_md5 CHAR(32) NOT NULL,
 			salt CHAR(4) NOT NULL,
 			register_datetime TIMESTAMP NOT NULL,

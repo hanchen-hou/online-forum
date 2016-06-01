@@ -62,8 +62,20 @@ class AdminsTable {
 		oci_execute($stmt);
 		oci_close($conn);
 
-		$row = oci_fetch_row($stmt);
-		return $row;
+		return oci_fetch_array($stmt);
+	}
+	
+	static function select_by_name($user_name) {
+		if (is_null($user_name))
+			return FALSE;
+
+		$conn = connect_db();
+		$sql = "select * from " . ADMINS_TABLE . " where name=:user_name";
+		$stmt = oci_parse($conn, $sql);
+		oci_bind_by_name($stmt, ":user_name", $user_name);
+		oci_execute($stmt);
+
+		return oci_fetch_array($stmt);
 	}
 
 	static function create() {
@@ -71,11 +83,12 @@ class AdminsTable {
 		$sql = "create table " . ADMINS_TABLE . " 
 			(
 			id INT PRIMARY KEY,
-			name VARCHAR2(15) NOT NULL,
+			name VARCHAR2(15) UNIQUE NOT NULL,
 			pw_md5 CHAR(32) NOT NULL,
 			salt CHAR(4) NOT NULL,
 			register_datetime TIMESTAMP NOT NULL
 			)";
+		
 		$stmt = oci_parse($conn, $sql);
 
 		$result = oci_execute($stmt);

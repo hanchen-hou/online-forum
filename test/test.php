@@ -62,7 +62,9 @@ function comments_insert_test($file_name = "sample_comments_json.txt") {
 //posts_insert_test();
 //comments_insert_test();
 
-var_dump(PostsTable::select_by_category_id(random_get_id("CategoriesTable::select_all")));
+var_dump(UsersTable::select_by_id("12"));
+//var_dump(PostsTable::select_by_category_id(random_get_id("CategoriesTable::select_all")));
+//var_dump(CategoriesTable::select_all());
 
 //echo random_get_id("MsgsTable::select_all");
 ?>
