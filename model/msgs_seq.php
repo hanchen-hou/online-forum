@@ -27,8 +27,19 @@ class MsgsSeq{
 		$conn = connect_db();
 		$sql = "CREATE SEQUENCE ".MSGS_SEQ;
 		$stmt = oci_parse($conn,$sql);
-		oci_execute($stmt);
+		$result = oci_execute($stmt);
 		oci_close($conn);
+		
+		return $result;
+	}
+	
+	static function drop(){
+		$conn = connect_db();
+		$sql = "DROP SEQUENCE ".MSGS_SEQ;
+		$stmt = oci_parse($conn, $sql);
+		$result = oci_execute($stmt);
+		oci_close($conn);
+		return $result;
 	}
 }
 

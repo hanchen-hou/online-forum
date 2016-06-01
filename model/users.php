@@ -1,66 +1,138 @@
 <?php
 
-require_once (dirname(dirname(__FILE__)).'/lib/common.php');
+require_once (dirname(dirname(__FILE__)) . '/lib/common.php');
 
-class UsersTable{
-	
+class UsersTable {
+
 	// Require:
 	/* [
-	 * 'user_id'=> INT
 	 * 'email'=> STR
 	 * 'name'=> STR
 	 * 'password'=> STR
-	 * 'salt'=> STR
-	 * 'status'=> INT
 	 * ]
-	 */ 		
-	static function insert($data){
-		if(is_null($data)) return;
-		
+	 */
+	static function insert($data) {
+		if (is_null($data))
+			return FALSE;
+		if (!isset($data['email']))
+			return FALSE;
+		if (!isset($data['name']))
+			return FALSE;
+		if (!isset($data['password']))
+			return FALSE;
+
+		//generate a unique random id
+		do {
+			$new_id = create_random_num(USER_ID_LENGTH);
+		} while(UsersTable::select_by_id($new_id));
+
+		$salt = create_random_string(SALT_LENGTH);
+		$pw_md5 = md5($data['password'] . $salt);
+		$statue = 0;
+
 		$conn = connect_db();
-		$sql = "insert into ".USERS_TABLE." (id, email, name, password, salt, register_datetime, status) values
-			(:user_id, :email, :name, :password, :salt, CURRENT_TIMESTAMP, :status)";
+		$sql = "insert into " . USERS_TABLE . " 
+			(id, email, name, pw_md5, salt, register_datetime, status) values
+			(:id, :email, :name, :pw_md5, :salt, CURRENT_TIMESTAMP, :status)";
 		$stmt = oci_parse($conn, $sql);
-		oci_bind_by_name($stmt, ":user_id", $data['id']);
+		oci_bind_by_name($stmt, ":id", $new_id);
 		oci_bind_by_name($stmt, ":email", $data['email']);
 		oci_bind_by_name($stmt, ":name", $data['name']);
-		oci_bind_by_name($stmt, ":password", $data['password']);
-		oci_bind_by_name($stmt, ":salt", $data['salt']);
-		oci_bind_by_name($stmt, ":status", $data['status']); //0=good/1=ban
-		
+		oci_bind_by_name($stmt, ":pw_md5", $pw_md5);
+		oci_bind_by_name($stmt, ":salt", $salt);
+		oci_bind_by_name($stmt, ":status", $statue);
+		//0=good/1=ban
+
+		$result = oci_execute($stmt);
+		oci_close($conn);
+
+		return $result;
+	}
+
+	static function select_all() {
+		$conn = connect_db();
+		$sql = "select * from " . USERS_TABLE;
+		$stmt = oci_parse($conn, $sql);
 		oci_execute($stmt);
 		oci_close($conn);
+
+		$row = oci_fetch_all($stmt, $res);
+		return $res;
 	}
-	
-	// select by user_id
-	// return false if the user_id does not exit.
-	static function select_by_id($user_id){
-		if(is_null($user_id)) return;
-		
+
+	static function select_by_id($user_id) {
+		if (is_null($user_id))
+			return FALSE;
+
 		$conn = connect_db();
-		$sql = "select * from ".USERS_TABLE." where id=:user_id";
+		$sql = "select * from " . USERS_TABLE . " where id=:user_id";
 		$stmt = oci_parse($conn, $sql);
 		oci_bind_by_name($stmt, ":user_id", $user_id);
 		oci_execute($stmt);
-		oci_close($conn);
-		
+
 		$row = oci_fetch_row($stmt);
 		return $row;
 	}
-	
-	static function create(){
+
+	static function ban_user($user_id) {
+		if (is_null($user_id))
+			return FALSE;
+
+		$statue = 1;
+
 		$conn = connect_db();
-		$sql = "create table ".USERS_TABLE." (id INT PRIMARY KEY,
-			email VARCHAR2(25) NOT NULL,
+		$sql = "update " . USERS_TABLE . " set status=:status";
+		$stmt = oci_parse($conn, $sql);
+		oci_bind_by_name($stmt, ":status", $statue);
+		$result = oci_execute($stmt);
+		oci_close($conn);
+
+		return $result;
+	}
+
+	static function unban_user($user_id) {
+		if (is_null($user_id))
+			return FALSE;
+
+		$statue = 0;
+
+		$conn = connect_db();
+		$sql = "update " . USERS_TABLE . " set status=:status";
+		$stmt = oci_parse($conn, $sql);
+		oci_bind_by_name($stmt, ":status", $statue);
+		$result = oci_execute($stmt);
+		oci_close($conn);
+
+		return $result;
+	}
+
+	static function create() {
+		$conn = connect_db();
+		$sql = "create table " . USERS_TABLE . " 
+			(
+			id INT PRIMARY KEY,
+			email VARCHAR2(256) NOT NULL,
 			name VARCHAR2(15) NOT NULL,
-			password CHAR(32) NOT NULL,
+			pw_md5 CHAR(32) NOT NULL,
 			salt CHAR(4) NOT NULL,
 			register_datetime TIMESTAMP NOT NULL,
-			status INT NOT NULL)";
+			status INT NOT NULL
+			)";
 		$stmt = oci_parse($conn, $sql);
-		oci_execute($stmt);
+		$result = oci_execute($stmt);
 		oci_close($conn);
-	}
-}
 
+		return $result;
+	}
+
+	static function drop() {
+		$conn = connect_db();
+		$sql = "drop table " . USERS_TABLE;
+		$stmt = oci_parse($conn, $sql);
+		$result = oci_execute($stmt);
+		oci_close($conn);
+		return $result;
+	}
+
+}
 ?>
