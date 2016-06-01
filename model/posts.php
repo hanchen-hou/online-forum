@@ -1,6 +1,8 @@
 <?php
-
 require_once (dirname(dirname(__FILE__)) . '/lib/common.php');
+require_once (dirname(__FILE__) . '/msgs.php');
+require_once (dirname(__FILE__) . '/msgs_seq.php');
+require_once (dirname(__FILE__) . '/categories.php');
 
 class PostsTable {
 
@@ -14,7 +16,7 @@ class PostsTable {
 	 */
 	static function insert($data) {
 		if (is_null($data))
-			return;
+			return FALSE;
 		if (!isset($data['category_id']))
 			return FALSE;
 		if (!isset($data['title']))
@@ -59,25 +61,44 @@ class PostsTable {
 			return;
 
 		$conn = connect_db();
-		$sql = "select * from " . POSTS_TABLE . " where id=:id";
+		$sql = "select p.id, p.title, m.content, m.datetime, u.name, m.visible 
+				from " . POSTS_TABLE . " p, " . MSGS_TABLE . " m, " . USERS_TABLE . " u  
+				where p.id = :id and p.id = m.id and m.user_id = u.id";
 		$stmt = oci_parse($conn, $sql);
 		oci_bind_by_name($stmt, ":id", $id);
 		oci_execute($stmt);
 		oci_close($conn);
 
-		$row = oci_fetch_row($stmt);
-		return $row;
+		return oci_fetch_array($stmt);
 	}
 
-	static function select_by_category_id($category_id) {
+	static function select_visible_by_category_id($category_id) {
 		if (is_null($category_id))
 			return;
 
 		$conn = connect_db();
-		$sql = "select p.title, m.content, m.datetime, u.name, m.visible 
+		$sql = "select p.id, p.title, m.content, m.datetime, u.name, m.visible 
+				from " . POSTS_TABLE . " p, " . MSGS_TABLE . " m, " . USERS_TABLE . " u  
+				where p.category_id=:category_id and p.id = m.id and m.user_id = u.id and m.visible = 0 
+				Order BY m.datetime DESC";
+		$stmt = oci_parse($conn, $sql);
+		oci_bind_by_name($stmt, ":category_id", $category_id);
+		oci_execute($stmt);
+		oci_close($conn);
+
+		$row = oci_fetch_all($stmt, $res);
+		return $res;
+	}
+	
+	static function select_all_by_category_id($category_id) {
+		if (is_null($category_id))
+			return;
+
+		$conn = connect_db();
+		$sql = "select p.id, p.title, m.content, m.datetime, u.name, m.visible 
 				from " . POSTS_TABLE . " p, " . MSGS_TABLE . " m, " . USERS_TABLE . " u  
 				where p.category_id=:category_id and p.id = m.id and m.user_id = u.id 
-				Order BY m.datetime ASC";
+				Order BY m.datetime DESC";
 		$stmt = oci_parse($conn, $sql);
 		oci_bind_by_name($stmt, ":category_id", $category_id);
 		oci_execute($stmt);

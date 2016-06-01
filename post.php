@@ -176,24 +176,43 @@
 			</div>
 			<div class="content" id="post_field" style="overflow-y:scroll;overflow-x:hidden;margin-top:5%">
 				<div class="container" style="overflow-x: hidden;overflow-y: scroll;">
-					<div class="container detail" id="Category_title">
+					<div class="container detail" id="post_title">
 						<h2><?php echo $GLOBALS['category_name'] ?></h2>
 					</div>
 					<?php
 
 					/*
-					 *  Posts Part
+					 *  Post Title Part
+					 */
+					require_once (dirname(__FILE__) . "/model/posts.php");
+					$template = '<div class="container detail" id="post_title">
+						<h2>%s</h2>
+						</div>
+						<div class="container detail detail_frameSize writing_style" id="%s">
+						<p>%s</p>
+						</div>';
+					if (isset($_GET['post_id']) && is_numeric($_GET['post_id'])) {
+							$post = PostsTable::select_by_id($_GET['post_id']);
+					}
+					if($post){
+						echo sprintf($template, $post['TITLE'], $posts['ID'], $posts['CONTENT']);
+					}else{
+						exit('No post exits');
+					}
+					
+
+					/*
+					 *  Comments Part
 					 */
 
-					require_once (dirname(__FILE__) . "/model/posts.php");
+					require_once (dirname(__FILE__) . "/model/comments.php");
 					$template = '<div class="container detail detail_frameSize writing_style" id="%s">
-						<a href="post.php?post_id=%s&page=1"><h1>%s</h1></a>
 						<p>%s</p>
 						</div>';
 
-					$posts = PostsTable::select_visible_by_category_id($GLOBALS['category_id']);
+					$comments = CommentsTable::select_visible_by_post_id($GLOBALS['post_id']);
 
-					$GLOBALS['total_pages'] = ceil(count($posts['ID']) / POSTS_NUM_ONE_PAGE);
+					$GLOBALS['total_pages'] = ceil(count($comments['ID']) / COMMENTS_NUM_ONE_PAGE);
 
 					$GLOBALS['page'] = 1;
 					if (isset($_GET['page']) && is_numeric($_GET['page'])) {
@@ -201,9 +220,9 @@
 							$GLOBALS['page'] = $_GET['page'];
 						}
 					}
-					$offset = ($GLOBALS['page'] - 1) * POSTS_NUM_ONE_PAGE;
+					$offset = ($GLOBALS['page'] - 1) * COMMENTS_NUM_ONE_PAGE;
 					for ($i = $offset, $j = 0; $i < count($posts['ID']) && $j < 10; $i++, $j++) {
-						echo sprintf($template, $posts['ID'][$i], $posts['ID'][$i], $posts['TITLE'][$i], $posts['CONTENT'][$i]);
+						echo sprintf($template, $posts['ID'][$i], $posts['CONTENT'][$i]);
 					}
 					?>
 						<div class="container page_clicker">
@@ -234,19 +253,15 @@
 								echo sprintf($template, $GLOBALS['category_id'], $start_num + 5, '&raquo;');
 							}
 							?>
-							</ul>
+						</ul>
 						</div>
 						
 					<form method='post' action="make_post.php">
 						<div class="form-group">
-							<label for="Title">Title</label>
-							<input style="width: 20%" type="text" class="form-control" id="Post_title" name="title" placeholder="Title" value="test" />
-						</div>
-						<div class="form-group">
 							<label for="Post">Post text: </label>
 							<textarea style="width: 70%" class="form-control" id="post_content" name="content" placeholder="Your post content">test</textarea>
 						</div>
-							<input style="display: none" name="category_id" value="<?php echo $GLOBALS['category_id'] ?>"/>
+							<input style="display: none" name="category" value="<?php echo $GLOBALS['category_id'] ?>"/>
 						
 						<input type="submit" class="btn btn-default" value="Submit">
 					</form>
