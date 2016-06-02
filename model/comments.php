@@ -68,31 +68,13 @@ class CommentsTable {
 
 		return oci_fetch_array($stmt);
 	}
-
-	static function select_visible_by_post_id($post_id) {
-		if (is_null($post_id))
-			return;
-
-		$conn = connect_db();
-		$sql = "Select m.id, m.content, m.datetime, u.name, m.visible 
-				From " . COMMENTS_TABLE . " c, " . MSGS_TABLE . " m, " . USERS_TABLE . " u 
-				Where c.post_id=:post_id and c.id = m.id and u.id = m.user_id and m.visible = 0
-				Order BY m.datetime ASC";
-		$stmt = oci_parse($conn, $sql);
-		oci_bind_by_name($stmt, ":post_id", $post_id);
-		oci_execute($stmt);
-		oci_close($conn);
-
-		$row = oci_fetch_all($stmt, $res);
-		return $res;
-	}
 	
-	static function select_all_by_post_id($post_id) {
+	static function select_by_post_id($post_id) {
 		if (is_null($post_id))
 			return;
 
 		$conn = connect_db();
-		$sql = "Select m.id, m.content, m.datetime, u.name, m.visible 
+		$sql = "Select m.id, m.content, m.datetime, u.name 
 				From " . COMMENTS_TABLE . " c, " . MSGS_TABLE . " m, " . USERS_TABLE . " u 
 				Where c.post_id=:post_id and c.id = m.id and u.id = m.user_id
 				Order BY m.datetime ASC";

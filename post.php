@@ -1,23 +1,14 @@
 <?php
 require_once (dirname(__FILE__) . "/model/comments.php");
 require_once (dirname(__FILE__) . "/model/posts.php");
+
 if (isset($_GET['post_id']) && is_numeric($_GET['post_id'])) {
 	$post = PostsTable::select_by_id($_GET['post_id']);
 	if (is_null($post)) {
 		exit('no post id');
 	}
 
-	if ($_COOKIE['type'] == admin) {
-		$GLOBALS['post'] = $post;
-		$GLOBALS['comments'] = CommentsTable::select_all_by_post_id($_GET['post_id']);
-	} else {
-		if ($post['visible'] == 1) {
-			header('Location: 404.php');
-			exit();
-		}
-
-		$GLOBALS['comments'] = CommentsTable::select_visible_by_post_id($_GET['post_id']);
-	}
+	$GLOBALS['comments'] = CommentsTable::select_by_post_id($_GET['post_id']);
 } else {
 	exit('no post id');
 }
@@ -132,7 +123,7 @@ if (isset($_GET['post_id']) && is_numeric($_GET['post_id'])) {
 						require_once (dirname(__FILE__) . "/model/admins.php");
 						require_once (dirname(__FILE__) . "/model/users.php");
 
-						$login_form = '<form class="form-inline navbar-form" method="post" action="login.php">
+						$login_form = '<form class="form-inline navbar-form" method="post" action="jump/login.php">
 <li>
 <label style="color:white; margin-right: 5px">User name:</label>
 <input type="text" class="form-control" name="user_name" placeholder="user name" />
@@ -195,11 +186,23 @@ if (isset($_GET['post_id']) && is_numeric($_GET['post_id'])) {
 
 					require_once (dirname(__FILE__) . "/model/categories.php");
 					$template = '<li><a class="sidebar-brand" href="index.php?category=%s&page=1">%s</a></li>';
-					$template_selected = '<li><a class="sidebar-brand" href="index.php?category=%s&page=1"><span class="selected">%s</span></a></li>';
+					$template_selected = '<li class="selected"><a class="sidebar-brand" href="index.php?category=%s&page=1">%s</a></li>';
 					$categories = CategoriesTable::select_all();
 
+					$GLOBALS['category_id'] = $categories['ID'][0];
+					$GLOBALS['category_name'] = $categories['NAME'][0];
+					if (isset($_GET['category_id'])) {
+						for ($i = 0; $i < count($categories['ID']); $i++) {
+							if ($categories['ID'][$i] == $_GET['category_id']) {
+								$GLOBALS['category_id'] = $categories['ID'][$i];
+								$GLOBALS['category_name'] = $categories['NAME'][$i];
+								break;
+							}
+						}
+					}
+
 					for ($i = 0; $i < count($categories['ID']); $i++) {
-						if ($categories['ID'][$i] == $_GET['category']) {
+						if ($categories['ID'][$i] == $GLOBALS['category_id']) {
 							echo sprintf($template_selected, $categories['ID'][$i], $categories['NAME'][$i]);
 						} else {
 							echo sprintf($template, $categories['ID'][$i], $categories['NAME'][$i]);
@@ -218,11 +221,15 @@ if (isset($_GET['post_id']) && is_numeric($_GET['post_id'])) {
 					?>
 					<div class="container detail" id="post_title">
 						<h2><?php $post = $GLOBALS['post'];
-						echo $post['TITLE']; ?></h2>
+						echo $post['TITLE'];
+ ?></h2>
 					</div>
 					<div class="container detail detail_frameSize writing_style" id="<? echo $_GET['post_id']; ?>">
-						<p><?php $post = $GLOBALS['post'];
-						echo $post['CONTENT']; ?></p>
+						<p>
+							<?php $post = $GLOBALS['post'];
+							echo $post['CONTENT'];
+ ?>
+						</p>
 					</div>
 					
 					<?php
@@ -246,7 +253,6 @@ if (isset($_GET['post_id']) && is_numeric($_GET['post_id'])) {
 						echo sprintf($template, $comments['ID'][$i], $comments['CONTENT'][$i]);
 					}
 					?>
-					<form action="" method="post">
 						<div class="container page_clicker">
 							<ul class="pagination" >
 								<?php
@@ -277,9 +283,12 @@ if (isset($_GET['post_id']) && is_numeric($_GET['post_id'])) {
 							?>
 							</ul>
 						</div>
+						
+					<form action="jump/make_comment.php" method="post">
 						<div class="form-group">
 							<label for="Post">Comment:</label>
 							<textarea name="comment" style="width: 70%" class="form-control" id="post_content" placeholder="Your post content"></textarea>
+							<input style="display: none" name="post_id" value="<?php echo $_GET['post_id'] ?>"/>
 						</div>
 						<input type="submit" class="btn btn-default" value="Submit" id="post_comment">
 					</form>

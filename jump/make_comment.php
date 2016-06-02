@@ -1,54 +1,52 @@
 <?php
+error_reporting(-1);
+ini_set('display_errors', 1);
+/*
+ * require:
+ * $_POST['content']
+ * $_POST['post_id']
+ * $_COOKIE['id']
+ * $_COOKIE['type']
+ * 
+ */
+require_once (dirname(dirname(__FILE__)) . "/model/posts.php");
+require_once (dirname(dirname(__FILE__)) . "/model/users.php");
 
-require_once (dirname(__FILE__) . "/model/posts.php");
 $GLOBALS['result'] = 'Cannot Make post';
 
 if (isset($_SERVER['HTTP_REFERER']) && !empty($_SERVER['HTTP_REFERER'])) {
 	$GLOBALS['referer'] = $_SERVER['HTTP_REFERER'];
 } else {
-	$GLOBALS['referer'] = 'index.php';
+	$GLOBALS['referer'] = '../index.php';
 }
 
-main();
+//main();
 
 function main() {
 	if (!isset($_COOKIE['id']) || $_COOKIE['id'] == FALSE || !isset($_COOKIE['type']) || $_COOKIE['type'] == FALSE) {
 		$GLOBALS['result'] = 'Please Login';
 		return;
 	}
-	if (!isset($_POST['category_id']) || $_POST['category_id'] == FALSE) {
-		$GLOBALS['result'] = 'No Category';
+	if (!isset($_POST['post_id']) || $_POST['post_id'] == FALSE) {
+		$GLOBALS['result'] = 'No Post Id';
 		return;
 	}
-	if (!isset($_POST['title']) || $_POST['title'] == "") {
-		$GLOBALS['result'] = 'Post title cannot be empty';
-		return;
-	}
-	if (!isset($_POST['content']) || $_POST['content'] == "") {
+	if (!isset($_POST['content']) || $_POST['content'] == FALSE) {
 		$GLOBALS['result'] = 'Post content cannot be empty';
-		return;
-	}
-	if ($_COOKIE['type'] != 'user') {
-		$GLOBALS['result'] = 'Only users can make posts or comments.';
 		return;
 	}
 
 	$data = array();
-	$data['category_id'] = $_POST['category_id'];
-	$data['user_id'] = $_COOKIE['id'];
-	$data['title'] = $_POST['title'];
+	$data['post_id'] = $_POST['post_id'];
 	$data['content'] = $_POST['content'];
-	
-	if(trim($data['title']) == FALSE){
-		$GLOBALS['result'] = 'Post title cannot only be spaces';
-		return;
-	}
-	if(trim($data['content']) == FALSE){
+	$data['user_id'] = $_COOKIE['id'];
+
+	if (empty(trim($data['content'])) == FALSE) {
 		$GLOBALS['result'] = 'Post content cannot only be spaces';
 		return;
 	}
-	
-	if (PostsTable::insert($data)) {
+
+	if (CommentsTable::insert($data)) {
 		$GLOBALS['result'] = 'Post Successfully';
 	} else {
 		$GLOBALS['result'] = 'Server Error';

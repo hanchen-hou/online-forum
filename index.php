@@ -97,7 +97,7 @@
 						require_once (dirname(__FILE__) . "/model/admins.php");
 						require_once (dirname(__FILE__) . "/model/users.php");
 
-						$login_form = '<form class="form-inline navbar-form" method="post" action="login.php">
+						$login_form = '<form class="form-inline navbar-form" method="post" action="jump/login.php">
 									<li>
 										<label style="color:white; margin-right: 5px">User name:</label>
 										<input type="text" class="form-control" name="user_name" placeholder="user name" />
@@ -160,27 +160,27 @@
 					 */
 
 					require_once (dirname(__FILE__) . "/model/categories.php");
-					$template = '<li><a class="sidebar-brand" href="index.php?category=%s&page=1">%s</a></li>';
-					$template_selected = '<li><a class="sidebar-brand" href="index.php?category=%s&page=1"><span class="selected">%s</span></a></li>';
+					$template = '<li><a class="sidebar-brand" href="index.php?category_id=%s&page=1">%s</a></li>';
+					$template_selected = '<li class="selected"><a class="sidebar-brand" href="index.php?category_id=%s&page=1">%s</a></li>';
 					$categories = CategoriesTable::select_all();
-
-					for ($i = 0; $i < count($categories['ID']); $i++) {
-						if ($categories['ID'][$i] == $_GET['category']) {
-							echo sprintf($template_selected, $categories['ID'][$i], $categories['NAME'][$i]);
-						} else {
-							echo sprintf($template, $categories['ID'][$i], $categories['NAME'][$i]);
-						}
-					}
 
 					$GLOBALS['category_id'] = $categories['ID'][0];
 					$GLOBALS['category_name'] = $categories['NAME'][0];
-					if (isset($_GET['category'])) {
+					if (isset($_GET['category_id'])) {
 						for ($i = 0; $i < count($categories['ID']); $i++) {
-							if ($categories['ID'][$i] == $_GET['category']) {
+							if ($categories['ID'][$i] == $_GET['category_id']) {
 								$GLOBALS['category_id'] = $categories['ID'][$i];
 								$GLOBALS['category_name'] = $categories['NAME'][$i];
 								break;
 							}
+						}
+					}
+
+					for ($i = 0; $i < count($categories['ID']); $i++) {
+						if ($categories['ID'][$i] == $GLOBALS['category_id']) {
+							echo sprintf($template_selected, $categories['ID'][$i], $categories['NAME'][$i]);
+						} else {
+							echo sprintf($template, $categories['ID'][$i], $categories['NAME'][$i]);
 						}
 					}
 					?>
@@ -199,11 +199,11 @@
 
 					require_once (dirname(__FILE__) . "/model/posts.php");
 					$template = '<div class="container detail detail_frameSize writing_style" id="%s">
-						<a href="post.php?post_id=%s&page=1"><h1>%s</h1></a>
+						<a href="post.php?category_id=%s&post_id=%s&page=1"><h1>%s</h1></a>
 						<p>%s</p>
 						</div>';
 
-					$posts = PostsTable::select_visible_by_category_id($GLOBALS['category_id']);
+					$posts = PostsTable::select_by_category_id($GLOBALS['category_id']);
 
 					$GLOBALS['total_pages'] = ceil(count($posts['ID']) / POSTS_NUM_ONE_PAGE);
 
@@ -215,7 +215,7 @@
 					}
 					$offset = ($GLOBALS['page'] - 1) * POSTS_NUM_ONE_PAGE;
 					for ($i = $offset, $j = 0; $i < count($posts['ID']) && $j < 10; $i++, $j++) {
-						echo sprintf($template, $posts['ID'][$i], $posts['ID'][$i], $posts['TITLE'][$i], $posts['CONTENT'][$i]);
+						echo sprintf($template, $posts['ID'][$i], $GLOBALS['category_id'], $posts['ID'][$i], $posts['TITLE'][$i], $posts['CONTENT'][$i]);
 					}
 					?>
 						<div class="container page_clicker">
@@ -248,7 +248,7 @@
 							?>
 							</ul>
 						</div>
-                    <form method="post" action="make_post.php">
+                    <form method="post" action="jump/make_post.php">
                         <div class="form-group">
                             <label for="Title">Title</label>
                             <input name="title" style="width: 20%" type="text" class="form-control" id="Post_title" placeholder="Title">
