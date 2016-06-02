@@ -74,7 +74,7 @@ class CommentsTable {
 			return;
 
 		$conn = connect_db();
-		$sql = "Select m.content, m.datetime, u.name, m.visible 
+		$sql = "Select m.id, m.content, m.datetime, u.name, m.visible 
 				From " . COMMENTS_TABLE . " c, " . MSGS_TABLE . " m, " . USERS_TABLE . " u 
 				Where c.post_id=:post_id and c.id = m.id and u.id = m.user_id and m.visible = 0
 				Order BY m.datetime ASC";
@@ -92,7 +92,7 @@ class CommentsTable {
 			return;
 
 		$conn = connect_db();
-		$sql = "Select m.content, m.datetime, u.name, m.visible 
+		$sql = "Select m.id, m.content, m.datetime, u.name, m.visible 
 				From " . COMMENTS_TABLE . " c, " . MSGS_TABLE . " m, " . USERS_TABLE . " u 
 				Where c.post_id=:post_id and c.id = m.id and u.id = m.user_id
 				Order BY m.datetime ASC";
