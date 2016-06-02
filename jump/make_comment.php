@@ -9,10 +9,10 @@ ini_set('display_errors', 1);
  * $_COOKIE['type']
  * 
  */
-require_once (dirname(dirname(__FILE__)) . "/model/posts.php");
+require_once (dirname(dirname(__FILE__)) . "/model/comments.php");
 require_once (dirname(dirname(__FILE__)) . "/model/users.php");
 
-$GLOBALS['result'] = 'Cannot Make post';
+$GLOBALS['result'] = 'Cannot Make comment';
 
 if (isset($_SERVER['HTTP_REFERER']) && !empty($_SERVER['HTTP_REFERER'])) {
 	$GLOBALS['referer'] = $_SERVER['HTTP_REFERER'];
@@ -20,7 +20,7 @@ if (isset($_SERVER['HTTP_REFERER']) && !empty($_SERVER['HTTP_REFERER'])) {
 	$GLOBALS['referer'] = '../index.php';
 }
 
-//main();
+main();
 
 function main() {
 	if (!isset($_COOKIE['id']) || $_COOKIE['id'] == FALSE || !isset($_COOKIE['type']) || $_COOKIE['type'] == FALSE) {
@@ -31,7 +31,7 @@ function main() {
 		$GLOBALS['result'] = 'No Post Id';
 		return;
 	}
-	if (!isset($_POST['content']) || $_POST['content'] == FALSE) {
+	if (!isset($_POST['content']) || $_POST['content'] == "") {
 		$GLOBALS['result'] = 'Post content cannot be empty';
 		return;
 	}
@@ -41,7 +41,7 @@ function main() {
 	$data['content'] = $_POST['content'];
 	$data['user_id'] = $_COOKIE['id'];
 
-	if (empty(trim($data['content'])) == FALSE) {
+	if (trim($data['content']) == "") {
 		$GLOBALS['result'] = 'Post content cannot only be spaces';
 		return;
 	}
