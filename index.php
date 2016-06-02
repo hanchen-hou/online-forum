@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-		<title>Bootstrap 101 Template</title>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <title>Bootstrap 101 Template</title>
 
-		<!-- Bootstrap -->
-		<link href="css/bootstrap.min.css" rel="stylesheet">
-		<style>
+        <!-- Bootstrap -->
+
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/simple-sidebar.css" rel="stylesheet">
+        <style>
 			.user_field li {
 				display: inline
 			}
@@ -18,7 +20,7 @@
 				margin-top: 5px;
 			}
 			.detail {
-				margin-left: 5%;
+				margin-left: 10%;
 			}
 			.detail_frameSize {
 				width: 70%;
@@ -28,16 +30,17 @@
 			}
 			#category_field {
 				height: 30px;
-				width: 20%;
+				width: 15%;
 				background-color: white;
 				position: fixed;
 				border-radius: 2px;
 				margin-top: 0;
-				overflow: scroll;
+				overflow-x: hidden;
+				overflow-y: auto;
 			}
 			#post_field {
-				width: 78%;
-				margin-left: 23%;
+				width: 83%;
+				margin-left: 17%;
 				border: 1px solid;
 				background-color: #e4e4e4;
 				border-style: solid;
@@ -54,39 +57,43 @@
 			.writing_style h1 {
 				font-family: Arial Black;
 				color: #a3cf62;
-				font-size: 200%
+				font-size: 200%;
 			}
 			.writing_style p {
 				font-family: Verdana;
-				font-size: 100%
+				font-size: 100%;
 			}
-		</style>
+			.selected {
+				background-color: rgb(206,255,104);
+				color: black;
+			}
+        </style>
 
-		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-		<!--[if lt IE 9]>
-		<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-		<![endif]-->
-	</head>
-	<body>
-		<div class="navbar navbar-inverse navbar-fixed-top">
-			<div class="container">
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    </head>
+    <body>
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
 
-				<div class="navbar-header">
-					<span class="navbar-brand glyphicon glyphicon glyphicon-align-justify" aria-hidden="true"></span>
-					<label class="navbar-brand">Society Community</label>
-					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-						<span class="sr-only">Toggle navigation</span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</button>
-				</div>
+                <div class="navbar-header">
+                    <span class="navbar-brand glyphicon glyphicon glyphicon-align-justify" aria-hidden="true"></span>
+                    <label class="navbar-brand" style="">Society Community</label>
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
 
-				<div class="collapse navbar-collapse user_field">
-					<ul class="nav navbar-nav navbar-right" >
-						<?php
+                <div class="collapse navbar-collapse user_field">
+                    <ul class="nav navbar-nav navbar-right" >
+                        <?php
 						require_once (dirname(__FILE__) . "/model/admins.php");
 						require_once (dirname(__FILE__) . "/model/users.php");
 
@@ -138,26 +145,31 @@
 						}
 						echo $sub_page;
 						?>
-				</div>
-			</div>
-		</div>
+                </div>
+            </div>
+        </div>
 
-		<div class="container-fluid" style="overflow-x: hidden;overflow-y: scroll;">
-			
-			<div class="content" id="category_field" style="margin-top:5%;margin-right:2%" >
-				<ul class="list-group" style="width:90%" >
-					<label>Category</label>
-					<?php
+        <div class="container-fluid">
+
+            <div class="content" id="category_field" style="margin-top:5%;margin-right:2%" style="overflow-x: hidden;overflow-y: scroll;" >
+                <ul class="sidebar-nav" style="width:90%" >
+                    <label>Category</label>
+                    <?php
 					/*
 					 *  Category Part
 					 */
 
 					require_once (dirname(__FILE__) . "/model/categories.php");
-					$template = '<li><a class="list-group-item" href="index.php?category=%s&page=1">%s</a></li>';
+					$template = '<li><a class="sidebar-brand" href="index.php?category=%s&page=1">%s</a></li>';
+					$template_selected = '<li><a class="sidebar-brand" href="index.php?category=%s&page=1"><span class="selected">%s</span></a></li>';
 					$categories = CategoriesTable::select_all();
 
 					for ($i = 0; $i < count($categories['ID']); $i++) {
-						echo sprintf($template, $categories['ID'][$i], $categories['NAME'][$i]);
+						if ($categories['ID'][$i] == $_GET['category']) {
+							echo sprintf($template_selected, $categories['ID'][$i], $categories['NAME'][$i]);
+						} else {
+							echo sprintf($template, $categories['ID'][$i], $categories['NAME'][$i]);
+						}
 					}
 
 					$GLOBALS['category_id'] = $categories['ID'][0];
@@ -172,11 +184,11 @@
 						}
 					}
 					?>
-				</ul>
-			</div>
-			<div class="content" id="post_field" style="overflow-y:scroll;overflow-x:hidden;margin-top:5%">
-				<div class="container" style="overflow-x: hidden;overflow-y: scroll;">
-					<div class="container detail" id="Category_title">
+                </ul>
+            </div>
+            <div class="content" id="post_field" style="overflow-y:scroll;overflow-x:hidden;margin-top:5%">
+                <div class="container" style="overflow-x: hidden;overflow-y: scroll;">
+                    <div class="container detail" id="Category_title">
 						<h2><?php echo $GLOBALS['category_name'] ?></h2>
 					</div>
 					<?php
@@ -236,27 +248,25 @@
 							?>
 							</ul>
 						</div>
-						
-					<form method='post' action="make_post.php">
-						<div class="form-group">
-							<label for="Title">Title</label>
-							<input style="width: 20%" type="text" class="form-control" id="Post_title" name="title" placeholder="Title" value="test" />
-						</div>
-						<div class="form-group">
-							<label for="Post">Post text: </label>
-							<textarea style="width: 70%" class="form-control" id="post_content" name="content" placeholder="Your post content">test</textarea>
-						</div>
-							<input style="display: none" name="category_id" value="<?php echo $GLOBALS['category_id'] ?>"/>
-						
-						<input type="submit" class="btn btn-default" value="Submit">
-					</form>
-				</div>
-			</div>
-		</div>
+                    <form method="post" action="make_post.php">
+                        <div class="form-group">
+                            <label for="Title">Title</label>
+                            <input name="title" style="width: 20%" type="text" class="form-control" id="Post_title" placeholder="Title">
+                        </div>
+                        <div class="form-group">
+                            <label for="Post">Post text: </label>
+                            <textarea name="content" style="width: 70%" class="form-control" id="post_content" placeholder="Your post content"></textarea>
+                        </div>
+                        <input style="display: none" name="category_id" value="<?php echo $GLOBALS['category_id'] ?>"/>
+                        <input type="submit" class="btn btn-default" value="Submit">
+                    </form>
+                </div>
+            </div>
+        </div>
 
-		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-		<!-- Include all compiled plugins (below), or include individual files as needed -->
-		<script src="js/bootstrap.min.js"></script>
-	</body>
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="js/bootstrap.min.js"></script>
+    </body>
 </html>

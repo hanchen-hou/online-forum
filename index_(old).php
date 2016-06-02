@@ -18,11 +18,11 @@
 				margin-top: 5px;
 			}
 			.detail {
-				margin-left: 10px;
+				margin-left: 5%;
 			}
 			.detail_frameSize {
-				width: 72%;
-				min-height: 400px;
+				width: 70%;
+				min-height: 100px;
 				margin-top: 23px;
 				background-color: white
 			}
@@ -36,7 +36,7 @@
 				overflow: scroll;
 			}
 			#post_field {
-				width: 80%;
+				width: 78%;
 				margin-left: 23%;
 				border: 1px solid;
 				background-color: #e4e4e4;
@@ -48,10 +48,19 @@
 				color: #01DF3A;
 				height: 10%
 			}
-			.page_clicker{margin-left: 26%}
-			.writing_style h1{font-family:Arial Black;color: #a3cf62;font-size: 200%}
-			.writing_style p{font-family:Verdana;font-size: 100%}
-		</style
+			.page_clicker {
+				margin-left: 26%
+			}
+			.writing_style h1 {
+				font-family: Arial Black;
+				color: #a3cf62;
+				font-size: 200%
+			}
+			.writing_style p {
+				font-family: Verdana;
+				font-size: 100%
+			}
+		</style>
 
 		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -77,47 +86,77 @@
 
 				<div class="collapse navbar-collapse user_field">
 					<ul class="nav navbar-nav navbar-right" >
-						<form class="form-inline navbar-form" method="post" action="#">
-							<li>
-								<label style="color:white; margin-right: 5px">User name:</label>
-								<input type="text" class="form-control" placeholder="user name" />
-							</li>
+						<?php
+						require_once (dirname(__FILE__) . "/model/admins.php");
+						require_once (dirname(__FILE__) . "/model/users.php");
 
-							<li>
-								<label style="color:white; margin-right: 5px">Password:</label>
-								<input type="text" class="form-control" placeholder="password" />
-							</li>
-							<li>
-								<label style="color: white;margin-right: 5px">Admin:</label>
-								<input type="checkbox" class="checkbox" />
-							</li>
-							<li>
-								<input type="submit" value="Login" id="Login" class="form-control" name="login">
-								<input type="submit" value="Signup" id="Signup" class="form-control" name="signup">
-							</li>
-						</form>
+						$login_form = '<form class="form-inline navbar-form" method="post" action="login.php">
+									<li>
+										<label style="color:white; margin-right: 5px">User name:</label>
+										<input type="text" class="form-control" name="user_name" placeholder="user name" />
+									</li>
+		
+									<li>
+										<label style="color:white; margin-right: 5px">Password:</label>
+										<input type="password" class="form-control" name="password" placeholder="password" />
+									</li>
+									<li>
+										<label style="color: white;margin-right: 5px">Admin:</label>
+										<input type="checkbox" name="is_admin" class="checkbox" />
+									</li>
+									<li>
+										<input type="submit" value="Login" id="Login" class="form-control" name="login">
+									</li>
+									<li>
+										<a href="signup.php"><input type="button" value="Signup" id="Signup" class="form-control" name="signup"></a>
+									</li>
+									</form>';
+						$after_login = '<div class="navbar-header navbar-brand" style="color:green">Welcome</div>
+										<div class="navbar-header navbar-brand">%s</div>
+										<a href="logout.php"><button type="button" class="btn btn-danger">Logout</button></a>';
+						$sub_page = $login_form;
+
+						//error_reporting(-1);
+						//ini_set('display_errors', 1);
+
+						/*
+						 * check cookie
+						 * otherwise, need login
+						 */
+						if (isset($_COOKIE['id']) && isset($_COOKIE['type']) && !empty($_COOKIE['id']) && !empty($_COOKIE['type'])) {
+							if ($_COOKIE['type'] == 'admin') {
+								$admin = AdminsTable::select_by_id($_COOKIE['id']);
+								if (count($admin['ID']) > 0) {
+									$sub_page = sprintf($after_login, $admin['NAME']);
+								}
+							} else if ($_COOKIE['type'] == 'user') {
+								$user = UsersTable::select_by_id($_COOKIE['id']);
+								if (count($user['ID']) > 0) {
+									$sub_page = sprintf($after_login, $user['NAME']);
+								}
+							}
+						}
+						echo $sub_page;
+						?>
 				</div>
 			</div>
 		</div>
 
-		<div class="container" style="overflow-x: hidden;overflow-y: scroll;">
-			<div style="height: 60px"></div>
-			<div class="content" id="category_field" >
-				<ul class="list-group" >
+		<div class="container-fluid" style="overflow-x: hidden;overflow-y: scroll;">
+			
+			<div class="content" id="category_field" style="margin-top:5%;margin-right:2%" >
+				<ul class="list-group" style="width:90%" >
 					<label>Category</label>
 					<?php
+					/*
+					 *  Category Part
+					 */
+
 					require_once (dirname(__FILE__) . "/model/categories.php");
 					$template = '<li><a class="list-group-item" href="index.php?category=%s&page=1">%s</a></li>';
 					$categories = CategoriesTable::select_all();
 
-					$GLOBAL['page'] = 1;
-					if (isset($_GET['page']) && is_numeric($_GET['page'])) {
-						if ($GLOBALS['total_pages'] > $_GET['page']) {
-							$GLOBAL['page'] = $_GET['page'];
-						}
-					}
-
-					for ($i = 5 * ($GLOBAL['page'] - 1); $i < count($categories['ID']); $i++) {
+					for ($i = 0; $i < count($categories['ID']); $i++) {
 						echo sprintf($template, $categories['ID'][$i], $categories['NAME'][$i]);
 					}
 
@@ -132,59 +171,84 @@
 							}
 						}
 					}
-
-					$GLOBALS['total_pages'] = count($categories['ID']) / 5 + 1;
 					?>
 				</ul>
 			</div>
-			<div class="content" id="post_field">
-				<div class="container" style="overflow: auto">
+			<div class="content" id="post_field" style="overflow-y:scroll;overflow-x:hidden;margin-top:5%">
+				<div class="container" style="overflow-x: hidden;overflow-y: scroll;">
 					<div class="container detail" id="Category_title">
 						<h2><?php echo $GLOBALS['category_name'] ?></h2>
 					</div>
 					<?php
+
+					/*
+					 *  Posts Part
+					 */
+
 					require_once (dirname(__FILE__) . "/model/posts.php");
 					$template = '<div class="container detail detail_frameSize writing_style" id="%s">
-						<h1>%s</h1>
+						<a href="post.php?post_id=%s&page=1"><h1>%s</h1></a>
 						<p>%s</p>
 						</div>';
-					
-					$posts = PostsTable::select_by_category_id($GLOBALS['category_id']);
-					for($i = ($page - 1) * NUM_POSTS_ONE_PAGE; $i < count($posts['ID']); $i++){
-						echo sprintf($template, $posts['ID'][$i], $posts['TITLE'][$i], $posts['CONTENT'][$i]);
+
+					$posts = PostsTable::select_visible_by_category_id($GLOBALS['category_id']);
+
+					$GLOBALS['total_pages'] = ceil(count($posts['ID']) / POSTS_NUM_ONE_PAGE);
+
+					$GLOBALS['page'] = 1;
+					if (isset($_GET['page']) && is_numeric($_GET['page'])) {
+						if ($GLOBALS['total_pages'] >= $_GET['page']) {
+							$GLOBALS['page'] = $_GET['page'];
+						}
+					}
+					$offset = ($GLOBALS['page'] - 1) * POSTS_NUM_ONE_PAGE;
+					for ($i = $offset, $j = 0; $i < count($posts['ID']) && $j < 10; $i++, $j++) {
+						echo sprintf($template, $posts['ID'][$i], $posts['ID'][$i], $posts['TITLE'][$i], $posts['CONTENT'][$i]);
 					}
 					?>
-					<form>
 						<div class="container page_clicker">
 							<ul class="pagination" >
-							<?php 
-								$start_num = ($GLOBAL['page'] - ($GLOBAL['page'] % 5)) + 1;
-								$template = '<li><a href="index.php?category=%s&page=%s">%s</a></li>';
-								
-								if($start_num-1 > 0){
-									echo sprintf($template, $GLOBALS['category_id'], $start_num-1, '&laquo;');
+							<?php
+
+							/*
+							 * Page Number
+							 */
+
+							$start_num = ($GLOBALS['page'] - ($GLOBALS['page'] % 5)) + 1;
+							$template = '<li><a href="index.php?category=%s&page=%s">%s</a></li>';
+
+							if ($start_num - 1 > 0) {
+								echo sprintf($template, $GLOBALS['category_id'], $start_num - 1, '&laquo;');
+							}
+							for ($i = 0; $i < 5; $i++) {
+								if ($start_num + $i > $GLOBALS['total_pages'])
+									break;
+
+								if ($start_num + $i == $GLOBALS['page']) {
+									echo '<li><a>' . $GLOBALS['page'] . '</a></li>';
+								} else {
+									echo sprintf($template, $GLOBALS['category_id'], $start_num + $i, $start_num + $i);
 								}
-								for($i = 0; $i < 5; $i++){
-									if($start_num + $i > $GLOBALS['total_pages']) break;
-									
-									if($start_num + $i == $GLOBAL['page']){
-										echo '<li><a>'.$GLOBAL['page'].'</a></li>';
-									}else{
-										echo sprintf($template, $GLOBALS['category_id'], $start_num + $i, $start_num + $i);
-									}
-								}
-								if($start_num+5 < $GLOBALS['total_pages']){
-									echo sprintf($template, $GLOBALS['category_id'], $start_num+5, '&raquo;');
-								}
+							}
+							if ($start_num + 5 < $GLOBALS['total_pages']) {
+								echo sprintf($template, $GLOBALS['category_id'], $start_num + 5, '&raquo;');
+							}
 							?>
 							</ul>
 						</div>
+						
+					<form method='post' action="make_post.php">
 						<div class="form-group">
-							<label for="Post">Comment:</label>
-							<textarea style="width: 70%" class="form-control" id="post_content" placeholder="Your post content"></textarea>
+							<label for="Title">Title</label>
+							<input style="width: 20%" type="text" class="form-control" id="Post_title" name="title" placeholder="Title" value="test" />
 						</div>
-						<input type="submit" class="btn btn-default" value="Submit" id="post_comment">
-						<input type="submit" class="btn btn-default" value="Report" id="report">
+						<div class="form-group">
+							<label for="Post">Post text: </label>
+							<textarea style="width: 70%" class="form-control" id="post_content" name="content" placeholder="Your post content">test</textarea>
+						</div>
+							<input style="display: none" name="category_id" value="<?php echo $GLOBALS['category_id'] ?>"/>
+						
+						<input type="submit" class="btn btn-default" value="Submit">
 					</form>
 				</div>
 			</div>
