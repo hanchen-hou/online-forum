@@ -287,7 +287,7 @@ if (isset($_GET['post_id']) && is_numeric($_GET['post_id'])) {
 					<form action="jump/make_comment.php" method="post">
 						<div class="form-group">
 							<label for="Post">Comment:</label>
-							<textarea name="comment" style="width: 70%" class="form-control" id="post_content" placeholder="Your post content"></textarea>
+							<textarea name="content" style="width: 70%" class="form-control" id="post_content" placeholder="Your post content"></textarea>
 							<input style="display: none" name="post_id" value="<?php echo $_GET['post_id'] ?>"/>
 						</div>
 						<input type="submit" class="btn btn-default" value="Submit" id="post_comment">
