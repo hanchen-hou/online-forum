@@ -39,8 +39,7 @@
 				overflow-y: auto;
 			}
 			#post_field {
-				width: 83%;
-				margin-left: 17%;
+				width: 100%;
 				border: 1px solid;
 				background-color: #e4e4e4;
 				border-style: solid;
@@ -66,6 +65,20 @@
 			.selected {
 				background-color: rgb(206,255,104);
 				color: black;
+			}
+			#margintop {
+				margin-top: 59px;
+			}
+			.mypanel {
+				width: 84%;
+				margin-left: 16%;
+			}
+			#create_post {
+				margin-left: 16%;
+				width: 84;
+			}
+			.center {
+				text-align: center;
 			}
         </style>
 
@@ -120,7 +133,7 @@
 									</form>';
 						$after_login = '<div class="navbar-header navbar-brand" style="color:green">Welcome</div>
 										<div class="navbar-header navbar-brand">%s</div>
-										<a href="logout.php"><button type="button" class="btn btn-danger">Logout</button></a>';
+										<a href="jump/logout.php"><button type="button" class="btn btn-danger">Logout</button></a>';
 						$sub_page = $login_form;
 
 						//error_reporting(-1);
@@ -186,80 +199,111 @@
 					?>
                 </ul>
             </div>
-            <div class="content" id="post_field" style="overflow-y:scroll;overflow-x:hidden;margin-top:5%">
-                <div class="container" style="overflow-x: hidden;overflow-y: scroll;">
-                    <div class="container detail" id="Category_title">
-						<h2><?php echo $GLOBALS['category_name'] ?></h2>
-					</div>
-					<?php
+            <div class="panel panel-primary mypanel " id="margintop">
+              <div class="panel-heading center">
+                <h3 class="panel-title"><?php echo $GLOBALS['category_name'] ?></h3>
+              </div>
+              <div class="panel-body Post_Info"id="post_field">
+              	<!--Posts-->
+				<?php
+
+				/*
+				 *  Posts Part
+				 */
+
+				require_once (dirname(__FILE__) . "/model/posts.php");
+				$template = '<div class="panel panel-success">
+                      <div class="panel-heading">
+                            <button type="button" class="btn btn-default pull-right">
+                                <span class="glyphicon glyphicon-flag"></span>
+                            </button>
+                            <div class="btn-group pull-left">
+                              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="glyphicon glyphicon-info-sign"></span>
+                              </button>
+                              <ul class="dropdown-menu">
+                                <li class="text-center">%s</li>
+                                <li role="separator" class="divider"></li>
+                                <li class="text-center">%s</li>
+                              </ul>
+                            </div>
+                        <h3 class="panel-title title-center">
+                        	<a href="post.php?category_id=%s&post_id=%s&page=1">%s</a>
+                        </h3>
+                            <div class="clearfix"></div>
+                      </div>
+                      <div class="panel-body">%s</div>
+                    </div>';
+
+				$posts = PostsTable::select_by_category_id($GLOBALS['category_id']);
+
+				$GLOBALS['total_pages'] = ceil(count($posts['ID']) / POSTS_NUM_ONE_PAGE);
+
+				$GLOBALS['page'] = 1;
+				if (isset($_GET['page']) && is_numeric($_GET['page'])) {
+					if ($GLOBALS['total_pages'] >= $_GET['page']) {
+						$GLOBALS['page'] = $_GET['page'];
+					}
+				}
+				$offset = ($GLOBALS['page'] - 1) * POSTS_NUM_ONE_PAGE;
+				for ($i = $offset, $j = 0; $i < count($posts['ID']) && $j < 10; $i++, $j++) {
+					echo sprintf($template, $posts['DATETIME'][$i], $posts['NAME'][$i], $GLOBALS['category_id'], $posts['ID'][$i], $posts['TITLE'][$i], $posts['CONTENT'][$i]);
+				}
+				?>
+                    <!--Posts End-->
+
+                    <!--Page Numbers-->
+                    <div id="Pages" class="text-center">
+                    <ul class="pagination">
+                      <?php
 
 					/*
-					 *  Posts Part
+					 * Page Number
 					 */
 
-					require_once (dirname(__FILE__) . "/model/posts.php");
-					$template = '<div class="container detail detail_frameSize writing_style" id="%s">
-						<a href="post.php?category_id=%s&post_id=%s&page=1"><h1>%s</h1></a>
-						<p>%s</p>
-						</div>';
+					$start_num = ($GLOBALS['page'] - ($GLOBALS['page'] % 5)) + 1;
+					$template = '<li><a href="index.php?category=%s&page=%s">%s</a></li>';
 
-					$posts = PostsTable::select_by_category_id($GLOBALS['category_id']);
+					if ($start_num - 1 > 0) {
+						echo sprintf($template, $GLOBALS['category_id'], $start_num - 1, '&laquo;');
+					}
+					for ($i = 0; $i < 5; $i++) {
+						if ($start_num + $i > $GLOBALS['total_pages'])
+							break;
 
-					$GLOBALS['total_pages'] = ceil(count($posts['ID']) / POSTS_NUM_ONE_PAGE);
-
-					$GLOBALS['page'] = 1;
-					if (isset($_GET['page']) && is_numeric($_GET['page'])) {
-						if ($GLOBALS['total_pages'] >= $_GET['page']) {
-							$GLOBALS['page'] = $_GET['page'];
+						if ($start_num + $i == $GLOBALS['page']) {
+							echo '<li><a>' . $GLOBALS['page'] . '</a></li>';
+						} else {
+							echo sprintf($template, $GLOBALS['category_id'], $start_num + $i, $start_num + $i);
 						}
 					}
-					$offset = ($GLOBALS['page'] - 1) * POSTS_NUM_ONE_PAGE;
-					for ($i = $offset, $j = 0; $i < count($posts['ID']) && $j < 10; $i++, $j++) {
-						echo sprintf($template, $posts['ID'][$i], $GLOBALS['category_id'], $posts['ID'][$i], $posts['TITLE'][$i], $posts['CONTENT'][$i]);
+					if ($start_num + 5 < $GLOBALS['total_pages']) {
+						echo sprintf($template, $GLOBALS['category_id'], $start_num + 5, '&raquo;');
 					}
 					?>
-						<div class="container page_clicker">
-							<ul class="pagination" >
-							<?php
+                    </ul>
+                  </div>
+                    <!--End of Page Numbers-->
+              </div>
+            </div>
+            <!--End of post area-->
 
-							/*
-							 * Page Number
-							 */
-
-							$start_num = ($GLOBALS['page'] - ($GLOBALS['page'] % 5)) + 1;
-							$template = '<li><a href="index.php?category=%s&page=%s">%s</a></li>';
-
-							if ($start_num - 1 > 0) {
-								echo sprintf($template, $GLOBALS['category_id'], $start_num - 1, '&laquo;');
-							}
-							for ($i = 0; $i < 5; $i++) {
-								if ($start_num + $i > $GLOBALS['total_pages'])
-									break;
-
-								if ($start_num + $i == $GLOBALS['page']) {
-									echo '<li><a>' . $GLOBALS['page'] . '</a></li>';
-								} else {
-									echo sprintf($template, $GLOBALS['category_id'], $start_num + $i, $start_num + $i);
-								}
-							}
-							if ($start_num + 5 < $GLOBALS['total_pages']) {
-								echo sprintf($template, $GLOBALS['category_id'], $start_num + 5, '&raquo;');
-							}
-							?>
-							</ul>
-						</div>
-                    <form method="post" action="jump/make_post.php">
+            <!--Create new post-->
+            <div class="panel panel-primary" id="create_post">
+                <div class="panel-body">
+                    <form class="form" method="post" action="jump/make_post.php">
                         <div class="form-group">
-                            <label for="Title">Title</label>
-                            <input name="title" style="width: 20%" type="text" class="form-control" id="Post_title" placeholder="Title">
+                            <label>Title:</label>
+                            <input class="form-control" type="title" name="title" />
                         </div>
                         <div class="form-group">
-                            <label for="Post">Post text: </label>
-                            <textarea name="content" style="width: 70%" class="form-control" id="post_content" placeholder="Your post content"></textarea>
+                            <label>Content:</label>
+                            <textarea class="form-control" name="content" ></textarea>
                         </div>
                         <input style="display: none" name="category_id" value="<?php echo $GLOBALS['category_id'] ?>"/>
-                        <input type="submit" class="btn btn-default" value="Submit">
+                       <center><input type="submit" class="btn btn-default" value="Post" id="submit_content" style="" /></center>
                     </form>
+                    
                 </div>
             </div>
         </div>
