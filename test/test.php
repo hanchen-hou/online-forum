@@ -49,6 +49,12 @@ function comments_insert_test($file_name = "sample_comments_json.txt") {
 	}
 }
 
+function banned_user_insert_test() {
+	for($i = 0; $i<5; $i++){
+		BannedUsersTable::ban_by_id(random_get_id("UsersTable::select_all"), random_get_id("AdminsTable::select_all"));
+	}
+}
+
 //insert_test("sample_users_json.txt", "UsersTable::insert");
 //insert_test("sample_admins_json.txt", "AdminsTable::insert");
 //insert_test("sample_categories_json.txt", "CategoriesTable::insert");
@@ -56,11 +62,17 @@ function comments_insert_test($file_name = "sample_comments_json.txt") {
 //posts_insert_test();
 //comments_insert_test();
 
+//BannedUsersTable::ban_by_id(634340019, 483717659);
+//BannedUsersTable::unban_by_id(725339596, 929429655);
+//banned_user_insert_test();
+//var_dump(BannedUsersTable::select_all());
+
 //echo random_get_id("UsersTable::select_all");
 //echo random_get_id("AdminsTable::select_all");
 //echo random_get_id("CategoriesTable::select_all");
 
 //var_dump(UsersTable::select_by_id("12"));
+//var_dump(AdminsTable::select_by_id("929429655"));
 //var_dump(PostsTable::select_by_category_id(random_get_id("CategoriesTable::select_all")));
 //var_dump(CategoriesTable::select_all());
 

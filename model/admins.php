@@ -61,7 +61,7 @@ class AdminsTable {
 	static function select_all() {
 		$conn = connect_db();
 		$sql = "select * 
-				from " . ADMINS_TABLE . "a " . USERS_TABLE . "u 
+				from " . ADMINS_TABLE . " a," . USERS_TABLE . " u
 				where a.id = u.id";
 		$stmt = oci_parse($conn, $sql);
 		oci_execute($stmt);
@@ -76,7 +76,7 @@ class AdminsTable {
 			return;
 		$conn = connect_db();
 		$sql = "select * 
-				from " . ADMINS_TABLE . "a " . USERS_TABLE . "u 
+				from " . ADMINS_TABLE . " a," . USERS_TABLE . " u 
 				where a.id = u.id and u.id=:id and a.id=:id";
 		$stmt = oci_parse($conn, $sql);
 		oci_bind_by_name($stmt, ":id", $id);
