@@ -3,6 +3,7 @@
 require_once (dirname(dirname(__FILE__)) . '/lib/common.php');
 require_once (dirname(__FILE__) . '/msgs.php');
 require_once (dirname(__FILE__) . '/msgs_seq.php');
+require_once (dirname(__FILE__) . '/posts.php');
 
 class CommentsTable {
 
