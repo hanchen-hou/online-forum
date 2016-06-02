@@ -57,7 +57,7 @@ class UsersTable {
 		oci_execute($stmt);
 		oci_close($conn);
 
-		$row = oci_fetch_array($stmt, $res);
+		$row = oci_fetch_all($stmt, $res);
 		return $res;
 	}
 

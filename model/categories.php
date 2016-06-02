@@ -10,13 +10,16 @@ class CategoriesTable{
 	 * ]
 	 */ 
 	static function insert($data){
-		if(is_null($data)) return;
+		if(is_null($data)) return FALSE;
+		if(!isset($data['name'])) return FALSE;
 		
 		$conn = connect_db();
-		$sql = "insert into ".CATEGORIES_TABLE." (name) values
-			(:name)";
+		$sql = "insert into ".CATEGORIES_TABLE." 
+				(name, datetime, admin_id) values
+				(:name, CURRENT_TIMESTAMP, :admin_id)";
 		$stmt = oci_parse($conn, $sql);
 		oci_bind_by_name($stmt, ":name", $data['name']);
+		oci_bind_by_name($stmt, ":admin_id", $data['admin_id']);
 		
 		$result = oci_execute($stmt);
 		oci_close($conn);
@@ -55,8 +58,11 @@ class CategoriesTable{
 		$conn = connect_db();
 		$sql_1 = "create table ".CATEGORIES_TABLE." 
 			(
-			id INT PRIMARY KEY,
-			name VARCHAR2(20) NOT NULL
+			id INT PRIMARY KEY, 
+			name VARCHAR2(20) NOT NULL,
+			datetime TIMESTAMP NOT NULL,
+			admin_id INT,
+			FOREIGN KEY (admin_id) REFERENCES ".ADMINS_TABLE."(id)
 			)";
 		$sql_2 = "CREATE SEQUENCE ".CATEGORIES_SEQ;
 		$sql_3 = "CREATE OR REPLACE TRIGGER ".CATEGORIES_TRIGGER." 

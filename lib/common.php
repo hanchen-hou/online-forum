@@ -5,26 +5,18 @@ require_once(dirname(__FILE__).'/config.php');
 // Tables Name
 define('USERS_TABLE', 'CS_USERS');
 define('ADMINS_TABLE', 'CS_ADMINS');
+define('BANNED_USERS_TABLE', 'CS_BANNED_USERS');
 define('MSGS_TABLE', 'CS_MSGS');
 define('POSTS_TABLE', 'CS_POSTS');
 define('COMMENTS_TABLE', 'CS_COMMENTS');
-define('MSGS_MANAGE_TABLE', 'CS_MSGS_MANAGE');
-define('USERS_MANAGE_TABLE', 'CS_USERS_MANAGE');
 define('CATEGORIES_TABLE', 'CS_CATEGORIES');
-define('PROBLEM_MSGS_TABLE', 'CS_PROBLEM_MSGS');
 
 // Sequences Name
 define('CATEGORIES_SEQ', 'CS_CATEGORIES_SEQ');
 define('MSGS_SEQ', 'CS_MSGS_SEQ');
-define('MSGS_MANAGE_SEQ', 'CS_MSGS_MANAGE_SEQ');
-define('USERS_MANAGE_SEQ', 'CS_USERES_MANAGE_SEQ');
-define('PROBLEM_MSGS_SEQ', 'CS_PROBLEM_MSGS_SEQ');
 
 // Triggers Name
 define('CATEGORIES_TRIGGER', 'CS_ADD_CATEGORIES');
-define('MSGS_MANAGE_TRIGGER', 'CS_ADD_MSGS_MANAGE');
-define('USERS_MANAGE_TRIGGER', 'CS_ADD_USERS_MANAGE');
-define('PROBLEM_MSGS_TRIGGER', 'CS_ADD_PROBLEM_MSGS');
 
 
 define('USER_ID_LENGTH', 9);
@@ -33,6 +25,9 @@ define('SALT_LENGTH', 4); 		// 4 bytes = 32 bits
 
 define('TITLE_LENGTH', 50);
 define('CONTENT_LENGTH', 512);
+
+define('POSTS_NUM_ONE_PAGE', 10);
+define('COMMENTS_NUM_ONE_PAGE', 10);
 
 function connect_db()
 {

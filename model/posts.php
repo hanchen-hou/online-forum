@@ -123,8 +123,8 @@ class PostsTable {
 			id INT PRIMARY KEY,
 			category_id INT NOT NULL,
 			title VARCHAR2(" . TITLE_LENGTH . ") NOT NULL,
-			FOREIGN KEY (id) REFERENCES " . MSGS_TABLE . "(id),
-			FOREIGN KEY (category_id) REFERENCES " . CATEGORIES_TABLE . "(id)
+			FOREIGN KEY (id) REFERENCES " . MSGS_TABLE . "(id) ON DELETE CASCADE,
+			FOREIGN KEY (category_id) REFERENCES " . CATEGORIES_TABLE . "(id) ON DELETE CASCADE
 			)";
 		$stmt = oci_parse($conn, $sql);
 		oci_execute($stmt);

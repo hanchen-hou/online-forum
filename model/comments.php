@@ -111,8 +111,8 @@ class CommentsTable {
 			(
 			id INT PRIMARY KEY,
 			post_id INT NOT NULL,
-			FOREIGN KEY (id) REFERENCES " . MSGS_TABLE . "(id),
-			FOREIGN KEY (post_id) REFERENCES " . POSTS_TABLE . "(id)
+			FOREIGN KEY (id) REFERENCES " . MSGS_TABLE . "(id) ON DELETE CASCADE,
+			FOREIGN KEY (post_id) REFERENCES " . POSTS_TABLE . "(id) ON DELETE CASCADE
 			)";
 		$stmt = oci_parse($conn, $sql);
 
