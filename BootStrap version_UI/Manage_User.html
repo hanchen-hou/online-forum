@@ -67,6 +67,19 @@
                 background-color: rgb(206,255,104);
                 color:black;
             }
+            .marginleft{margin-left:2%;}
+            #margintop{margin-top:59px;}
+            .mypanel{width:84%; margin-left:16%;}
+            #create_post{margin-left:16%;width:84;}
+            .center{text-align: center;}
+            #post_field {
+                width: 100%;
+                border: 1px solid;
+                background-color: #e4e4e4;
+                border-style: solid;
+                margin-left:0;
+            }
+        </style>
         </style>
 
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -122,71 +135,110 @@
                     </li>
                 </ul>
             </div>
-            <div class="content" id="post_field" style="overflow-y:scroll;overflow-x:hidden;margin-top:5%">
-                <div class="container" style="overflow-x: hidden;overflow-y: scroll;">
-                    <div class="container detail" id="Category_title">
-                        <h2>User List</h2>
+            <div class="panel panel-primary mypanel " id="margintop">
+              <div class="panel-heading center">
+                <h3 class="panel-title">Mangage User</h3>
+              </div>
+              <div class="panel-body Post_Info"id="post_field">
+
+                    <!--Posts-->
+               
+
+                    <div class="panel panel-success">
+                      <div class="panel-heading">
+                            <button type="button" class="btn btn-default pull-right">
+                                <span class="glyphicon glyphicon-flag"></span>
+                            </button>
+                            <div class="btn-group pull-left">
+                              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="glyphicon glyphicon-info-sign"></span>
+                              </button>
+                              <ul class="dropdown-menu">
+                                <li class="text-center">Date/Time</li>
+                                <li role="separator" class="divider"></li>
+                                <li class="text-center">Username</li>
+                              </ul>
+                            </div>
+                        <h3 class="panel-title title-center">Post Title</h3>
+                            <div class="clearfix"></div>
+                      </div>
+                      <div class="panel-body">
+                            Post 1
+                      </div>
                     </div>
-                    <div class="container detail detail_frameSize writing_style" id="post1">
-                        <a href="#"><h1>User ID:</h1></a>
-                        <p>
-                            I like cat. I prefer to have a cat with a pink noise.
-                        </p>
-                         <a href="#" style="float: right"><span class="glyphicon glyphicon-flag"></span></a>                  
+                    
+                     <div class="panel panel-success">
+                      <div class="panel-heading">
+                            <button type="button" class="btn btn-default pull-right">
+                                <span class="glyphicon glyphicon-flag"></span>
+                            </button>
+                            <div class="btn-group pull-left">
+                              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="glyphicon glyphicon-info-sign"></span>
+                              </button>
+                              <ul class="dropdown-menu">
+                                <li class="text-center">Date/Time</li>
+                                <li role="separator" class="divider"></li>
+                                <li class="text-center">Username</li>
+                              </ul>
+                            </div>
+                        <h3 class="panel-title title-center">User ID</h3>
+                            <div class="clearfix"></div>
+                      </div>
+                      <div class="panel-body">
+                            Post 1
+                      </div>
                     </div>
-                    <div class="container detail detail_frameSize writing_style" id="post2">
-                        ff
+                    
+                     <div class="panel panel-success">
+                      <div class="panel-heading">
+                            <button type="button" class="btn btn-default pull-right">
+                                <span class="glyphicon glyphicon-flag"></span>
+                            </button>
+                            <div class="btn-group pull-left">
+                              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="glyphicon glyphicon-info-sign"></span>
+                              </button>
+                              <ul class="dropdown-menu">
+                                <li class="text-center">Date/Time</li>
+                                <li role="separator" class="divider"></li>
+                                <li class="text-center">Username</li>
+                              </ul>
+                            </div>
+                        <h3 class="panel-title title-center">Post Title</h3>
+                            <div class="clearfix"></div>
+                      </div>
+                      <div class="panel-body">
+                            Post 1
+                      </div>
                     </div>
-                    <div class="container detail detail_frameSize writing_style" id="post3">
-                        dd
-                    </div>
-                    <div class="container detail detail_frameSize writing_style" id="post4">
-                        f
-                    </div>
-                    <div class="container detail detail_frameSize writing_style" id="post5">
-                        ff
-                    </div>
-                    <div class="container detail detail_frameSize writing_style" id="post6">
-                        dd
-                    </div>
-                    <div class="container detail detail_frameSize writing_style" id="post7">
-                        ff
-                    </div>
-                    <div class="container detail detail_frameSize writing_style" id="post8">
-                        ff
-                    </div>
-                    <div class="container detail detail_frameSize writing_style" id="post9">
-                        ff
-                    </div>
-                    <div class="container detail detail_frameSize writing_style" id="post10">
-                        ff
-                    </div>
-                    <div class="container page_clicker">
-                        <ul class="pagination" >
-                            <li>
-                                <a href="#">&laquo;</a>
-                            </li>
-                            <li>
-                                <a href="#">1</a>
-                            </li>
-                            <li>
-                                <a href="#">2</a>
-                            </li>
-                            <li>
-                                <a href="#">3</a>
-                            </li>
-                            <li>
-                                <a href="#">4</a>
-                            </li>
-                            <li>
-                                <a href="#">5</a>
-                            </li>
-                            <li>
-                                <a href="#">&raquo;</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+                    
+                    
+                    <!--Posts-->
+
+                    <!--Page Numbers-->
+                    <div id="Pages" class="text-center">
+                    <ul class="pagination">
+                      <li>
+                        <a href="#" aria-label="Previous">
+                          <span aria-hidden="true">&laquo;</span>
+                        </a>
+                          </li>
+                          <li><a href="#">1</a></li>
+                          <li><a href="#">2</a></li>
+                          <li><a href="#">3</a></li>
+                          <li><a href="#">4</a></li>
+                          <li><a href="#">5</a></li>
+                          <li>
+                        <a href="#" aria-label="Next">
+                          <span aria-hidden="true">&raquo;</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                    <!--End of Page Numbers-->
+              </div>
+              
             </div>
         </div>
 
