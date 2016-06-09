@@ -7,7 +7,7 @@ if (isset($_GET['post_id']) && is_numeric($_GET['post_id'])) {
 	if (is_null($post)) {
 		exit('no post id');
 	}
-
+	$GLOBALS['post'] = $post;
 	$GLOBALS['comments'] = CommentsTable::select_by_post_id($_GET['post_id']);
 } else {
 	exit('no post id');
@@ -23,6 +23,7 @@ if (isset($_GET['post_id']) && is_numeric($_GET['post_id'])) {
 		<title>Bootstrap 101 Template</title>
 
 		<!-- Bootstrap -->
+
 		<link href="css/bootstrap.min.css" rel="stylesheet">
 		<link href="css/simple-sidebar.css" rel="stylesheet">
 		<style>
@@ -34,7 +35,7 @@ if (isset($_GET['post_id']) && is_numeric($_GET['post_id'])) {
 				margin-top: 5px;
 			}
 			.detail {
-				margin-left: 9%;
+				margin-left: 10%;
 			}
 			.detail_frameSize {
 				width: 70%;
@@ -53,8 +54,7 @@ if (isset($_GET['post_id']) && is_numeric($_GET['post_id'])) {
 				overflow-y: auto;
 			}
 			#post_field {
-				width: 83%;
-				margin-left: 17%;
+				width: 100%;
 				border: 1px solid;
 				background-color: #e4e4e4;
 				border-style: solid;
@@ -81,17 +81,19 @@ if (isset($_GET['post_id']) && is_numeric($_GET['post_id'])) {
 				background-color: rgb(206,255,104);
 				color: black;
 			}
-			.page_clicker {
-				margin-left: 26%
+			#margintop {
+				margin-top: 59px;
 			}
-			.writing_style h1 {
-				font-family: Arial Black;
-				color: #a3cf62;
-				font-size: 200%
+			.mypanel {
+				width: 84%;
+				margin-left: 16%;
 			}
-			.writing_style p {
-				font-family: Verdana;
-				font-size: 100%
+			#create_post {
+				margin-left: 16%;
+				width: 84;
+			}
+			.center {
+				text-align: center;
 			}
 		</style>
 
@@ -108,7 +110,7 @@ if (isset($_GET['post_id']) && is_numeric($_GET['post_id'])) {
 
 				<div class="navbar-header">
 					<span class="navbar-brand glyphicon glyphicon glyphicon-align-justify" aria-hidden="true"></span>
-					<label class="navbar-brand">Society Community</label>
+					<label class="navbar-brand" style="">Society Community</label>
 					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
 						<span class="sr-only">Toggle navigation</span>
 						<span class="icon-bar"></span>
@@ -124,29 +126,29 @@ if (isset($_GET['post_id']) && is_numeric($_GET['post_id'])) {
 						require_once (dirname(__FILE__) . "/model/users.php");
 
 						$login_form = '<form class="form-inline navbar-form" method="post" action="jump/login.php">
-<li>
-<label style="color:white; margin-right: 5px">User name:</label>
-<input type="text" class="form-control" name="user_name" placeholder="user name" />
-</li>
-
-<li>
-<label style="color:white; margin-right: 5px">Password:</label>
-<input type="password" class="form-control" name="password" placeholder="password" />
-</li>
-<li>
-<label style="color: white;margin-right: 5px">Admin:</label>
-<input type="checkbox" name="is_admin" class="checkbox" />
-</li>
-<li>
-<input type="submit" value="Login" id="Login" class="form-control" name="login">
-</li>
-<li>
-<a href="signup.php"><input type="button" value="Signup" id="Signup" class="form-control" name="signup"></a>
-</li>
-</form>';
+										<li>
+										<label style="color:white; margin-right: 5px">User name:</label>
+										<input type="text" class="form-control" name="user_name" placeholder="user name" />
+										</li>
+										
+										<li>
+										<label style="color:white; margin-right: 5px">Password:</label>
+										<input type="password" class="form-control" name="password" placeholder="password" />
+										</li>
+										<li>
+										<label style="color: white;margin-right: 5px">Admin:</label>
+										<input type="checkbox" name="is_admin" class="checkbox" />
+										</li>
+										<li>
+										<input type="submit" value="Login" id="Login" class="form-control" name="login">
+										</li>
+										<li>
+										<a href="signup.php"><input type="button" value="Signup" id="Signup" class="form-control" name="signup"></a>
+										</li>
+										</form>';
 						$after_login = '<div class="navbar-header navbar-brand" style="color:green">Welcome</div>
-<div class="navbar-header navbar-brand">%s</div>
-<a href="logout.php"><button type="button" class="btn btn-danger">Logout</button></a>';
+										<div class="navbar-header navbar-brand">%s</div>
+										<a href="logout.php"><button type="button" class="btn btn-danger">Logout</button></a>';
 						$sub_page = $login_form;
 
 						//error_reporting(-1);
@@ -171,13 +173,16 @@ if (isset($_GET['post_id']) && is_numeric($_GET['post_id'])) {
 						}
 						echo $sub_page;
 						?>
+					</ul>
+
 				</div>
 			</div>
 		</div>
 
-		<div class="container-fluid" style="overflow-x: hidden; overflow-y: scroll;">
-			<div class="content" id="category_field" style="margin-top:5%;margin-right:2%" >
-				<ul class="sidebar-nav" style="width=90%" >
+		<div class="container-fluid">
+
+			<div class="content" id="category_field" style="margin-top:5%;margin-right:2%" style="overflow-x: hidden;overflow-y: scroll;" >
+				<ul class="sidebar-nav" style="width:90%" >
 					<label>Category</label>
 					<?php
 					/*
@@ -211,33 +216,80 @@ if (isset($_GET['post_id']) && is_numeric($_GET['post_id'])) {
 					?>
 				</ul>
 			</div>
-			<div class="content" id="post_field" style="margin-top: 5%">
-				<div class="container" style="overflow-x: hidden; overflow-y: scroll;">
-					<?php
+			<div class="panel panel-primary mypanel " id="margintop">
+				<?php
 
-					/*
-					 *  Current Post Part
-					 */
-					?>
-					<div class="container detail" id="post_title">
-						<h2><?php $post = $GLOBALS['post'];
-						echo $post['TITLE'];
- ?></h2>
-					</div>
-					<div class="container detail detail_frameSize writing_style" id="<? echo $_GET['post_id']; ?>">
-						<p>
-							<?php $post = $GLOBALS['post'];
-							echo $post['CONTENT'];
- ?>
-						</p>
+				/*
+				 *  Current Post Part
+				 */
+				?>
+				
+				<div class="panel-heading center">
+					<h3 class="panel-title"><?php $post = $GLOBALS['post']; echo $post['TITLE'] ?></h3>
+				</div>
+				<div class="panel-body Post_Info" id="post_field">
+
+					<!--Current Post title and content-->
+					<div class="panel panel-success">
+						<div class="panel-heading">
+							<button type="button" class="btn btn-default pull-right">
+								<span class="glyphicon glyphicon-flag"></span>
+							</button>
+							<div class="btn-group pull-left">
+								<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<span class="glyphicon glyphicon-info-sign"></span>
+								</button>
+								<ul class="dropdown-menu">
+									<li class="text-center">
+										<?php echo $GLOBALS['post']['USER_NAME'] ?>
+									</li>
+									<li role="separator" class="divider"></li>
+									<li class="text-center">
+										<?php echo $GLOBALS['post']['DATETIME']?>
+									</li>
+								</ul>
+							</div>
+							<h3 class="panel-title title-center"></h3>
+							<div class="clearfix"></div>
+						</div>
+						<div class="panel-body">
+							<?php $post = $GLOBALS['post']; echo $post['CONTENT']?>
+						</div>
 					</div>
 					
-					<?php
-
+					<!--Comments-->
+					
+					<?php 
 					/*
 					 *  Comments Part
 					 */
-					$template = '<div class="container detail detail_frameSize writing_style" id="%s">%s</div>';
+					$template = '
+					<div class="panel panel-success">
+						<div class="panel-heading">
+							<button type="button" class="btn btn-default pull-right">
+								<span class="glyphicon glyphicon-flag"></span>
+							</button>
+							<div class="btn-group pull-left">
+								<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<span class="glyphicon glyphicon-info-sign"></span>
+								</button>
+								<ul class="dropdown-menu">
+									<li class="text-center">
+										%s
+									</li>
+									<li role="separator" class="divider"></li>
+									<li class="text-center">
+										%s
+									</li>
+								</ul>
+							</div>
+							<h3 class="panel-title title-center"></h3>
+							<div class="clearfix"></div>
+						</div>
+						<div class="panel-body">
+							%s
+						</div>
+					</div>';
 
 					$comments = $GLOBALS['comments'];
 					$GLOBALS['total_pages'] = ceil(count($comments['ID']) / COMMENTS_NUM_ONE_PAGE);
@@ -250,12 +302,15 @@ if (isset($_GET['post_id']) && is_numeric($_GET['post_id'])) {
 					}
 					$offset = ($GLOBALS['page'] - 1) * COMMENTS_NUM_ONE_PAGE;
 					for ($i = $offset, $j = 0; $i < count($comments['ID']) && $j < 10; $i++, $j++) {
-						echo sprintf($template, $comments['ID'][$i], $comments['CONTENT'][$i]);
+						echo sprintf($template, $comments['USER_NAME'][$i], $comments['DATETIME'][$i], $comments['CONTENT'][$i]);
 					}
 					?>
-						<div class="container page_clicker">
-							<ul class="pagination" >
-								<?php
+					<!--Posts-->
+
+					<!--Page Numbers-->
+					<div id="Pages" class="text-center">
+						<ul class="pagination">
+							<?php
 
 								/*
 								 * Page Number
@@ -281,17 +336,27 @@ if (isset($_GET['post_id']) && is_numeric($_GET['post_id'])) {
 									echo sprintf($template, $_GET['post_id'], $start_num + 5, '&raquo;');
 								}
 							?>
-							</ul>
-						</div>
-						
-					<form action="jump/make_comment.php" method="post">
+						</ul>
+					</div>
+					<!--End of Page Numbers-->
+				</div>
+			</div>
+			<!--End of post area-->
+
+			<!--Create new post-->
+			<div class="panel panel-primary" id="create_post">
+				<div class="panel-body">
+					<form class="form" method="post" action="make_comment.php">
 						<div class="form-group">
-							<label for="Post">Comment:</label>
-							<textarea name="content" style="width: 70%" class="form-control" id="post_content" placeholder="Your post content"></textarea>
-							<input style="display: none" name="post_id" value="<?php echo $_GET['post_id'] ?>"/>
+							<label>Comment</label>							
+							<textarea class="form-control" name="title" ></textarea>
 						</div>
-						<input type="submit" class="btn btn-default" value="Submit" id="post_comment">
+						<input style="display: none" name="post_id" value="<?php echo $_GET['post_id'] ?>"/>
+						<center>
+							<input type="submit" class="btn btn-default" value="Post" id="submit_content" style="" />
+						</center>
 					</form>
+
 				</div>
 			</div>
 		</div>
