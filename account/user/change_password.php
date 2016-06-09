@@ -1,3 +1,22 @@
+<?php
+require_once (dirname(dirname(dirname(__FILE__))) . "/model/users.php");
+/*
+ * check cookie
+ * otherwise, cannot access this page
+ */
+if (isset($_COOKIE['id']) && isset($_COOKIE['type'])) {
+	if ($_COOKIE['type'] == 'user') {
+		$user = UsersTable::select_by_id($_COOKIE['id']);
+		if ($user) {
+			$GLOBALS['user_name'] = $user['NAME'];
+		}
+	}
+}
+
+if(!isset($GLOBALS['user_name'])){
+	exit("No Permission");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -83,19 +102,24 @@
 	<body>
 		<div class="navbar navbar-inverse navbar-fixed-top">
 			<div class="container">
-
-				<div class="navbar-header">
+				<div class="navbar-header col-md-9">
 					<span class="navbar-brand glyphicon glyphicon glyphicon-align-justify" aria-hidden="true"></span>
 					<label class="navbar-brand">Society Community</label>
-					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-						<span class="sr-only">Toggle navigation</span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</button>
+				</div>
+				<div class="navbar-header navbar-brand" style="color:green">
+					Welcome
+				</div>
+				<div class="navbar-header navbar-brand">
+					<a href=""><?php echo $GLOBALS['user_name'] ?></a>
+				</div>
+				<div class="navbar-header navbar-brand">
+					<a href="../../jump/logout.php">
+						<button type="button" class="btn btn-danger">Logout</button>
+					</a>
 				</div>
 			</div>
 		</div>
+		
 		<div class="container">
 			<div style="height:115px;"></div>
 			<div id="error" class=""></div>
