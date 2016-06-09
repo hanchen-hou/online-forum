@@ -59,40 +59,10 @@ class MsgsTable{
 		return $row;
 	}
 	
-	static function hide_by_id($msg_id){
-		if(is_null($conn)) return FALSE;
-		if(is_null($user_id)) return FALSE;
-		
-		$status = 1;
-		
-		$conn = connect_db();
-		$sql = "update ".MSGS_TABLE." set status=:status";
-		$stmt = oci_parse($conn, $sql);
-		oci_bind_by_name($stmt, ":status", $status);
-		
-		$result = oci_execute($stmt);
-		oci_close($conn);
-		
-		return $result;
-	}
-	
-	static function restore_by_id($msg_id){
-		if(is_null($user_id)) return FALSE;
-		
-		$status = 0;
-		
-		$conn = connect_db();
-		$sql = "update ".MSGS_TABLE." set status=:status";
-		$stmt = oci_parse($conn, $sql);
-		oci_bind_by_name($stmt, ":status", $status);
-		
-		$result = oci_execute($stmt);
-		oci_close($conn);
-		
-		return $result;
-	}
-	
 	static function create(){
+		//TODO: Add Constrain to check if the user is banned
+		
+		
 		$conn = connect_db();
 		$sql = "create table ".MSGS_TABLE." 
 			(
