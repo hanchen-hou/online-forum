@@ -55,12 +55,12 @@ function banned_user_insert_test() {
 	}
 }
 
-//insert_test("sample_users_json.txt", "UsersTable::insert");
-//insert_test("sample_admins_json.txt", "AdminsTable::insert");
-//insert_test("sample_categories_json.txt", "CategoriesTable::insert");
+insert_test("sample_users_json.txt", "UsersTable::insert");
+insert_test("sample_admins_json.txt", "AdminsTable::insert");
+insert_test("sample_categories_json.txt", "CategoriesTable::insert");
 
-//posts_insert_test();
-//comments_insert_test();
+posts_insert_test();
+comments_insert_test();
 
 //BannedUsersTable::ban_by_id(634340019, 483717659);
 //BannedUsersTable::unban_by_id(725339596, 929429655);
