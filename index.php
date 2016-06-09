@@ -141,7 +141,7 @@
 									</li>
 									</form>';
 						$after_login = '<div class="navbar-header navbar-brand" style="color:green">Welcome</div>
-										<div class="navbar-header navbar-brand">%s</div>
+										<div class="navbar-header navbar-brand"><a href="./account/jump.php">%s</a></div>
 										<a href="jump/logout.php"><button type="button" class="btn btn-danger">Logout</button></a>';
 						$sub_page = $login_form;
 

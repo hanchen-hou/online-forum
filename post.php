@@ -155,7 +155,7 @@ if (isset($_GET['post_id']) && is_numeric($_GET['post_id'])) {
 										</li>
 										</form>';
 						$after_login = '<div class="navbar-header navbar-brand" style="color:green">Welcome</div>
-										<div class="navbar-header navbar-brand">%s</div>
+										<div class="navbar-header navbar-brand"><a href="./account/jump.php">%s</a></div>
 										<a href="logout.php"><button type="button" class="btn btn-danger">Logout</button></a>';
 						$sub_page = $login_form;
 
@@ -246,11 +246,11 @@ if (isset($_GET['post_id']) && is_numeric($_GET['post_id'])) {
 								</button>
 								<ul class="dropdown-menu">
 									<li class="text-center">
-										<?php echo $GLOBALS['post']['USER_NAME'] ?>
+										<?php $post = $GLOBALS['post']; echo $post['USER_NAME'] ?>
 									</li>
 									<li role="separator" class="divider"></li>
 									<li class="text-center">
-										<?php echo $GLOBALS['post']['DATETIME']?>
+										<?php $post = $GLOBALS['post']; echo $post['DATETIME'] ?>
 									</li>
 								</ul>
 							</div>
