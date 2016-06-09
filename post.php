@@ -346,7 +346,7 @@ if (isset($_GET['post_id']) && is_numeric($_GET['post_id'])) {
 			<!--Create new post-->
 			<div class="panel panel-primary" id="create_post">
 				<div class="panel-body">
-					<form class="form" method="post" action="make_comment.php">
+					<form class="form" method="post" action="jump/make_comment.php">
 						<div class="form-group">
 							<label>Comment</label>							
 							<textarea class="form-control" name="title" ></textarea>
