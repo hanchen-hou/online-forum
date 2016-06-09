@@ -8,6 +8,7 @@
         <title>Bootstrap 101 Template</title>
 
         <!-- Bootstrap -->
+
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="css/simple-sidebar.css" rel="stylesheet">
         <style>
@@ -19,7 +20,7 @@
                 margin-top: 5px;
             }
             .detail {
-                margin-left: 9%;
+                margin-left: 10%;
             }
             .detail_frameSize {
                 width: 70%;
@@ -38,8 +39,8 @@
                 overflow-y: auto;
             }
             #post_field {
-                width: 83%;
-                margin-left: 17%;
+                width: 100%;
+                
                 border: 1px solid;
                 background-color: #e4e4e4;
                 border-style: solid;
@@ -64,9 +65,12 @@
             }
             .selected {
                 background-color: rgb(206,255,104);
-                color:black;
+                color: black;
             }
-            
+            #margintop{margin-top:59px;}
+            .mypanel{width:84%; margin-left:16%;}
+            #create_post{margin-left:16%;width:84;}
+            .center{text-align: center;}
         </style>
 
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -96,10 +100,23 @@
             </div>
         </div>
 
-        <div class="container-fluid" style="overflow-x: hidden;overflow-y: auto;">
-            <div class="content" id="category_field" style="margin-top:5%;margin-right:2%;overflow-x: hidden;overflow-y:auto;" >
-                <ul class="sidebar-nav" style="width:90%">
-                   <label>Category</label>
+        <div class="container-fluid">
+
+            <div class="content" id="category_field" style="margin-top:5%;margin-right:2%" style="overflow-x: hidden;overflow-y: scroll;" >
+                <ul class="sidebar-nav" style="width:90%" >
+                    <label>Category</label>
+                    <li class="selected">
+                        <a class="sidebar-brand" href="#post1"> item1</a>
+                    </li>
+                    <li>
+                        <a class="sidebar-brand" href="#">Item2</a>
+                    </li>
+                    <li >
+                        <a class="sidebar-brand" href="#">Item3</a>
+                    </li>
+                    <li >
+                        <a class="sidebar-brand" href="#">Item4</a>
+                    </li>
                     <li>
                         <a class="sidebar-brand" href="#post1">Item1</a>
                     </li>
@@ -109,84 +126,258 @@
                     <li >
                         <a class="sidebar-brand" href="#">Item3</a>
                     </li>
-                    
+                    <li>
+                        <a class="sidebar-brand" href="#post1">Item1</a>
+                    </li>
+                    <li>
+                        <a class="sidebar-brand" href="#">Item2</a>
+                    </li>
+                    <li >
+                        <a class="sidebar-brand" href="#">Item3</a>
+                    </li>
+                    <li >
+                        <a class="sidebar-brand" href="#">Item4</a>
+                    </li>
+                    <li>
+                        <a class="sidebar-brand" href="#post1">Item1</a>
+                    </li>
+                    <li>
+                        <a class="sidebar-brand" href="#">Item2</a>
+                    </li>
+                    <li >
+                        <a class="sidebar-brand" href="#">Item3</a>
+                    </li>
+                    <li>
+                        <a class="sidebar-brand" href="#post1">Item1</a>
+                    </li>
+                    <li>
+                        <a class="sidebar-brand" href="#">Item2</a>
+                    </li>
+                    <li >
+                        <a class="sidebar-brand" href="#">Item3</a>
+                    </li>
+                    <li >
+                        <a class="sidebar-brand" href="#">Item4</a>
+                    </li>
+                    <li>
+                        <a class="sidebar-brand" href="#post1">Item1</a>
+                    </li>
+                    <li>
+                        <a class="sidebar-brand" href="#">Item2</a>
+                    </li>
+                    <li >
+                        <a class="sidebar-brand" href="#">Item3</a>
+                    </li>
+
                 </ul>
             </div>
-            <div class="content" id="post_field" style="overflow-x: hidden; overflow-y: auto;margin-top: 5%;">
-                <div class="container" style="overflow-x:hidden;overflow-y: auto">
-                    <div class="container detail" id="Category_title">
-                        <h2>Animal</h2>
-                    </div>
-                    <div class="container detail detail_frameSize writing_style" id="post2">
-                        <h1>Cat</h1>
-                        <p>
-                            I like cat. I prefer to have a cat with a pink noise.
-                        </p>
-                        <p>
-                            I like cat. I prefer to have a cat with a pink noise.
-                        </p>
-                    </div>
-                    <div class="container detail detail_frameSize writing_style" id="post3">
-                        ff
-                    </div>
-                    <div class="container detail detail_frameSize writing_style" id="post4">
-                        dd
-                    </div>
-                    <div class="container detail detail_frameSize writing_style" id="post5">
-                        f
-                    </div>
-                    <div class="container detail detail_frameSize writing_style" id="post6">
-                        ff
-                    </div>
-                    <div class="container detail detail_frameSize writing_style" id="post7">
-                        dd
-                    </div>
-                    <div class="container detail detail_frameSize writing_style" id="post8">
-                        ff
-                    </div>
-                    <div class="container detail detail_frameSize writing_style" id="post9">
-                        ff
-                    </div>
-                    <div class="container detail detail_frameSize writing_style" id="post10">
-                        ff
-                    </div>
-                    <form>
-                        <div class="container page_clicker">
-                            <ul class="pagination" >
-                                <li>
-                                    <a href="#">&laquo;</a>
-                                </li>
-                                <li>
-                                    <a href="#">1</a>
-                                </li>
-                                <li>
-                                    <a href="#">2</a>
-                                </li>
-                                <li>
-                                    <a href="#">3</a>
-                                </li>
-                                <li>
-                                    <a href="#">4</a>
-                                </li>
-                                <li>
-                                    <a href="#">5</a>
-                                </li>
-                                <li>
-                                    <a href="#">&raquo;</a>
-                                </li>
-                            </ul>
-                        </div>
+            <div class="panel panel-primary mypanel " id="margintop">
+              <div class="panel-heading center">
+                <h3 class="panel-title">Animals</h3>
+              </div>
+              <div class="panel-body Post_Info"id="post_field">
 
+                    <!--Posts-->
+                    <div class="panel panel-success">
+                      <div class="panel-heading">
+                            <button type="button" class="btn btn-default pull-right">
+                                <span class="glyphicon glyphicon-flag"></span>
+                            </button>
+                            <div class="btn-group pull-left">
+                              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="glyphicon glyphicon-info-sign"></span>
+                              </button>
+                              <ul class="dropdown-menu">
+                                <li class="text-center">Date/Time</li>
+                                <li role="separator" class="divider"></li>
+                                <li class="text-center">Username</li>
+                              </ul>
+                            </div>
+                        <h3 class="panel-title title-center">Post Title</h3>
+                            <div class="clearfix"></div>
+                      </div>
+                      <div class="panel-body">
+                            Post 1
+                      </div>
+                    </div>
+
+                    <div class="panel panel-success">
+                      <div class="panel-heading">
+                            <button type="button" class="btn btn-default pull-right">
+                                <span class="glyphicon glyphicon-flag"></span>
+                            </button>
+                            <div class="btn-group pull-left">
+                              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="glyphicon glyphicon-info-sign"></span>
+                              </button>
+                              <ul class="dropdown-menu">
+                                <li class="text-center">Date/Time</li>
+                                <li role="separator" class="divider"></li>
+                                <li class="text-center">Username</li>
+                              </ul>
+                            </div>
+                        <h3 class="panel-title title-center">Post Title</h3>
+                            <div class="clearfix"></div>
+                      </div>
+                      <div class="panel-body">
+                            Post 1
+                      </div>
+                    </div>
+
+                    <div class="panel panel-success">
+                      <div class="panel-heading">
+                            <button type="button" class="btn btn-default pull-right">
+                                <span class="glyphicon glyphicon-flag"></span>
+                            </button>
+                            <div class="btn-group pull-left">
+                              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="glyphicon glyphicon-info-sign"></span>
+                              </button>
+                              <ul class="dropdown-menu">
+                                <li class="text-center">Date/Time</li>
+                                <li role="separator" class="divider"></li>
+                                <li class="text-center">Username</li>
+                              </ul>
+                            </div>
+                        <h3 class="panel-title title-center">Post Title</h3>
+                            <div class="clearfix"></div>
+                      </div>
+                      <div class="panel-body">
+                            Post 1
+                      </div>
+                    </div>
+
+                    <div class="panel panel-success">
+                      <div class="panel-heading">
+                            <button type="button" class="btn btn-default pull-right">
+                                <span class="glyphicon glyphicon-flag"></span>
+                            </button>
+                            <div class="btn-group pull-left">
+                              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="glyphicon glyphicon-info-sign"></span>
+                              </button>
+                              <ul class="dropdown-menu">
+                                <li class="text-center">Date/Time</li>
+                                <li role="separator" class="divider"></li>
+                                <li class="text-center">Username</li>
+                              </ul>
+                            </div>
+                        <h3 class="panel-title title-center">Post Title</h3>
+                            <div class="clearfix"></div>
+                      </div>
+                      <div class="panel-body">
+                            Post 1
+                      </div>
+                    </div>
+
+                    <div class="panel panel-success">
+                      <div class="panel-heading">
+                            <button type="button" class="btn btn-default pull-right">
+                                <span class="glyphicon glyphicon-flag"></span>
+                            </button>
+                            <div class="btn-group pull-left">
+                              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="glyphicon glyphicon-info-sign"></span>
+                              </button>
+                              <ul class="dropdown-menu">
+                                <li class="text-center">Date/Time</li>
+                                <li role="separator" class="divider"></li>
+                                <li class="text-center">Username</li>
+                              </ul>
+                            </div>
+                        <h3 class="panel-title title-center">Post Title</h3>
+                            <div class="clearfix"></div>
+                      </div>
+                      <div class="panel-body">
+                            Post 1
+                      </div>
+                    </div>
+
+                    <div class="panel panel-success">
+                      <div class="panel-heading">
+                            <button type="button" class="btn btn-default pull-right">
+                                <span class="glyphicon glyphicon-flag"></span>
+                            </button>
+                            <div class="btn-group pull-left">
+                              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="glyphicon glyphicon-info-sign"></span>
+                              </button>
+                              <ul class="dropdown-menu">
+                                <li class="text-center">Date/Time</li>
+                                <li role="separator" class="divider"></li>
+                                <li class="text-center">Username</li>
+                              </ul>
+                            </div>
+                        <h3 class="panel-title title-center">Post Title</h3>
+                            <div class="clearfix"></div>
+                      </div>
+                      <div class="panel-body">
+                            Post 1
+                      </div>
+                    </div>
+
+                    <div class="panel panel-success">
+                      <div class="panel-heading">
+                            <button type="button" class="btn btn-default pull-right">
+                                <span class="glyphicon glyphicon-flag"></span>
+                            </button>
+                            <div class="btn-group pull-left">
+                              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="glyphicon glyphicon-info-sign"></span>
+                              </button>
+                              <ul class="dropdown-menu">
+                                <li class="text-center">Date/Time</li>
+                                <li role="separator" class="divider"></li>
+                                <li class="text-center">Username</li>
+                              </ul>
+                            </div>
+                        <h3 class="panel-title title-center">Post Title</h3>
+                            <div class="clearfix"></div>
+                      </div>
+                      <div class="panel-body">
+                            Post 1
+                      </div>
+                    </div>
+                    <!--Posts-->
+
+                    <!--Page Numbers-->
+                    <div id="Pages" class="text-center">
+                    <ul class="pagination">
+                      <li>
+                        <a href="#" aria-label="Previous">
+                          <span aria-hidden="true">&laquo;</span>
+                        </a>
+                          </li>
+                          <li><a href="#">1</a></li>
+                          <li><a href="#">2</a></li>
+                          <li><a href="#">3</a></li>
+                          <li><a href="#">4</a></li>
+                          <li><a href="#">5</a></li>
+                          <li>
+                        <a href="#" aria-label="Next">
+                          <span aria-hidden="true">&raquo;</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                    <!--End of Page Numbers-->
+              </div>
+            </div>
+            <!--End of post area-->
+
+            <!--Create new post-->
+            <div class="panel panel-primary" id="create_post">
+                <div class="panel-body">
+                    <form class="form" method="post" action="#">
                         <div class="form-group">
-                            <label for="Title">Title</label>
-                            <input name="title" style="width: 20%" type="text" class="form-control" id="Post_title" placeholder="Title">
+                            <label>Title:</label><input class="form-control" type="text" name="title" />
                         </div>
                         <div class="form-group">
-                            <label for="Post">Post text: </label>
-                            <textarea  name="post_content" style="width: 70%" class="form-control" id="post_content" placeholder="Your post content"></textarea>
+                            <label>Content:</label><textarea class="form-control" name="title" ></textarea>
                         </div>
-                        <input type="submit" class="btn btn-default" value="Submit">
+                       <center><input type="submit" class="btn btn-default" value="Post" id="submit_content" style="" /></center>
                     </form>
+                    
                 </div>
             </div>
         </div>

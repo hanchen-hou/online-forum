@@ -8,6 +8,7 @@
         <title>Bootstrap 101 Template</title>
 
         <!-- Bootstrap -->
+
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="css/simple-sidebar.css" rel="stylesheet">
         <style>
@@ -18,14 +19,12 @@
                 min-height: 670px;
                 margin-top: 5px;
             }
-            .content td{border-spacing:5px;}
-            
             .detail {
-                margin-left: 6%;
+                margin-left: 10%;
             }
             .detail_frameSize {
-                width: 72%;
-                min-height: 200px;
+                width: 70%;
+                min-height: 100px;
                 margin-top: 23px;
                 background-color: white
             }
@@ -36,11 +35,12 @@
                 position: fixed;
                 border-radius: 2px;
                 margin-top: 0;
-                overflow: scroll;
+                overflow-x: hidden;
+                overflow-y: auto;
             }
             #post_field {
-                width: 83%;
-                margin-left: 17%;
+                width: 100%;
+                
                 border: 1px solid;
                 background-color: #e4e4e4;
                 border-style: solid;
@@ -57,17 +57,21 @@
             .writing_style h1 {
                 font-family: Arial Black;
                 color: #a3cf62;
-                font-size: 200%
+                font-size: 200%;
             }
             .writing_style p {
                 font-family: Verdana;
-                font-size: 100%
+                font-size: 100%;
             }
-            .writing_style span {
-                color: #265A88;
+            .selected {
+                background-color: rgb(206,255,104);
+                color: black;
             }
-            .selected{background-color:rgb(206,255,104);color:black}
-            .table_writingStyle p{margin-right:10px; margin-left:10px;}
+            .marginleft{margin-left:2%;}
+            #margintop{margin-top:59px;}
+            .mypanel{width:84%; margin-left:16%;}
+            #create_post{margin-left:16%;width:84;}
+            .center{text-align: center;}
         </style>
 
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -97,56 +101,56 @@
             </div>
         </div>
 
-        <div class="container-fluid" style="overflow-x: hidden;overflow-y:auto;">
-            <div class="content" id="category_field" style="margin-top:5%;margin-right:2%;overflow-x: hidden;overflow-y: auto;" >
+        <div class="container-fluid">
+
+            <div class="content" id="category_field" style="margin-top:5%;margin-right:2%" style="overflow-x: hidden;overflow-y: scroll;" >
                 <ul class="sidebar-nav" style="width:90%" >
-                    <label>Admin</label>
-                    <li>
+                    <label>Admin setting</label>
+                    <li >
                         <a class="sidebar-brand" href="Admin_changePassword.html">Change password</a>
                     </li>
                     <li>
                         <a class="sidebar-brand" href="Admin_report.html">Report</a>
                     </li>
                     <li >
-                        <a class="sidebar-brand" href="Manage_User.html">Manage User</a>
+                        <a class="sidebar-brand" href="#">Manage User</a>
                     </li>
                     <li >
-                        <a class="sidebar-brand" href="Manage_post.html">Manage Posts</a>
+                        <a class="sidebar-brand" href="#">Manage Posts</a>
                     </li>
-                    <li class="selected">
-                        <a class="sidebar-brand" href="Admin_add_Category">Add Category</a>
+                    <li class="selected" >
+                        <a class="sidebar-brand" href="#">Add Category</a>
                     </li>
                     <li >
-                        <a class="sidebar-brand" href="Admin_addadmin.html">Add Admin</a>
+                        <a class="sidebar-brand" href="#">Add Admin</a>
                     </li>
+
                 </ul>
             </div>
-            <div class="content" id="post_field" style="overflow-x: hidden; overflow-y: scroll;margin-top: 5%;">
-                <div class="container" style="overflow: auto">
-                    <div class="container detail" id="Category_title">
-                        <h2>Add Category</h2>
-                    </div>
-                    <div style="margin-left: 20%">
-                    <form method="post" action="#">
+            <div class="panel panel-primary mypanel " id="margintop">
+              <div class="panel-heading center">
+                <h3 class="panel-title">Add Category</h3>
+              </div>
+              <div class="panel-body Post_Info"id="post_field">
+
+                    <!--Posts-->
+                    <div class="panel panel-primary marginleft" >
+                <div class="panel-body">
+                    <form class="form" method="post" action="#">
                         <div class="form-group">
-                            <label for="user name" style="margin-left: 20%">Enter the list of new Categories </label>              
+                            <label>New Category name:</label><input class="form-control" type="text" name="title" />
                         </div>
-                       
-                            <table class="table_writingStyle" >
-                                <tr><td><p>Item1</p></td><td><input name="item1" class="form-control " type="text" /></td><td><p>Item2</p></td><td><input name="item2" class="form-control " type="text" /></td></tr>
-                                <tr><td><p>Item3</p></td><td><input name="item3" class="form-control " type="text" /></td><td><p>Item4</p></td><td><input name="item4" class="form-control " type="text" /></td></tr>
-                                <tr><td><p>Item5</p></td><td><input name="item5" class="form-control " type="text" /></td><td><p>Item6</p></td><td><input name="item6" class="form-control " type="text" /></td></tr>
-                                <tr><td><p>Item7</p></td><td><input name="item7" class="form-control " type="text" /></td><td><p>Item8</p></td><td><input name="item8" class="form-control " type="text" /></td></tr>
-                                <tr><td><p>Item9</p></td><td><input name="item9" class="form-control " type="text" /></td><td><p>Item10</p></td><td><input name="item10" class="form-control " type="text" /></td></tr>
-                                <tr><td><p>Item11</p></td><td><input name="item11" class="form-control " type="text" /></td><td><p>Item12</p></td><td><input name="item12" class="form-control " type="text" /></td></tr>                           
-                            </table>
-                       <br />
-                   
-                        <input type="submit" class="btn btn-default " id="submit" value="Add" style="margin-top:10px;" name="submit">
-                    </form>
-                    </div>
+                        </form>
+                    
                 </div>
             </div>
+                    <!--Posts-->   
+              </div>
+            </div>
+            <!--End of post area-->
+
+            <!--Create new post-->
+            
         </div>
 
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
