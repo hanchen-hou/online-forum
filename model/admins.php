@@ -92,7 +92,7 @@ class AdminsTable {
 
 		$conn = connect_db();
 		$sql = "select * 
-				from " . ADMINS_TABLE . "a " . USERS_TABLE . "u 
+				from " . ADMINS_TABLE . " a," . USERS_TABLE . " u 
 				where a.id = u.id and u.name=:user_name";
 		$stmt = oci_parse($conn, $sql);
 		oci_bind_by_name($stmt, ":user_name", $user_name);
