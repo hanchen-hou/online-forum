@@ -83,9 +83,6 @@
                 background-color: #e4e4e4;
                 border-style: solid;
             }
-            .big-title{
-              font-size: 20px;
-            }
         </style>
 
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -118,15 +115,15 @@
         <div class="container-fluid" style="overflow-x: hidden;overflow-y:auto">
             <div class="content" id="category_field" style="margin-top:5%;margin-right:2%;overflow-x: hidden;overflow-y:auto" >
                 <ul class="sidebar-nav" style="width: 90%" >
-                    <label>Admin Settings</label>
+                    <label>Admin setting</label>
                     <li>
-                        <a class="sidebar-brand" href="Admin_changePassword.html">Change Password</a>
+                        <a class="sidebar-brand" href="Admin_changePassword.html">Change password</a>
                     </li>
                     <li>
                         <a class="sidebar-brand" href="Admin_report.html">Report</a>
                     </li>
                     <li >
-                        <a class="sidebar-brand" href="#">Manage Users</a>
+                        <a class="sidebar-brand" href="#">Manage User</a>
                     </li>
                     <li >
                         <a class="sidebar-brand" href="#">Manage Posts</a>
@@ -141,7 +138,7 @@
             </div>
             <div class="panel panel-primary mypanel " id="margintop">
                 <div class="panel-heading center">
-                    <h3 class="panel-title big-title">Add Admin</h3>
+                    <h3 class="panel-title">Add Admin</h3>
                 </div>
                 <div class="panel-body Post_Info"id="post_field">
 
@@ -150,12 +147,12 @@
                         <div class="panel-body">
                             <form method="post" action="#">
                                 <div class="form-group">
-                                    <label for="user name">Username </label>
-                                    <input name="user_name" type="text" class="form-control" id="user_name" placeholder="Username">
+                                    <label for="user name">User Name </label>
+                                    <input name="user_name" type="text" class="form-control" id="user_name" placeholder="user name">
                                 </div>
                                 <div class="form-group">
-                                    <label for="user name">Email Address </label>
-                                    <input name="email" type="email" class="form-control" id="user_name" placeholder="Email Address">
+                                    <label for="user name">Email address </label>
+                                    <input name="email" type="email" class="form-control" id="user_name" placeholder="email">
                                 </div>
                                 <div class="form-group">
                                 <label for="new_password">New Password</label>
@@ -163,10 +160,10 @@
                                  </div>
                                  <div class="form-group">
                                 <label for="new_password">Confirm New Password</label>
-                                <input name="confirm_password" type="password" class="form-control" id="confirm_password" placeholder="Confirm New Password">
+                                <input name="confirm_password" type="password" class="form-control" id="confirm_password" placeholder="Confirm Password">
                                  </div>
                                  <div class="form-group">
-                                <input type="submit" class="btn btn-primary " id="submit" value="Submit" style="margin-top:10px">
+                                <input type="submit" class="btn primary " id="submit" value="submit" style="margin-top:10px">
                                 </div>
                             </form>
 
