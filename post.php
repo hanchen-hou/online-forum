@@ -224,13 +224,16 @@ if (isset($_GET['post_id']) && is_numeric($_GET['post_id'])) {
 				 */
 				?>
 				
+				<!--
 				<div class="panel-heading center">
 					<h3 class="panel-title"><?php $post = $GLOBALS['post']; echo $post['TITLE'] ?></h3>
 				</div>
+				-->
+
 				<div class="panel-body Post_Info" id="post_field">
 
 					<!--Current Post title and content-->
-					<div class="panel panel-success">
+					<div class="panel panel-primary">
 						<div class="panel-heading">
 							<button type="button" class="btn btn-default pull-right">
 								<span class="glyphicon glyphicon-flag"></span>
@@ -249,7 +252,7 @@ if (isset($_GET['post_id']) && is_numeric($_GET['post_id'])) {
 									</li>
 								</ul>
 							</div>
-							<h3 class="panel-title title-center"></h3>
+							<h3 class="panel-title text-center" style="font-size:25px"><b><?php $post = $GLOBALS['post']; echo $post['TITLE'] ?></b></h3>
 							<div class="clearfix"></div>
 						</div>
 						<div class="panel-body">
