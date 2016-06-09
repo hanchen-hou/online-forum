@@ -80,6 +80,15 @@
 			.center {
 				text-align: center;
 			}
+
+      .post-title{
+				font-size:22px;
+			}
+
+      .big-title{
+				font-size:28px;
+			}
+
         </style>
 
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -112,13 +121,13 @@
 
 						$login_form = '<form class="form-inline navbar-form" method="post" action="jump/login.php">
 									<li>
-										<label style="color:white; margin-right: 5px">User name:</label>
-										<input type="text" class="form-control" name="user_name" placeholder="user name" />
+										<label style="color:white; margin-right: 5px">Username:</label>
+										<input type="text" class="form-control" name="user_name" placeholder="Username" />
 									</li>
-		
+
 									<li>
 										<label style="color:white; margin-right: 5px">Password:</label>
-										<input type="password" class="form-control" name="password" placeholder="password" />
+										<input type="password" class="form-control" name="password" placeholder="Password" />
 									</li>
 									<li>
 										<label style="color: white;margin-right: 5px">Admin:</label>
@@ -128,7 +137,7 @@
 										<input type="submit" value="Login" id="Login" class="form-control" name="login">
 									</li>
 									<li>
-										<a href="signup.php"><input type="button" value="Signup" id="Signup" class="form-control" name="signup"></a>
+										<a href="signup.php"><input type="button" value="Sign Up" id="Signup" class="form-control" name="signup"></a>
 									</li>
 									</form>';
 						$after_login = '<div class="navbar-header navbar-brand" style="color:green">Welcome</div>
@@ -201,7 +210,7 @@
             </div>
             <div class="panel panel-primary mypanel " id="margintop">
               <div class="panel-heading center">
-                <h3 class="panel-title"><?php echo $GLOBALS['category_name'] ?></h3>
+                <h3 class="panel-title big-title"><b><?php echo $GLOBALS['category_name'] ?></b></h3>
               </div>
               <div class="panel-body Post_Info"id="post_field">
               	<!--Posts-->
@@ -227,11 +236,11 @@
                                 <li class="text-center">%s</li>
                               </ul>
                             </div>
-                        <h3 class="panel-title title-center">
-                        	<a href="post.php?category_id=%s&post_id=%s&page=1">%s</a>
-                        </h3>
+                            <h3 class="panel-title text-center post-title">
+                            	<a href="post.php?category_id=%s&post_id=%s&page=1">%s</a>
+                            </h3>
                             <div class="clearfix"></div>
-                      </div>
+                        </div>
                       <div class="panel-body">%s</div>
                     </div>';
 
@@ -303,7 +312,7 @@
                         <input style="display: none" name="category_id" value="<?php echo $GLOBALS['category_id'] ?>"/>
                        <center><input type="submit" class="btn btn-default" value="Post" id="submit_content" style="" /></center>
                     </form>
-                    
+
                 </div>
             </div>
         </div>

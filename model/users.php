@@ -86,6 +86,29 @@ class UsersTable {
 
 		return oci_fetch_array($stmt);
 	}
+	
+	static function change_password($user_id, $new_pw) {
+		if (is_null($user_id))
+			return FALSE;
+		if (is_null($new_pw))
+			return FALSE;
+		
+		$user = select_by_id($user_id);
+		if(!$user) return FALSE;
+		
+		$salt = $user['SALT'];
+		$new_pw_md5 = md5($new_pw . $salt);
+		
+		$conn = connect_db();
+		$sql = "update " . USERS_TABLE . " set pw_md5=:new_pw_md5 where id=:id";
+		$stmt = oci_parse($conn, $sql);
+		oci_bind_by_name($stmt, ":new_pw_md5", $new_pw_md5);
+		oci_bind_by_name($stmt, ":id", $user_id);
+		$result = oci_execute($stmt);
+		oci_close($conn);
+
+		return $result;
+	}
 
 	static function ban_user($user_id) {
 		if (is_null($user_id))
@@ -94,9 +117,10 @@ class UsersTable {
 		$statue = 1;
 
 		$conn = connect_db();
-		$sql = "update " . USERS_TABLE . " set status=:status";
+		$sql = "update " . USERS_TABLE . " set status=:status where id=:id";
 		$stmt = oci_parse($conn, $sql);
 		oci_bind_by_name($stmt, ":status", $statue);
+		oci_bind_by_name($stmt, ":id", $user_id);
 		$result = oci_execute($stmt);
 		oci_close($conn);
 
@@ -110,9 +134,10 @@ class UsersTable {
 		$statue = 0;
 
 		$conn = connect_db();
-		$sql = "update " . USERS_TABLE . " set status=:status";
+		$sql = "update " . USERS_TABLE . " set status=:status where id=:id";
 		$stmt = oci_parse($conn, $sql);
 		oci_bind_by_name($stmt, ":status", $statue);
+		oci_bind_by_name($stmt, ":id", $user_id);
 		$result = oci_execute($stmt);
 		oci_close($conn);
 
