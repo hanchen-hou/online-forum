@@ -93,7 +93,7 @@ class UsersTable {
 		if (is_null($new_pw))
 			return FALSE;
 		
-		$user = select_by_id($user_id);
+		$user = UsersTable::select_by_id($user_id);
 		if(!$user) return FALSE;
 		
 		$salt = $user['SALT'];
