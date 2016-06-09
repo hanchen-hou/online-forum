@@ -66,6 +66,9 @@
                 background-color: rgb(206,255,104);
                 color:black;
             }
+            .big-title{
+              font-size: 20px;
+            }
             .marginleft{margin-left:2%;}
             #margintop{margin-top:59px;}
             .mypanel{width:84%; margin-left:16%;}
@@ -110,9 +113,9 @@
         <div class="container-fluid" style="overflow-x: hidden;overflow-y:auto">
             <div class="content" id="category_field" style="margin-top:5%;margin-right:2%;overflow-x: hidden;overflow-y:auto" >
                 <ul class="sidebar-nav" style="width: 90%" >
-                    <label>User's setting</label>
+                    <label>User Settings</label>
                     <li class="selected">
-                        <a class="sidebar-brand" href="Admin_changePassword.html">Change password</a>
+                        <a class="sidebar-brand" href="Admin_changePassword.html">Change Password</a>
                     </li>
                     <li>
                         <a class="sidebar-brand" href="Admin_report.html">My Profile</a>
@@ -121,7 +124,7 @@
             </div>
             <div class="panel panel-primary mypanel " id="margintop">
                 <div class="panel-heading center">
-                    <h3 class="panel-title">Change Password</h3>
+                    <h3 class="panel-title big-title">Change Password</h3>
                 </div>
                 <div class="panel-body Post_Info"id="post_field">
 
@@ -130,12 +133,12 @@
                         <div class="panel-body">
                             <form method="post" action="#">
                                 <div class="form-group">
-                                    <label for="user name">User Name </label>
-                                    <input name="user_name" type="text" class="form-control" id="user_name" placeholder="user name">
+                                    <label for="user name">Username </label>
+                                    <input name="user_name" type="text" class="form-control" id="user_name" placeholder="Username">
                                 </div>
                                 <div class="form-group">
-                                    <label for="old password">Old Password: </label>
-                                    <input name="old_password" type="password" class="form-control" id="old_password" placeholder="Old password">
+                                    <label for="old password">Old Password </label>
+                                    <input name="old_password" type="password" class="form-control" id="old_password" placeholder="Old Password">
                                 </div>
                                 <div class="form-group">
                                 <label for="new_password">New Password</label>
@@ -143,10 +146,10 @@
                                 </div>
                                 <div class="form-group">
                                 <label for="new_password">Confirm New Password</label>
-                                <input name="confirm_password" type="password" class="form-control" id="confirm_password" placeholder="Confirm Password">
+                                <input name="confirm_password" type="password" class="form-control" id="confirm_password" placeholder="Confirm New Password">
                                 </div>
                                 <div class="form-group">
-                                <input type="submit" class="btn btn-primary " id="submit" value="submit" style="margin-top:10px">
+                                <input type="submit" class="btn btn-primary " id="submit" value="Submit" style="margin-top:10px">
                                 </div>
                             </form>
 
