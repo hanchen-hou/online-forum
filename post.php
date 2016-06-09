@@ -190,7 +190,7 @@ if (isset($_GET['post_id']) && is_numeric($_GET['post_id'])) {
 					 */
 
 					require_once (dirname(__FILE__) . "/model/categories.php");
-					$template = '<li><a class="sidebar-brand" href="index.php?category=%s&page=1">%s</a></li>';
+					$template = '<li><a class="sidebar-brand" href="index.php?category_id=%s&page=1">%s</a></li>';
 					$template_selected = '<li class="selected"><a class="sidebar-brand" href="index.php?category=%s&page=1">%s</a></li>';
 					$categories = CategoriesTable::select_all();
 
