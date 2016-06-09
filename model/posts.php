@@ -61,7 +61,7 @@ class PostsTable {
 			return;
 
 		$conn = connect_db();
-		$sql = "select p.id, p.title, m.content, m.datetime, u.name, m.visible 
+		$sql = "select p.id, p.title, m.content, TO_CHAR(m.datetime,'YYYY-MM-DD HH24:MI:SS') as DATETIME, u.name as user_name 
 				from " . POSTS_TABLE . " p, " . MSGS_TABLE . " m, " . USERS_TABLE . " u  
 				where p.id = :id and p.id = m.id and m.user_id = u.id";
 		$stmt = oci_parse($conn, $sql);
@@ -77,7 +77,7 @@ class PostsTable {
 			return;
 
 		$conn = connect_db();
-		$sql = "select p.id, p.title, m.content, m.datetime, u.name 
+		$sql = "select p.id, p.title, m.content, TO_CHAR(m.datetime,'YYYY-MM-DD HH24:MI:SS') as DATETIME, u.name 
 				from " . POSTS_TABLE . " p, " . MSGS_TABLE . " m, " . USERS_TABLE . " u  
 				where p.category_id=:category_id and p.id = m.id and m.user_id = u.id 
 				Order BY m.datetime DESC";
@@ -88,14 +88,6 @@ class PostsTable {
 
 		$row = oci_fetch_all($stmt, $res);
 		return $res;
-	}
-
-	static function hide_by_id($msg_id) {
-		return MsgsTable::hide_by_id();
-	}
-
-	static function restore_by_id($msg_id) {
-		return MsgsTable::restore_by_id();
 	}
 
 	static function create() {
