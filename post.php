@@ -95,6 +95,14 @@ if (isset($_GET['post_id']) && is_numeric($_GET['post_id'])) {
 			.center {
 				text-align: center;
 			}
+
+			.comment-center{
+				margin-left: 60px;
+			}
+
+			.post-title{
+				font-size:23px;
+			}
 		</style>
 
 		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -127,13 +135,13 @@ if (isset($_GET['post_id']) && is_numeric($_GET['post_id'])) {
 
 						$login_form = '<form class="form-inline navbar-form" method="post" action="jump/login.php">
 										<li>
-										<label style="color:white; margin-right: 5px">User name:</label>
-										<input type="text" class="form-control" name="user_name" placeholder="user name" />
+										<label style="color:white; margin-right: 5px">Username:</label>
+										<input type="text" class="form-control" name="user_name" placeholder="Username" />
 										</li>
-										
+
 										<li>
 										<label style="color:white; margin-right: 5px">Password:</label>
-										<input type="password" class="form-control" name="password" placeholder="password" />
+										<input type="password" class="form-control" name="password" placeholder="Password" />
 										</li>
 										<li>
 										<label style="color: white;margin-right: 5px">Admin:</label>
@@ -143,7 +151,7 @@ if (isset($_GET['post_id']) && is_numeric($_GET['post_id'])) {
 										<input type="submit" value="Login" id="Login" class="form-control" name="login">
 										</li>
 										<li>
-										<a href="signup.php"><input type="button" value="Signup" id="Signup" class="form-control" name="signup"></a>
+										<a href="signup.php"><input type="button" value="Sign Up" id="Signup" class="form-control" name="signup"></a>
 										</li>
 										</form>';
 						$after_login = '<div class="navbar-header navbar-brand" style="color:green">Welcome</div>
@@ -223,14 +231,11 @@ if (isset($_GET['post_id']) && is_numeric($_GET['post_id'])) {
 				 *  Current Post Part
 				 */
 				?>
-				
-				<div class="panel-heading center">
-					<h3 class="panel-title"><?php $post = $GLOBALS['post']; echo $post['TITLE'] ?></h3>
-				</div>
+
 				<div class="panel-body Post_Info" id="post_field">
 
 					<!--Current Post title and content-->
-					<div class="panel panel-success">
+					<div class="panel panel-primary">
 						<div class="panel-heading">
 							<button type="button" class="btn btn-default pull-right">
 								<span class="glyphicon glyphicon-flag"></span>
@@ -249,22 +254,22 @@ if (isset($_GET['post_id']) && is_numeric($_GET['post_id'])) {
 									</li>
 								</ul>
 							</div>
-							<h3 class="panel-title title-center"></h3>
+							<h3 class="panel-title text-center post-title"><b><?php $post = $GLOBALS['post']; echo $post['TITLE'] ?></b></h3>
 							<div class="clearfix"></div>
 						</div>
 						<div class="panel-body">
 							<?php $post = $GLOBALS['post']; echo $post['CONTENT']?>
 						</div>
 					</div>
-					
+
 					<!--Comments-->
-					
-					<?php 
+
+					<?php
 					/*
 					 *  Comments Part
 					 */
 					$template = '
-					<div class="panel panel-success">
+					<div class="panel panel-success comment-center">
 						<div class="panel-heading">
 							<button type="button" class="btn btn-default pull-right">
 								<span class="glyphicon glyphicon-flag"></span>
@@ -348,7 +353,7 @@ if (isset($_GET['post_id']) && is_numeric($_GET['post_id'])) {
 				<div class="panel-body">
 					<form class="form" method="post" action="jump/make_comment.php">
 						<div class="form-group">
-							<label>Comment</label>							
+							<label>Comment</label>
 							<textarea class="form-control" name="content" ></textarea>
 						</div>
 						<input style="display: none" name="post_id" value="<?php echo $_GET['post_id'] ?>"/>
