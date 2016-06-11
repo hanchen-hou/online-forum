@@ -169,7 +169,7 @@ if(!isset($GLOBALS['user_name'])){
                         <div class="panel-body">
                             <form method="post" action="#">
                                 <div class="form-group">
-                                    <label for="Old password">Old Password: </label>
+                                    <label for="Old password">Old Password</label>
                                     <input name="password" type="password" class="form-control" id="old_password" placeholder="Old Password">
                                 </div>
 
@@ -181,7 +181,7 @@ if(!isset($GLOBALS['user_name'])){
                                 <label for="new_password">Confirm New Password</label>
                                 <input name="confirm_password" type="password" class="form-control" id="confirm_password" placeholder="Confirm New Password">
                                 </div>
-                                <div class="form-group"><input type="submit" class="btn btn-primary " id="submit" value="Submit" style="margin-top:10px"></div>
+                                <div class="form-group"><input type="submit" class="btn btn-primary " id="submit" value="Confirm" style="margin-top:10px"></div>
                             </form>
 
                         </div>
