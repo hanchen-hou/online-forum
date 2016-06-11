@@ -22,10 +22,9 @@
     </head>
     <body>
         <div class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container">
+            <div class="container-fluid">
 
-                <div class="navbar-header">
-                    <span class="navbar-brand glyphicon glyphicon glyphicon-align-justify" aria-hidden="true"></span>
+                <div class="navbar-header">                   
                     <label class="navbar-brand" style="">Society Community</label>
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                         <span class="sr-only">Toggle navigation</span>
