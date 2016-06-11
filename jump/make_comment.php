@@ -5,9 +5,9 @@
  * $_POST['post_id']
  * $_COOKIE['id']
  * $_COOKIE['type']
- * 
+ *
  */
- 
+
 require_once (dirname(dirname(__FILE__)) . "/model/comments.php");
 require_once (dirname(dirname(__FILE__)) . "/model/users.php");
 require_once (dirname(__FILE__) . "/_print_jump_page_.php");
@@ -54,4 +54,8 @@ function main() {
 }
 
 print_jump_page($GLOBALS['result'], $GLOBALS['referer']);
+<<<<<<< HEAD
 ?>
+=======
+?>
+>>>>>>> origin/master

@@ -42,7 +42,7 @@ function main() {
 		$GLOBALS['result'] = 'The new password and the confirm password are different.';
 		return;
 	}
-	
+
 	$user=UsersTable::select_by_id($_COOKIE['id']);
 	if(!user){
 		$GLOBALS['result'] = 'The user does not exists';
@@ -53,10 +53,14 @@ function main() {
 		$GLOBALS['result'] = 'The old password is incorrect.';
 		return;
 	}
-	
+
 	UsersTable::change_password($_COOKIE['id'], $_POST['new_pw']);
 	$GLOBALS['result'] = 'Change successfully.';
 }
 
 print_jump_page($GLOBALS['result'], $GLOBALS['referer']);
+<<<<<<< HEAD
 ?>
+=======
+?>
+>>>>>>> origin/master

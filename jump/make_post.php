@@ -6,7 +6,7 @@
  * $_POST['category_id']
  * $_COOKIE['id']
  * $_COOKIE['type']
- * 
+ *
  */
 require_once (dirname(dirname(__FILE__)) . "/model/posts.php");
 require_once (dirname(__FILE__) . "/_print_jump_page_.php");
@@ -44,7 +44,7 @@ function main() {
 	$data['user_id'] = $_COOKIE['id'];
 	$data['title'] = $_POST['title'];
 	$data['content'] = $_POST['content'];
-	
+
 	if(trim($data['title']) == FALSE){
 		$GLOBALS['result'] = 'Post title cannot only be spaces';
 		return;
@@ -53,7 +53,7 @@ function main() {
 		$GLOBALS['result'] = 'Post content cannot only be spaces';
 		return;
 	}
-	
+
 	if (PostsTable::insert($data)) {
 		$GLOBALS['result'] = 'Post Successfully';
 	} else {
@@ -62,4 +62,8 @@ function main() {
 }
 
 print_jump_page($GLOBALS['result'], $GLOBALS['referer']);
+<<<<<<< HEAD
 ?>
+=======
+?>
+>>>>>>> origin/master
