@@ -192,7 +192,7 @@ if (!isset($GLOBALS['user_name'])) {
 								</div>
 								<input style="display: none" name="senior_id" value="<?php echo $_COOKIE['id'] ?>"/>
 								<div class="form-group">
-									<input type="submit" class="btn btn-primary " id="submit" value="Submit" style="margin-top:10px">
+									<input type="submit" class="btn btn-primary " id="submit" value="Add" style="margin-top:10px">
 								</div>
 							</form>
 

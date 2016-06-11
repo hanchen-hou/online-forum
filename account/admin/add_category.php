@@ -180,7 +180,7 @@ if (!isset($GLOBALS['user_name'])) {
                         </div>
                         <input style="display: none" name="admin_id" value="<?php echo $_COOKIE['id'] ?>"/>
                         <div class="form-group">
-                            <input type="submit" value="Submit" name="submit" class="btn btn-primary" />
+                            <input type="submit" value="Add" name="submit" class="btn btn-primary" />
                         </div>
                     </form>
                 </div>

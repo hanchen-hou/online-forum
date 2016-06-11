@@ -54,4 +54,8 @@ function main() {
 }
 
 print_jump_page($GLOBALS['result'], $GLOBALS['referer']);
+<<<<<<< HEAD
 ?>
+=======
+?>
+>>>>>>> origin/master
