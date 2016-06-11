@@ -170,11 +170,7 @@ if(!isset($GLOBALS['user_name'])){
                             <form method="post" action="../../jump/change_password.php">
                                 <div class="form-group">
                                     <label for="Old password">Old Password</label>
-<<<<<<< HEAD
                                     <input name="old_pw" type="password" class="form-control" id="old_password" placeholder="Old Password">
-=======
-                                    <input name="password" type="password" class="form-control" id="old_password" placeholder="Old Password">
->>>>>>> origin/master
                                 </div>
 
                                 <div class="form-group"><label>New Password</label>
