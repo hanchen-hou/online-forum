@@ -190,6 +190,7 @@ if (!isset($GLOBALS['user_name'])) {
 									<label for="new_password">Confirm Password</label>
 									<input name="confirm_password" type="password" class="form-control" id="confirm_password" placeholder="Confirm New Password">
 								</div>
+								<input style="display: none" name="senior_id" value="<?php echo $_COOKIE['id'] ?>"/>
 								<div class="form-group">
 									<input type="submit" class="btn btn-primary " id="submit" value="Submit" style="margin-top:10px">
 								</div>
