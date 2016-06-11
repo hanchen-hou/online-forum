@@ -1,6 +1,7 @@
 <?php
 
 require_once (dirname(dirname(__FILE__)) . '/lib/common.php');
+require_once (dirname(__FILE__) . '/users.php');
 
 class AdminsTable {
 
@@ -51,7 +52,6 @@ class AdminsTable {
 		$stmt = oci_parse($conn, $sql);
 		oci_bind_by_name($stmt, ":id", $new_id);
 		oci_bind_by_name($stmt, ":senior_id", $data['senior_id']);
-
 		$result = oci_execute($stmt) && $result;
 		oci_close($conn);
 
