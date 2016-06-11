@@ -25,6 +25,7 @@ if(isset($_POST['user_name']) && isset($_POST['email']) && isset($_POST['passwor
 		<!-- Bootstrap -->
 		<link href="css/bootstrap.min.css" rel="stylesheet">
 		<script type="text/javascript" src="jquery-1.12.4.min.js"></script>
+		
 		<style>
 			.user_field li {
 				display: inline
@@ -76,6 +77,10 @@ if(isset($_POST['user_name']) && isset($_POST['email']) && isset($_POST['passwor
 				font-family: Verdana;
 				font-size: 100%
 			}
+			 #error {
+                color: red;
+                margin-left: 20px;
+            }
 		</style>
 
 		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -88,7 +93,6 @@ if(isset($_POST['user_name']) && isset($_POST['email']) && isset($_POST['passwor
 	<body>
 		<div class="navbar navbar-inverse navbar-fixed-top">
 			<div class="container">
-
 				<div class="navbar-header">
 					<span class="navbar-brand glyphicon glyphicon glyphicon-align-justify" aria-hidden="true"></span>
 					<label class="navbar-brand">Society Community</label>
@@ -103,13 +107,14 @@ if(isset($_POST['user_name']) && isset($_POST['email']) && isset($_POST['passwor
 		</div>
 		<div class="container">
 			<div style="height:115px;"></div>
-			<form name="form" method="post" action="#">
+			<div id="error" class=""></div>
+			<form name="form" method="post" id="user_form">
 				<div class="form-group">
-					<label for="user name">User Name address</label>
+					<label for="user name">User Name </label>
 					<input type="text" class="form-control" name="user_name" id="user_name" placeholder="user name">
 				</div>
 				<div class="form-group">
-					<label for="user name">Email address</label>
+					<label for="email">Email address</label>
 					<input type="email" class="form-control" name="email" id="email" placeholder="email">
 				</div>
 				<div class="form-group">
@@ -118,10 +123,10 @@ if(isset($_POST['user_name']) && isset($_POST['email']) && isset($_POST['passwor
 				</div>
 				<!--TODO: Check password and confirm_password in javascript, should be same -->
 				<div class="form-group">
-					<label for="confirm_password">Password Conformation</label>
+					<label for="confirm_password">Password Confirmation</label>
 					<input type="password" class="form-control" id="confirm_password" placeholder="Confirm Password">
 				</div>
-				<input type="submit" class="btn btn-default" id="submit" value="submit" style="margin-top:10px">
+				<input type="submit" class="btn btn-primary" id="submit" value="submit" style="margin-top:10px">
 			</form>
 		</div>
 		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -149,23 +154,23 @@ if(isset($_POST['user_name']) && isset($_POST['email']) && isset($_POST['passwor
                 {
                     $('#user_name').css("background-color",correct_color);
                 }
+                if ($('#email').val() == "") {
+                    error_M += "Email is empty<br>";
+                    $('#email').css("background-color",error_color);
+                }
+                else
+                {
+                    $('#email').css("background-color",correct_color);
+                }
                 
-                if ($('#old_password').val() == "") {
-                    error_M += "Old password is empty<br>";
-                     $('#old_password').css("background-color",error_color);
+                if ($('#password').val() == "") {
+                    error_M += "Password field is empty<br>";
+                     $('#password').css("background-color",error_color);
                 }
                  else
                 {
-                    $('#old_password').css("background-color",correct_color);
-                }
-                if ($('#new_password').val() == "") {
-                    error_M += "New password is empty<br>";
-                     $('#new_password').css("background-color",error_color);
-                }
-                 else
-                {
-                    $('#new_password').css("background-color",correct_color);
-                }
+                    $('#password').css("background-color",correct_color);
+                }              
                 if ($('#confirm_password').val() == "") {
                     error_M += "Confirm password is empty<br>";
                      $('#confirm_password').css("background-color",error_color);
@@ -173,12 +178,7 @@ if(isset($_POST['user_name']) && isset($_POST['email']) && isset($_POST['passwor
                  else
                 {
                     $('#confirm_password').css("background-color",correct_color);
-                }
-                if ($('#new_password').val() != $('#confirm_password').val()) {
-                    error_M += "Confirm password does not match the new password";
-                     $('#new_password').css("background-color",error_color);
-                     $('#confirm_password').css("background-color",error_color);
-                }
+                }                
                 return error_M;
             }
         </script>
