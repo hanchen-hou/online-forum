@@ -1,3 +1,22 @@
+<?php
+require_once( dirname(dirname(dirname(__FILE__))) . "/model/admins.php");
+/*
+ * check cookie
+ * otherwise, cannot access this page
+ */
+if (isset($_COOKIE['id']) && isset($_COOKIE['type'])) {
+	if ($_COOKIE['type'] == 'admin') {
+		$admin = AdminsTable::select_by_id($_COOKIE['id']);
+		if ($admin) {
+			$GLOBALS['user_name'] = $admin['NAME'];
+		}
+	}
+}
+
+if(!isset($GLOBALS['user_name'])){
+	exit("No Permission");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -5,11 +24,11 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-        <title>Bootstrap 101 Template</title>
+        <title>Change Password</title>
 
         <!-- Bootstrap -->
-        <link href="css/bootstrap.min.css" rel="stylesheet">
-        <link href="css/simple-sidebar.css" rel="stylesheet">
+        <link href="../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../css/simple-sidebar.css" rel="stylesheet">
         <style>
             .user_field li {
                 display: inline
@@ -37,7 +56,13 @@
                 overflow-x: hidden;
                 overflow-y: auto;
             }
-
+            #post_field {
+                width: 83%;
+                margin-left: 17%;
+                border: 1px solid;
+                background-color: #e4e4e4;
+                border-style: solid;
+            }
             #Category_title {
                 width: 78%;
                 text-align: center;
@@ -56,35 +81,24 @@
                 font-family: Verdana;
                 font-size: 100%;
             }
-            .selected {
+             .selected {
                 background-color: rgb(206,255,104);
-                color: black;
+                color:black;
             }
-            .marginleft {
-                margin-left: 2%;
+            .big-title{
+              font-size: 20px;
             }
-            #margintop {
-                margin-top: 59px;
-            }
-            .mypanel {
-                width: 84%;
-                margin-left: 16%;
-            }
-            #create_post {
-                margin-left: 16%;
-                width: 84;
-            }
-            .center {
-                text-align: center;
-            }
+             .marginleft{margin-left:2%;}
+            #margintop{margin-top:59px;}
+            .mypanel{width:84%; margin-left:16%;}
+            #create_post{margin-left:16%;width:84;}
+            .center{text-align: center;}
             #post_field {
                 width: 100%;
                 border: 1px solid;
                 background-color: #e4e4e4;
                 border-style: solid;
-            }
-            .big-title{
-              font-size: 20px;
+                margin-left:0;
             }
         </style>
 
@@ -96,78 +110,78 @@
         <![endif]-->
     </head>
     <body>
-        <div class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container">
-
-                <div class="navbar-header col-md-9">
-                    <span class="navbar-brand glyphicon glyphicon glyphicon-align-justify" aria-hidden="true"></span>
-                    <label class="navbar-brand">Society Community</label>
-                </div>
-                <div class="navbar-header navbar-brand" style="color:green">
-                    Welcome
-                </div>
-                <div class="navbar-header navbar-brand">
-                    User
-                </div>
-                <div class="navbar-header navbar-brand">
-                    <a href=" #">Logout</a>
-                </div>
-            </div>
-        </div>
+		<div class="navbar navbar-inverse navbar-fixed-top">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="../../index.php">Society Community</a>
+				</div>
+				<div class="collapse navbar-collapse user_field">
+					<ul class="nav navbar-nav navbar-right" >
+						<div class="navbar-header navbar-brand" style="color:green">
+							Welcome
+						</div>
+						<li>
+							<a href="../jump.php"><?php echo $GLOBALS['user_name'] ?></a>
+						</li>
+						<form class="navbar-form navbar-left" role="logout">
+							<a href="../../jump/logout.php">
+							<button type="button" class="btn btn-danger">
+								Logout
+							</button> </a>
+						</form>
+					</ul>
+				</div>
+			</div>
+		</div>
 
         <div class="container-fluid" style="overflow-x: hidden;overflow-y:auto">
             <div class="content" id="category_field" style="margin-top:5%;margin-right:2%;overflow-x: hidden;overflow-y:auto" >
                 <ul class="sidebar-nav" style="width: 90%" >
-                    <label>Admin Settings</label>
-                    <li>
-                        <a class="sidebar-brand" href="Admin_changePassword.html">Change Password</a>
+                    <label>Admin's setting</label>
+                    <li class="selected">
+                        <a class="sidebar-brand" href="change_password.php">Change Password</a>
                     </li>
                     <li>
                         <a class="sidebar-brand" href="Admin_report.html">Report</a>
                     </li>
-                    <li >
-                        <a class="sidebar-brand" href="#">Manage Users</a>
+                    <li>
+                        <a class="sidebar-brand" href="add_admin.php">Add Admin</a>
                     </li>
-                    <li >
-                        <a class="sidebar-brand" href="#">Manage Posts</a>
-                    </li>
-                    <li >
-                        <a class="sidebar-brand" href="#">Add Category</a>
-                    </li>
-                    <li class="selected">
-                        <a class="sidebar-brand" href="#">Add Admin</a>
+                    <li>
+                        <a class="sidebar-brand" href="add_category.php">Add Category</a>
                     </li>
                 </ul>
             </div>
             <div class="panel panel-primary mypanel " id="margintop">
                 <div class="panel-heading center">
-                    <h3 class="panel-title big-title">Add Admin</h3>
+                    <h3 class="panel-title big-title">Change Password</h3>
                 </div>
-                <div class="panel-body Post_Info"id="post_field">
+                <div class="panel-body Post_Info" id="post_field">
 
                     <!--Posts-->
                     <div class="panel panel-primary marginleft" >
                         <div class="panel-body">
                             <form method="post" action="#">
                                 <div class="form-group">
-                                    <label for="user name">Username </label>
-                                    <input name="user_name" type="text" class="form-control" id="user_name" placeholder="Username">
+                                    <label for="Old password">Old Password: </label>
+                                    <input name="password" type="password" class="form-control" id="old_password" placeholder="Old Password">
                                 </div>
-                                <div class="form-group">
-                                    <label for="user name">Email Address </label>
-                                    <input name="email" type="email" class="form-control" id="user_name" placeholder="Email Address">
-                                </div>
-                                <div class="form-group">
-                                <label for="new_password">New Password</label>
+
+                                <div class="form-group"><label>New Password</label>
                                 <input name="new_password" type="password" class="form-control" id="new_password" placeholder="New Password">
-                                 </div>
-                                 <div class="form-group">
+                                </div>
+
+                                <div class="form-group">
                                 <label for="new_password">Confirm New Password</label>
                                 <input name="confirm_password" type="password" class="form-control" id="confirm_password" placeholder="Confirm New Password">
-                                 </div>
-                                 <div class="form-group">
-                                <input type="submit" class="btn btn-primary " id="submit" value="Submit" style="margin-top:10px">
                                 </div>
+                                <div class="form-group"><input type="submit" class="btn btn-primary " id="submit" value="Submit" style="margin-top:10px"></div>
                             </form>
 
                         </div>

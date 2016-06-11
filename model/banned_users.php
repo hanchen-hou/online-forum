@@ -17,19 +17,25 @@ class BannedUsersTable {
 			return FALSE;
 
 		$conn = connect_db();
-		$sql = "insert into " . BANNED_USERS_TABLE . " 
-							(id, admin_id, banned_datetime) values
-							(:user_id, :admin_id, CURRENT_TIMESTAMP)";
+		$sql = "DECLARE 
+				  num1 NUMBER;
+				  num2 NUMBER;
+				BEGIN
+				  Select count(*) INTO num1 from CS_ADMINS where id=:user_id;
+				  Select count(*) INTO num2 from CS_ADMINS where id=:admin_id;
+				IF (num1 = 0 and num2 != 0)
+				Then
+				INSERT INTO CS_BANNED_USERS 
+				(ID, ADMIN_ID, BANNED_DATETIME) 
+				values 
+				(:user_id, :admin_id, CURRENT_TIMESTAMP);
+				UPDATE CS_USERS SET STATUS=1 WHERE ID=:user_id;
+				END IF;
+				END;";
 		$stmt = oci_parse($conn, $sql);
 		oci_bind_by_name($stmt, ":user_id", $user_id);
 		oci_bind_by_name($stmt, ":admin_id", $admin_id);
 		$result = oci_execute($stmt);
-
-		$sql = "update " . USERS_TABLE . " set STATUS=1 where id = :user_id";
-		$stmt = oci_parse($conn, $sql);
-		oci_bind_by_name($stmt, ":user_id", $user_id);
-
-		$result = oci_execute($stmt) && $result;
 		oci_close($conn);
 
 		return $result;
@@ -100,7 +106,9 @@ class BannedUsersTable {
 				banned_datetime TIMESTAMP NOT NULL,
 				admin_id INT NOT NULL,
 				FOREIGN  KEY (id) REFERENCES " . USERS_TABLE . "(id),
-				FOREIGN  KEY (admin_id) REFERENCES " . ADMINS_TABLE . "(id)
+				FOREIGN  KEY (admin_id) REFERENCES " . ADMINS_TABLE . "(id),
+				check
+				(admin_id not in (select id from cs_admins))
 				)
 				";
 
