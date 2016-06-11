@@ -43,5 +43,5 @@ if (isset($_SERVER['HTTP_REFERER']) && !empty($_SERVER['HTTP_REFERER'])) {
 	$GLOBALS['referer'] = '../index.php';
 }
 
-print_jump_page($GLOBALS['result'], $GLOBALS['referer']);
+print_jump_page($GLOBAL['result'], $GLOBALS['referer']);
 ?>
