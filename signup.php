@@ -1,19 +1,4 @@
 <!DOCTYPE html>
-<?php
-require_once (dirname(__FILE__) . "/model/users.php");
-
-if(isset($_POST['user_name']) && isset($_POST['email']) && isset($_POST['password'])){
-	$data = array();
-	$data['name'] =  $_POST['user_name'];
-	$data['email'] =  $_POST['email'];
-	$data['password'] =  $_POST['password'];
-	if(!empty($data['name']) && !empty($data['email']) && !empty($data['password'])){
-		if(UsersTable::insert($data)){
-			exit('register successed');
-		}
-	}
-}
-?>
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
@@ -108,9 +93,9 @@ if(isset($_POST['user_name']) && isset($_POST['email']) && isset($_POST['passwor
 		<div class="container">
 			<div style="height:115px;"></div>
 			<div id="error" class=""></div>
-			<form name="form" method="post" id="user_form">
+			<form name="form" method="post" id="user_form" action="./jump/add_user.php">
 				<div class="form-group">
-					<label for="user name">User Name </label>
+					<label for="user name">User Name</label>
 					<input type="text" class="form-control" name="user_name" id="user_name" placeholder="user name">
 				</div>
 				<div class="form-group">
