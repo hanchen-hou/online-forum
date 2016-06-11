@@ -10,7 +10,7 @@
 		<!-- Bootstrap -->
 		<link href="css/bootstrap.min.css" rel="stylesheet">
 		<script type="text/javascript" src="jquery-1.12.4.min.js"></script>
-		
+
 		<style>
 			.user_field li {
 				display: inline
@@ -94,12 +94,12 @@
 			<div id="error" class=""></div>
 			<form name="form" method="post" id="user_form" action="./jump/add_user.php">
 				<div class="form-group">
-					<label for="user name">User Name</label>
-					<input type="text" class="form-control" name="user_name" id="user_name" placeholder="user name">
+					<label for="user name">Username</label>
+					<input type="text" class="form-control" name="user_name" id="user_name" placeholder="Username">
 				</div>
 				<div class="form-group">
-					<label for="email">Email address</label>
-					<input type="email" class="form-control" name="email" id="email" placeholder="email">
+					<label for="email">Email Address</label>
+					<input type="email" class="form-control" name="email" id="email" placeholder="Email Address">
 				</div>
 				<div class="form-group">
 					<label for="password">Password</label>
@@ -107,10 +107,10 @@
 				</div>
 				<!--TODO: Check password and confirm_password in javascript, should be same -->
 				<div class="form-group">
-					<label for="confirm_password">Password Confirmation</label>
+					<label for="confirm_password">Confirm Password</label>
 					<input type="password" class="form-control" id="confirm_password" placeholder="Confirm Password">
 				</div>
-				<input type="submit" class="btn btn-primary" id="submit" value="submit" style="margin-top:10px">
+				<input type="submit" class="btn btn-primary" id="submit" value="Submit" style="margin-top:10px">
 			</form>
 		</div>
 		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -146,7 +146,7 @@
                 {
                     $('#email').css("background-color",correct_color);
                 }
-                
+
                 if ($('#password').val() == "") {
                     error_M += "Password field is empty<br>";
                      $('#password').css("background-color",error_color);
@@ -154,7 +154,7 @@
                  else
                 {
                     $('#password').css("background-color",correct_color);
-                }              
+                }
                 if ($('#confirm_password').val() == "") {
                     error_M += "Confirm password is empty<br>";
                      $('#confirm_password').css("background-color",error_color);
@@ -162,10 +162,9 @@
                  else
                 {
                     $('#confirm_password').css("background-color",correct_color);
-                }                
+                }
                 return error_M;
             }
         </script>
 	</body>
 </html>
-

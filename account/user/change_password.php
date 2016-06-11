@@ -129,7 +129,7 @@ if(!isset($GLOBALS['user_name'])){
 				</div>
 			</div>
 		</div>
-		
+
 		<div class="container">
 			<div style="height:115px;"></div>
 			<div id="error" class=""></div>
@@ -147,7 +147,7 @@ if(!isset($GLOBALS['user_name'])){
 					<input name="confirm_pw" type="password" class="form-control" id="confirm_password" placeholder="Confirm Password">
 				</div>
 				<div class="form-group">
-					<input type="submit" class="btn btn-primary " id="submit" value="submit" style="margin-top:10px">
+					<input type="submit" class="btn btn-primary " id="submit" value="Confirm" style="margin-top:10px">
 				</div>
 			</form>
 		</div>

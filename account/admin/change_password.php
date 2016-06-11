@@ -143,7 +143,7 @@ if(!isset($GLOBALS['user_name'])){
         <div class="container-fluid" style="overflow-x: hidden;overflow-y:auto">
             <div class="content" id="category_field" style="margin-top:5%;margin-right:2%;overflow-x: hidden;overflow-y:auto" >
                 <ul class="sidebar-nav" style="width: 90%" >
-                    <label>Admin's setting</label>
+                    <label>Admin Settings</label>
                     <li class="selected">
                         <a class="sidebar-brand" href="change_password.php">Change Password</a>
                     </li>
