@@ -25,7 +25,7 @@ if(isset($_POST['user_name']) && isset($_POST['email']) && isset($_POST['passwor
 		<!-- Bootstrap -->
 		<link href="css/bootstrap.min.css" rel="stylesheet">
 		<script type="text/javascript" src="jquery-1.12.4.min.js"></script>
-		
+		<script type="text/javascript" src="js/ja"></script>
 		<style>
 			.user_field li {
 				display: inline
@@ -133,55 +133,8 @@ if(isset($_POST['user_name']) && isset($_POST['email']) && isset($_POST['passwor
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 		<!-- Include all compiled plugins (below), or include individual files as needed -->
 		<script src="js/bootstrap.min.js"></script>
-		<script>
-            $('#user_form').submit(function(event) {
-
-                var error_message = checkform();
-                if (error_message != "")
-                    event.preventDefault();
-
-                $('#error').html(error_message);
-            });
-            function checkform() {
-                var error_M = "";
-                var error_color="rgb(217,83,79)";
-                var correct_color="rgb(76,175,80)";
-                if ($('#user_name').val() == "") {
-                    error_M += "User name is empty<br>";
-                    $('#user_name').css("background-color",error_color);
-                }
-                else
-                {
-                    $('#user_name').css("background-color",correct_color);
-                }
-                if ($('#email').val() == "") {
-                    error_M += "Email is empty<br>";
-                    $('#email').css("background-color",error_color);
-                }
-                else
-                {
-                    $('#email').css("background-color",correct_color);
-                }
-                
-                if ($('#password').val() == "") {
-                    error_M += "Password field is empty<br>";
-                     $('#password').css("background-color",error_color);
-                }
-                 else
-                {
-                    $('#password').css("background-color",correct_color);
-                }              
-                if ($('#confirm_password').val() == "") {
-                    error_M += "Confirm password is empty<br>";
-                     $('#confirm_password').css("background-color",error_color);
-                }
-                 else
-                {
-                    $('#confirm_password').css("background-color",correct_color);
-                }                
-                return error_M;
-            }
-        </script>
+		<script src="js/form.js"></script>
+		
 	</body>
 </html>
 
