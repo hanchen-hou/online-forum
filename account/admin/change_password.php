@@ -167,21 +167,21 @@ if(!isset($GLOBALS['user_name'])){
                     <!--Posts-->
                     <div class="panel panel-primary marginleft" >
                         <div class="panel-body">
-                            <form method="post" action="#">
+                            <form method="post" action="../../jump/change_password.php">
                                 <div class="form-group">
-                                    <label for="Old password">Old Password: </label>
-                                    <input name="password" type="password" class="form-control" id="old_password" placeholder="Old Password">
+                                    <label for="Old password">Old Password</label>
+                                    <input name="old_pw" type="password" class="form-control" id="old_password" placeholder="Old Password">
                                 </div>
 
                                 <div class="form-group"><label>New Password</label>
-                                <input name="new_password" type="password" class="form-control" id="new_password" placeholder="New Password">
+                                <input name="new_pw" type="password" class="form-control" id="new_password" placeholder="New Password">
                                 </div>
 
                                 <div class="form-group">
                                 <label for="new_password">Confirm New Password</label>
-                                <input name="confirm_password" type="password" class="form-control" id="confirm_password" placeholder="Confirm New Password">
+                                <input name="confirm_pw" type="password" class="form-control" id="confirm_password" placeholder="Confirm New Password">
                                 </div>
-                                <div class="form-group"><input type="submit" class="btn btn-primary " id="submit" value="Submit" style="margin-top:10px"></div>
+                                <div class="form-group"><input type="submit" class="btn btn-primary " id="submit" value="Confirm" style="margin-top:10px"></div>
                             </form>
 
                         </div>
