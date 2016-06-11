@@ -1,19 +1,4 @@
 <!DOCTYPE html>
-<?php
-require_once (dirname(__FILE__) . "/model/users.php");
-
-if(isset($_POST['user_name']) && isset($_POST['email']) && isset($_POST['password'])){
-	$data = array();
-	$data['name'] =  $_POST['user_name'];
-	$data['email'] =  $_POST['email'];
-	$data['password'] =  $_POST['password'];
-	if(!empty($data['name']) && !empty($data['email']) && !empty($data['password'])){
-		if(UsersTable::insert($data)){
-			exit('register successed');
-		}
-	}
-}
-?>
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
@@ -24,9 +9,64 @@ if(isset($_POST['user_name']) && isset($_POST['email']) && isset($_POST['passwor
 
 		<!-- Bootstrap -->
 		<link href="css/bootstrap.min.css" rel="stylesheet">
-		<link href="css/customize.css" rel="stylesheet"/>
 		<script type="text/javascript" src="jquery-1.12.4.min.js"></script>
-		<script type="text/javascript" src="js/ja"></script>
+		
+		<style>
+			.user_field li {
+				display: inline
+			}
+			.content {
+				min-height: 670px;
+				margin-top: 5px;
+			}
+			.detail {
+				margin-left: 10px;
+			}
+			.detail_frameSize {
+				width: 72%;
+				min-height: 400px;
+				margin-top: 23px;
+				background-color: white
+			}
+			#category_field {
+				height: 30px;
+				width: 20%;
+				background-color: white;
+				position: fixed;
+				border-radius: 2px;
+				margin-top: 0;
+				overflow: scroll;
+			}
+			#post_field {
+				width: 80%;
+				margin-left: 23%;
+				border: 1px solid;
+				background-color: #e4e4e4;
+				border-style: solid;
+			}
+			#Category_title {
+				width: 78%;
+				text-align: center;
+				color: #01DF3A;
+				height: 10%
+			}
+			.page_clicker {
+				margin-left: 26%
+			}
+			.writing_style h1 {
+				font-family: Arial Black;
+				color: #a3cf62;
+				font-size: 200%
+			}
+			.writing_style p {
+				font-family: Verdana;
+				font-size: 100%
+			}
+			 #error {
+                color: red;
+                margin-left: 20px;
+            }
+		</style>
 
 		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -53,9 +93,9 @@ if(isset($_POST['user_name']) && isset($_POST['email']) && isset($_POST['passwor
 		<div class="container">
 			<div style="height:115px;"></div>
 			<div id="error" class=""></div>
-			<form name="form" method="post" id="user_form">
+			<form name="form" method="post" id="user_form" action="./jump/add_user.php">
 				<div class="form-group">
-					<label for="user name">User Name </label>
+					<label for="user name">User Name</label>
 					<input type="text" class="form-control" name="user_name" id="user_name" placeholder="user name">
 				</div>
 				<div class="form-group">
@@ -78,8 +118,55 @@ if(isset($_POST['user_name']) && isset($_POST['email']) && isset($_POST['passwor
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 		<!-- Include all compiled plugins (below), or include individual files as needed -->
 		<script src="js/bootstrap.min.js"></script>
-		<script src="js/form.js"></script>
-		
+		<script>
+            $('#user_form').submit(function(event) {
+
+                var error_message = checkform();
+                if (error_message != "")
+                    event.preventDefault();
+
+                $('#error').html(error_message);
+            });
+            function checkform() {
+                var error_M = "";
+                var error_color="rgb(217,83,79)";
+                var correct_color="rgb(76,175,80)";
+                if ($('#user_name').val() == "") {
+                    error_M += "User name is empty<br>";
+                    $('#user_name').css("background-color",error_color);
+                }
+                else
+                {
+                    $('#user_name').css("background-color",correct_color);
+                }
+                if ($('#email').val() == "") {
+                    error_M += "Email is empty<br>";
+                    $('#email').css("background-color",error_color);
+                }
+                else
+                {
+                    $('#email').css("background-color",correct_color);
+                }
+                
+                if ($('#password').val() == "") {
+                    error_M += "Password field is empty<br>";
+                     $('#password').css("background-color",error_color);
+                }
+                 else
+                {
+                    $('#password').css("background-color",correct_color);
+                }              
+                if ($('#confirm_password').val() == "") {
+                    error_M += "Confirm password is empty<br>";
+                     $('#confirm_password').css("background-color",error_color);
+                }
+                 else
+                {
+                    $('#confirm_password').css("background-color",correct_color);
+                }                
+                return error_M;
+            }
+        </script>
 	</body>
 </html>
 
