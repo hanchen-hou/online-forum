@@ -96,16 +96,12 @@ if (isset($_GET['post_id']) && is_numeric($_GET['post_id'])) {
 				text-align: center;
 			}
 
-			.comment-center{
+			.comment-center {
 				margin-left: 60px;
 			}
 
-			.post-title{
-				font-size:23px;
-			}
-
-			.text-black{
-				color: black;
+			.post-title {
+				font-size: 23px;
 			}
 		</style>
 
@@ -117,50 +113,42 @@ if (isset($_GET['post_id']) && is_numeric($_GET['post_id'])) {
 		<![endif]-->
 	</head>
 	<body>
-		<div class="navbar navbar-inverse navbar-fixed-top">
-			<div class="container">
-
-				<div class="navbar-header">
-					<span class="navbar-brand glyphicon glyphicon glyphicon-align-justify" aria-hidden="true"></span>
-					<label class="navbar-brand" style="">Society Community</label>
-					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                	<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
 						<span class="sr-only">Toggle navigation</span>
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-				</div>
+      				<a class="navbar-brand" href="./index.php">Society Community</a>
+    			</div>
 
-				<div class="collapse navbar-collapse user_field">
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav navbar-right" >
 						<?php
 						require_once (dirname(__FILE__) . "/model/admins.php");
 						require_once (dirname(__FILE__) . "/model/users.php");
 
-						$login_form = '<form class="form-inline navbar-form" method="post" action="jump/login.php">
-										<li>
-										<label style="color:white; margin-right: 5px">Username:</label>
-										<input type="text" class="form-control" name="user_name" placeholder="Username" />
-										</li>
+						$login_form = '
+									<form class="navbar-form navbar-left" method="post" action="jump/login.php">
+					                    <div class="form-group">
+					                        <input type="text" class="form-control" name="user_name" placeholder="Username">
+					                    </div>
+					                    <div class="form-group">
+					                        <input type="password" class="form-control" name="password" placeholder="Password">
+					                    </div>
+					                    <button type="submit" class="btn btn-success">Sign In</button>
+					                    <a href="signup.php"><button type="button" class="btn btn-default">Register</button></a>
+					                </form>
+									';
 
-										<li>
-										<label style="color:white; margin-right: 5px">Password:</label>
-										<input type="password" class="form-control" name="password" placeholder="Password" />
-										</li>
-										<li>
-										<label style="color: white;margin-right: 5px">Admin:</label>
-										<input type="checkbox" name="is_admin" class="checkbox" />
-										</li>
-										<li>
-										<input type="submit" value="Login" id="Login" class="form-control" name="login">
-										</li>
-										<li>
-										<a href="signup.php"><input type="button" value="Sign Up" id="Signup" class="form-control" name="signup"></a>
-										</li>
-										</form>';
 						$after_login = '<div class="navbar-header navbar-brand" style="color:green">Welcome</div>
-										<div class="navbar-header navbar-brand"><a href="./account/jump.php">%s</a></div>
-										<a href="jump/logout.php"><button type="button" class="btn btn-danger">Logout</button></a>';
+										<li><a href="./account/jump.php">%s</a></li>
+										<form class="navbar-form navbar-left" role="logout">
+											<a href="jump/logout.php"><button type="button" class="btn btn-danger">Logout</button></a>
+										</form>';
 						$sub_page = $login_form;
 
 						//error_reporting(-1);
@@ -186,7 +174,6 @@ if (isset($_GET['post_id']) && is_numeric($_GET['post_id'])) {
 						echo $sub_page;
 						?>
 					</ul>
-
 				</div>
 			</div>
 		</div>
@@ -249,11 +236,11 @@ if (isset($_GET['post_id']) && is_numeric($_GET['post_id'])) {
 									<span class="glyphicon glyphicon-info-sign"></span>
 								</button>
 								<ul class="dropdown-menu">
-									<li class="text-center text-black">
+									<li class="text-center">
 										<?php $post = $GLOBALS['post']; echo $post['USER_NAME'] ?>
 									</li>
 									<li role="separator" class="divider"></li>
-									<li class="text-center text-black">
+									<li class="text-center">
 										<?php $post = $GLOBALS['post']; echo $post['DATETIME'] ?>
 									</li>
 								</ul>
@@ -321,29 +308,29 @@ if (isset($_GET['post_id']) && is_numeric($_GET['post_id'])) {
 						<ul class="pagination">
 							<?php
 
-								/*
-								 * Page Number
-								 */
+							/*
+							 * Page Number
+							 */
 
-								$start_num = ($GLOBALS['page'] - ($GLOBALS['page'] % 5)) + 1;
-								$template = '<li><a href="post.php?post_id=%s&page=%s">%s</a></li>';
+							$start_num = ($GLOBALS['page'] - ($GLOBALS['page'] % 5)) + 1;
+							$template = '<li><a href="post.php?post_id=%s&page=%s">%s</a></li>';
 
-								if ($start_num - 1 > 0) {
-									echo sprintf($template, $_GET['post_id'], $start_num - 1, '&laquo;');
-								}
-								for ($i = 0; $i < 5; $i++) {
-									if ($start_num + $i > $GLOBALS['total_pages'])
-										break;
+							if ($start_num - 1 > 0) {
+								echo sprintf($template, $_GET['post_id'], $start_num - 1, '&laquo;');
+							}
+							for ($i = 0; $i < 5; $i++) {
+								if ($start_num + $i > $GLOBALS['total_pages'])
+									break;
 
-									if ($start_num + $i == $GLOBALS['page']) {
-										echo '<li><a>' . $GLOBALS['page'] . '</a></li>';
-									} else {
-										echo sprintf($template, $_GET['post_id'], $start_num + $i, $start_num + $i);
-									}
+								if ($start_num + $i == $GLOBALS['page']) {
+									echo '<li><a>' . $GLOBALS['page'] . '</a></li>';
+								} else {
+									echo sprintf($template, $_GET['post_id'], $start_num + $i, $start_num + $i);
 								}
-								if ($start_num + 5 < $GLOBALS['total_pages']) {
-									echo sprintf($template, $_GET['post_id'], $start_num + 5, '&raquo;');
-								}
+							}
+							if ($start_num + 5 < $GLOBALS['total_pages']) {
+								echo sprintf($template, $_GET['post_id'], $start_num + 5, '&raquo;');
+							}
 							?>
 						</ul>
 					</div>

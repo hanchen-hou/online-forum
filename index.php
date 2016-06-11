@@ -81,12 +81,12 @@
 				text-align: center;
 			}
 
-      .post-title{
-				font-size:22px;
+			.post-title {
+				font-size: 22px;
 			}
 
-      .big-title{
-				font-size:28px;
+			.big-title {
+				font-size: 28px;
 			}
 
         </style>
@@ -100,18 +100,16 @@
     </head>
     <body>
         <div class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container">
-
+            <div class="container-fluid">
                 <div class="navbar-header">
-                    <span class="navbar-brand glyphicon glyphicon glyphicon-align-justify" aria-hidden="true"></span>
-                    <label class="navbar-brand" style="">Society Community</label>
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                </div>
+                	<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+      				<a class="navbar-brand" href="./index.php">Society Community</a>
+    			</div>
 
                 <div class="collapse navbar-collapse user_field">
                     <ul class="nav navbar-nav navbar-right" >
@@ -119,30 +117,24 @@
 						require_once (dirname(__FILE__) . "/model/admins.php");
 						require_once (dirname(__FILE__) . "/model/users.php");
 
-						$login_form = '<form class="form-inline navbar-form" method="post" action="jump/login.php">
-									<li>
-										<label style="color:white; margin-right: 5px">Username:</label>
-										<input type="text" class="form-control" name="user_name" placeholder="Username" />
-									</li>
-
-									<li>
-										<label style="color:white; margin-right: 5px">Password:</label>
-										<input type="password" class="form-control" name="password" placeholder="Password" />
-									</li>
-									<li>
-										<label style="color: white;margin-right: 5px">Admin:</label>
-										<input type="checkbox" name="is_admin" class="checkbox" />
-									</li>
-									<li>
-										<input type="submit" value="Login" id="Login" class="form-control" name="login">
-									</li>
-									<li>
-										<a href="signup.php"><input type="button" value="Sign Up" id="Signup" class="form-control" name="signup"></a>
-									</li>
-									</form>';
+						$login_form = '
+									<form class="navbar-form navbar-left" method="post" action="jump/login.php">
+					                    <div class="form-group">
+					                        <input type="text" class="form-control" name="user_name" placeholder="Username">
+					                    </div>
+					                    <div class="form-group">
+					                        <input type="password" class="form-control" name="password" placeholder="Password">
+					                    </div>
+					                    <button type="submit" class="btn btn-success">Sign In</button>
+					                    <a href="signup.php"><button type="button" class="btn btn-default">Register</button></a>
+					                </form>
+									';
+									
 						$after_login = '<div class="navbar-header navbar-brand" style="color:green">Welcome</div>
-										<div class="navbar-header navbar-brand"><a href="./account/jump.php">%s</a></div>
-										<a href="jump/logout.php"><button type="button" class="btn btn-danger">Logout</button></a>';
+										<li><a href="./account/jump.php">%s</a></li>
+										<form class="navbar-form navbar-left" role="logout">
+											<a href="jump/logout.php"><button type="button" class="btn btn-danger">Logout</button></a>
+										</form>';
 						$sub_page = $login_form;
 
 						//error_reporting(-1);
@@ -256,7 +248,7 @@
 				}
 				$offset = ($GLOBALS['page'] - 1) * POSTS_NUM_ONE_PAGE;
 				for ($i = $offset, $j = 0; $i < count($posts['ID']) && $j < 10; $i++, $j++) {
-					echo sprintf($template, $posts['NAME'][$i], $posts['DATETIME'][$i], $GLOBALS['category_id'], $posts['ID'][$i], $posts['TITLE'][$i], $posts['CONTENT'][$i]);
+					echo sprintf($template, $posts['DATETIME'][$i], $posts['NAME'][$i], $GLOBALS['category_id'], $posts['ID'][$i], $posts['TITLE'][$i], $posts['CONTENT'][$i]);
 				}
 				?>
                     <!--Posts End-->
