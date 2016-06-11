@@ -1,5 +1,25 @@
 <?php
 require_once (dirname(dirname(__FILE__)) . "/model/admins.php");
+/*
+ * check cookie, only admin can access this page
+ * otherwise, cannot access this page
+ */
+if (isset($_COOKIE['id']) && isset($_COOKIE['type'])) {
+	if ($_COOKIE['type'] == 'admin') {
+		$admin = AdminsTable::select_by_id($_COOKIE['id']);
+		if ($admin) {
+			$GLOBALS['user_name'] = $admin['NAME'];
+		}
+	}
+}
+
+if (!isset($GLOBALS['user_name'])) {
+	exit("No Permission");
+}
+?>
+
+<?php
+require_once (dirname(dirname(__FILE__)) . "/model/admins.php");
 require_once (dirname(__FILE__) . "/_print_jump_page_.php");
 
 if (isset($_POST['user_name']) && isset($_POST['email']) && isset($_POST['password'])) {
