@@ -53,5 +53,5 @@ function main() {
 	}
 }
 
-print_jump_page($GLOBAL['result'], $GLOBALS['referer']);
+print_jump_page($GLOBALS['result'], $GLOBALS['referer']);
 ?>
