@@ -11,85 +11,7 @@
 
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="css/simple-sidebar.css" rel="stylesheet">
-        <style>
-			.user_field li {
-				display: inline
-			}
-			.content {
-				min-height: 670px;
-				margin-top: 5px;
-			}
-			.detail {
-				margin-left: 10%;
-			}
-			.detail_frameSize {
-				width: 70%;
-				min-height: 100px;
-				margin-top: 23px;
-				background-color: white
-			}
-			#category_field {
-				height: 30px;
-				width: 15%;
-				background-color: white;
-				position: fixed;
-				border-radius: 2px;
-				margin-top: 0;
-				overflow-x: hidden;
-				overflow-y: auto;
-			}
-			#post_field {
-				width: 100%;
-				border: 1px solid;
-				background-color: #e4e4e4;
-				border-style: solid;
-			}
-			#Category_title {
-				width: 78%;
-				text-align: center;
-				color: #01DF3A;
-				height: 10%
-			}
-			.page_clicker {
-				margin-left: 26%
-			}
-			.writing_style h1 {
-				font-family: Arial Black;
-				color: #a3cf62;
-				font-size: 200%;
-			}
-			.writing_style p {
-				font-family: Verdana;
-				font-size: 100%;
-			}
-			.selected {
-				background-color: rgb(206,255,104);
-				color: black;
-			}
-			#margintop {
-				margin-top: 59px;
-			}
-			.mypanel {
-				width: 84%;
-				margin-left: 16%;
-			}
-			#create_post {
-				margin-left: 16%;
-				width: 84;
-			}
-			.center {
-				text-align: center;
-			}
-
-			.post-title {
-				font-size: 22px;
-			}
-
-			.big-title {
-				font-size: 28px;
-			}
-
-        </style>
+        <link href="css/index.css" rel="stylesheet" />
 
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -100,16 +22,18 @@
     </head>
     <body>
         <div class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container-fluid">
+            <div class="container">
+
                 <div class="navbar-header">
-                	<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-						<span class="sr-only">Toggle navigation</span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</button>
-      				<a class="navbar-brand" href="./index.php">Society Community</a>
-    			</div>
+                    <span class="navbar-brand glyphicon glyphicon glyphicon-align-justify" aria-hidden="true"></span>
+                    <label class="navbar-brand" style="">Society Community</label>
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
 
                 <div class="collapse navbar-collapse user_field">
                     <ul class="nav navbar-nav navbar-right" >
@@ -117,24 +41,30 @@
 						require_once (dirname(__FILE__) . "/model/admins.php");
 						require_once (dirname(__FILE__) . "/model/users.php");
 
-						$login_form = '
-									<form class="navbar-form navbar-left" method="post" action="jump/login.php">
-					                    <div class="form-group">
-					                        <input type="text" class="form-control" name="user_name" placeholder="Username">
-					                    </div>
-					                    <div class="form-group">
-					                        <input type="password" class="form-control" name="password" placeholder="Password">
-					                    </div>
-					                    <button type="submit" class="btn btn-success">Sign In</button>
-					                    <a href="signup.php"><button type="button" class="btn btn-default">Register</button></a>
-					                </form>
-									';
-									
+						$login_form = '<form class="form-inline navbar-form" method="post" action="jump/login.php">
+									<li>
+										<label style="color:white; margin-right: 5px">Username:</label>
+										<input type="text" class="form-control" name="user_name" placeholder="Username" />
+									</li>
+
+									<li>
+										<label style="color:white; margin-right: 5px">Password:</label>
+										<input type="password" class="form-control" name="password" placeholder="Password" />
+									</li>
+									<li>
+										<label style="color: white;margin-right: 5px">Admin:</label>
+										<input type="checkbox" name="is_admin" class="checkbox" />
+									</li>
+									<li>
+										<input type="submit" value="Login" id="Login" class="form-control" name="login">
+									</li>
+									<li>
+										<a href="signup.php"><input type="button" value="Sign Up" id="Signup" class="form-control" name="signup"></a>
+									</li>
+									</form>';
 						$after_login = '<div class="navbar-header navbar-brand" style="color:green">Welcome</div>
-										<li><a href="./account/jump.php">%s</a></li>
-										<form class="navbar-form navbar-left" role="logout">
-											<a href="jump/logout.php"><button type="button" class="btn btn-danger">Logout</button></a>
-										</form>';
+										<div class="navbar-header navbar-brand">%s</div>
+										<a href="jump/logout.php"><button type="button" class="btn btn-danger">Logout</button></a>';
 						$sub_page = $login_form;
 
 						//error_reporting(-1);
