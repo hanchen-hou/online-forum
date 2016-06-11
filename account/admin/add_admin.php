@@ -187,7 +187,7 @@ if (!isset($GLOBALS['user_name'])) {
 									<input name="password" type="password" class="form-control" id="password" placeholder="Password">
 								</div>
 								<div class="form-group">
-									<label for="new_password">Confirm New Password</label>
+									<label for="new_password">Confirm Password</label>
 									<input name="confirm_password" type="password" class="form-control" id="confirm_password" placeholder="Confirm New Password">
 								</div>
 								<div class="form-group">
