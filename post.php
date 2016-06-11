@@ -103,6 +103,10 @@ if (isset($_GET['post_id']) && is_numeric($_GET['post_id'])) {
 			.post-title{
 				font-size:23px;
 			}
+
+			.text-black{
+				color: black;
+			}
 		</style>
 
 		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -155,8 +159,8 @@ if (isset($_GET['post_id']) && is_numeric($_GET['post_id'])) {
 										</li>
 										</form>';
 						$after_login = '<div class="navbar-header navbar-brand" style="color:green">Welcome</div>
-										<div class="navbar-header navbar-brand">%s</div>
-										<a href="logout.php"><button type="button" class="btn btn-danger">Logout</button></a>';
+										<div class="navbar-header navbar-brand"><a href="./account/jump.php">%s</a></div>
+										<a href="jump/logout.php"><button type="button" class="btn btn-danger">Logout</button></a>';
 						$sub_page = $login_form;
 
 						//error_reporting(-1);
@@ -245,12 +249,12 @@ if (isset($_GET['post_id']) && is_numeric($_GET['post_id'])) {
 									<span class="glyphicon glyphicon-info-sign"></span>
 								</button>
 								<ul class="dropdown-menu">
-									<li class="text-center">
-										<?php echo $GLOBALS['post']['USER_NAME'] ?>
+									<li class="text-center text-black">
+										<?php $post = $GLOBALS['post']; echo $post['USER_NAME'] ?>
 									</li>
 									<li role="separator" class="divider"></li>
-									<li class="text-center">
-										<?php echo $GLOBALS['post']['DATETIME']?>
+									<li class="text-center text-black">
+										<?php $post = $GLOBALS['post']; echo $post['DATETIME'] ?>
 									</li>
 								</ul>
 							</div>

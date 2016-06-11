@@ -141,7 +141,7 @@
 									</li>
 									</form>';
 						$after_login = '<div class="navbar-header navbar-brand" style="color:green">Welcome</div>
-										<div class="navbar-header navbar-brand">%s</div>
+										<div class="navbar-header navbar-brand"><a href="./account/jump.php">%s</a></div>
 										<a href="jump/logout.php"><button type="button" class="btn btn-danger">Logout</button></a>';
 						$sub_page = $login_form;
 
@@ -256,7 +256,7 @@
 				}
 				$offset = ($GLOBALS['page'] - 1) * POSTS_NUM_ONE_PAGE;
 				for ($i = $offset, $j = 0; $i < count($posts['ID']) && $j < 10; $i++, $j++) {
-					echo sprintf($template, $posts['DATETIME'][$i], $posts['NAME'][$i], $GLOBALS['category_id'], $posts['ID'][$i], $posts['TITLE'][$i], $posts['CONTENT'][$i]);
+					echo sprintf($template, $posts['NAME'][$i], $posts['DATETIME'][$i], $GLOBALS['category_id'], $posts['ID'][$i], $posts['TITLE'][$i], $posts['CONTENT'][$i]);
 				}
 				?>
                     <!--Posts End-->
