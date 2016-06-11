@@ -123,7 +123,7 @@
 					                        <input type="text" class="form-control" name="user_name" placeholder="Username">
 					                    </div>
 					                    <div class="form-group">
-					                        <input type="text" class="form-control" name="password" placeholder="Password">
+					                        <input type="password" class="form-control" name="password" placeholder="Password">
 					                    </div>
 					                    <button type="submit" class="btn btn-success">Sign In</button>
 					                    <a href="signup.php"><button type="button" class="btn btn-default">Register</button></a>
