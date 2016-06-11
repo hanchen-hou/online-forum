@@ -183,8 +183,8 @@ if (!isset($GLOBALS['user_name'])) {
 									<input name="email" type="email" class="form-control" id="user_name" placeholder="Email Address">
 								</div>
 								<div class="form-group">
-									<label for="new_password">New Password</label>
-									<input name="new_password" type="password" class="form-control" id="new_password" placeholder="New Password">
+									<label for="password">Password</label>
+									<input name="password" type="password" class="form-control" id="password" placeholder="Password">
 								</div>
 								<div class="form-group">
 									<label for="new_password">Confirm New Password</label>
