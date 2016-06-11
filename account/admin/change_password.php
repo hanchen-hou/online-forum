@@ -110,22 +110,32 @@ if(!isset($GLOBALS['user_name'])){
         <![endif]-->
     </head>
     <body>
-        <div class="navbar navbar-inverse navbar-fixed-top">
-			<div class="container">
-				<div class="navbar-header col-md-9">
-					<span class="navbar-brand glyphicon glyphicon glyphicon-align-justify" aria-hidden="true"></span>
-					<label class="navbar-brand">Society Community</label>
+		<div class="navbar navbar-inverse navbar-fixed-top">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="../../index.php">Society Community</a>
 				</div>
-				<div class="navbar-header navbar-brand" style="color:green">
-					Welcome
-				</div>
-				<div class="navbar-header navbar-brand">
-					<a href=""><?php echo $GLOBALS['user_name'] ?></a>
-				</div>
-				<div class="navbar-header navbar-brand">
-					<a href="../../jump/logout.php">
-						<button type="button" class="btn btn-danger">Logout</button>
-					</a>
+				<div class="collapse navbar-collapse user_field">
+					<ul class="nav navbar-nav navbar-right" >
+						<div class="navbar-header navbar-brand" style="color:green">
+							Welcome
+						</div>
+						<li>
+							<a href="../jump.php"><?php echo $GLOBALS['user_name'] ?></a>
+						</li>
+						<form class="navbar-form navbar-left" role="logout">
+							<a href="../../jump/logout.php">
+							<button type="button" class="btn btn-danger">
+								Logout
+							</button> </a>
+						</form>
+					</ul>
 				</div>
 			</div>
 		</div>

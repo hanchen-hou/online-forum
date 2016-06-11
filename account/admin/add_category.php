@@ -133,7 +133,7 @@ if (!isset($GLOBALS['user_name'])) {
 							Welcome
 						</div>
 						<li>
-							<a href="./account/jump.php"><?php echo $GLOBALS['user_name'] ?></a>
+							<a href="../jump.php"><?php echo $GLOBALS['user_name'] ?></a>
 						</li>
 						<form class="navbar-form navbar-left" role="logout">
 							<a href="../../jump/logout.php">

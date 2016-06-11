@@ -29,9 +29,68 @@ if(!isset($GLOBALS['user_name'])){
 		<!-- Bootstrap -->
 		<link href="../../css/bootstrap.min.css" rel="stylesheet">
 		<link href="../../css/simple-sidebar.css" rel="stylesheet">
-		<link href="../../css/form/customize.css" rel="stylesheet" />
 		<script type="text/javascript" src="jquery-1.12.4.min.js"></script>
-		
+		<style>
+			.user_field li {
+				display: inline
+			}
+			.content {
+				min-height: 670px;
+				margin-top: 5px;
+			}
+			.detail {
+				margin-left: 9%;
+			}
+			.detail_frameSize {
+				width: 70%;
+				min-height: 100px;
+				margin-top: 23px;
+				background-color: white
+			}
+			#category_field {
+				height: 30px;
+				width: 15%;
+				background-color: white;
+				position: fixed;
+				border-radius: 2px;
+				margin-top: 0;
+				overflow-x: hidden;
+				overflow-y: auto;
+			}
+			#post_field {
+				width: 83%;
+				margin-left: 17%;
+				border: 1px solid;
+				background-color: #e4e4e4;
+				border-style: solid;
+			}
+			#Category_title {
+				width: 78%;
+				text-align: center;
+				color: #01DF3A;
+				height: 10%
+			}
+			.page_clicker {
+				margin-left: 26%
+			}
+			.writing_style h1 {
+				font-family: Arial Black;
+				color: #a3cf62;
+				font-size: 200%;
+			}
+			.writing_style p {
+				font-family: Verdana;
+				font-size: 100%;
+			}
+			.selected {
+				background-color: rgb(206,255,104);
+				color: black;
+			}
+			#error {
+				color: red;
+				margin-left: 20px;
+			}
+		</style>
 
 		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -42,21 +101,31 @@ if(!isset($GLOBALS['user_name'])){
 	</head>
 	<body>
 		<div class="navbar navbar-inverse navbar-fixed-top">
-			<div class="container">
-				<div class="navbar-header col-md-9">
-					<span class="navbar-brand glyphicon glyphicon glyphicon-align-justify" aria-hidden="true"></span>
-					<label class="navbar-brand">Society Community</label>
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="../../index.php">Society Community</a>
 				</div>
-				<div class="navbar-header navbar-brand" style="color:green">
-					Welcome
-				</div>
-				<div class="navbar-header navbar-brand">
-					<a href=""><?php echo $GLOBALS['user_name'] ?></a>
-				</div>
-				<div class="navbar-header navbar-brand">
-					<a href="../../jump/logout.php">
-						<button type="button" class="btn btn-danger">Logout</button>
-					</a>
+				<div class="collapse navbar-collapse user_field">
+					<ul class="nav navbar-nav navbar-right" >
+						<div class="navbar-header navbar-brand" style="color:green">
+							Welcome
+						</div>
+						<li>
+							<a href="../jump.php"><?php echo $GLOBALS['user_name'] ?></a>
+						</li>
+						<form class="navbar-form navbar-left" role="logout">
+							<a href="../../jump/logout.php">
+							<button type="button" class="btn btn-danger">
+								Logout
+							</button> </a>
+						</form>
+					</ul>
 				</div>
 			</div>
 		</div>
