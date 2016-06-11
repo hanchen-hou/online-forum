@@ -31,7 +31,8 @@ class BannedUsersTable {
 				(:user_id, :admin_id, CURRENT_TIMESTAMP);
 				UPDATE CS_USERS SET STATUS=1 WHERE ID=:user_id;
 				END IF;
-				END;";
+				END;
+				";
 		$stmt = oci_parse($conn, $sql);
 		oci_bind_by_name($stmt, ":user_id", $user_id);
 		oci_bind_by_name($stmt, ":admin_id", $admin_id);
@@ -106,9 +107,7 @@ class BannedUsersTable {
 				banned_datetime TIMESTAMP NOT NULL,
 				admin_id INT NOT NULL,
 				FOREIGN  KEY (id) REFERENCES " . USERS_TABLE . "(id),
-				FOREIGN  KEY (admin_id) REFERENCES " . ADMINS_TABLE . "(id),
-				check
-				(admin_id not in (select id from cs_admins))
+				FOREIGN  KEY (admin_id) REFERENCES " . ADMINS_TABLE . "(id)
 				)
 				";
 
