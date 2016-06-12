@@ -12,7 +12,7 @@ if (isset($_COOKIE['id']) && isset($_COOKIE['type'])) {
 	if ($_COOKIE['type'] == 'admin') {
 		$admin = AdminsTable::select_by_id($_COOKIE['id']);
 		if (count($admin['ID']) > 0) {
-			header('Location: ./admin/change_password.php');
+			header('Location: ./admin/admin_profile.php');
 		}
 	} else if ($_COOKIE['type'] == 'user') {
 		$user = UsersTable::select_by_id($_COOKIE['id']);
