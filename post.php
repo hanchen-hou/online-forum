@@ -106,6 +106,24 @@ if (isset($_GET['post_id']) && is_numeric($_GET['post_id'])) {
 			.post-title {
 				font-size: 23px;
 			}
+			 .buttonmargin {
+                margin-left: 6px;
+                margin-top: -4px;
+            }
+            .dateTimeANDUser {
+                clear: both;
+                margin-top: 2px;
+            }
+            .writing_style_ForTitle {
+                font-size: 110%;
+            }
+            .writing_style_ForPostTitle {
+                font-size: 130%;
+            }
+            .writing_style_Forinput {
+                font-size: 100%;
+                font-weight: normal
+            }
 		</style>
 
 		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -239,22 +257,8 @@ if (isset($_GET['post_id']) && is_numeric($_GET['post_id'])) {
 					<!--Current Post title and content-->
 					<div class="panel panel-primary">
 						<div class="panel-heading">
-							<button type="button" class="btn btn-default pull-right">
-								<span class="glyphicon glyphicon-flag"></span>
-							</button>
-							<div class="btn-group pull-left">
-								<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-									<span class="glyphicon glyphicon-info-sign"></span>
-								</button>
-								<ul class="dropdown-menu">
-									<li class="text-center">
-										<?php $post = $GLOBALS['post']; echo $post['USER_NAME'] ?>
-									</li>
-									<li role="separator" class="divider"></li>
-									<li class="text-center">
-										<?php $post = $GLOBALS['post']; echo $post['DATETIME'] ?>
-									</li>
-								</ul>
+							
+							<div class="btn-group pull-left">						
 							</div>
 							<h3 class="panel-title text-center post-title"><b><?php $post = $GLOBALS['post']; echo $post['TITLE'] ?></b></h3>
 							<div class="clearfix"></div>
@@ -271,26 +275,25 @@ if (isset($_GET['post_id']) && is_numeric($_GET['post_id'])) {
 					 *  Comments Part
 					 */
 					$template = '
+					
 					<div class="panel panel-success comment-center">
 						<div class="panel-heading">
-							<button type="button" class="btn btn-default pull-right">
-								<span class="glyphicon glyphicon-flag"></span>
-							</button>
-							<div class="btn-group pull-left">
-								<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-									<span class="glyphicon glyphicon-info-sign"></span>
-								</button>
-								<ul class="dropdown-menu">
-									<li class="text-center">
-										%s
-									</li>
-									<li role="separator" class="divider"></li>
-									<li class="text-center">
-										%s
-									</li>
-								</ul>
-							</div>
-							<h3 class="panel-title title-center"></h3>
+							
+							<div class="dateTimeANDUser">
+
+                                <label class="marginleft margintopbypx writing_style_ForTitle" >Date/Time: </label>
+                                <label name="DateOrTime" class="writing_style_Forinput">%s</label>
+                                <label class="marginleft margintopbypx writing_style_ForTitle" >User Name: </label>
+                                <label name="user_name" class="writing_style_Forinput">%s</label>
+                                <button type="button" class="btn btn-danger btn-xs buttonmargin">
+                                    Ban
+                                </button>
+                                <div class= "pull-right">
+                                    <button type="button" class="btn btn-default pull-right">
+                                        <span class="glyphicon glyphicon-trash"></span>
+                                    </button>
+                                </div>
+                            </div>
 							<div class="clearfix"></div>
 						</div>
 						<div class="panel-body">
@@ -309,7 +312,7 @@ if (isset($_GET['post_id']) && is_numeric($_GET['post_id'])) {
 					}
 					$offset = ($GLOBALS['page'] - 1) * COMMENTS_NUM_ONE_PAGE;
 					for ($i = $offset, $j = 0; $i < count($comments['ID']) && $j < 10; $i++, $j++) {
-						echo sprintf($template, $comments['USER_NAME'][$i], $comments['DATETIME'][$i], $comments['CONTENT'][$i]);
+						echo sprintf($template,$comments['DATETIME'][$i] ,$comments['USER_NAME'][$i], $comments['CONTENT'][$i]);
 					}
 					?>
 					<!--Posts-->
