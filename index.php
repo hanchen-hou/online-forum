@@ -174,19 +174,10 @@
 					 */
 
 					require_once (dirname(__FILE__) . "/model/categories.php");
-					$template = '<li>
-                        <a class="sidebar-brand" href="index.php?category_id=%s&page=1">
-                          %s
-                          <span class="glyphicon glyphicon-fire" style="color:red"></span>
-                        </a>
-                       </li>';
-					$template_selected = '<li class="selected">
-                                  <a class="sidebar-brand" href="index.php?category_id=%s&page=1">
-                                    %s
-                                    <span class="glyphicon glyphicon-fire" style="color:red"></span>
-                                  </a>
-                                </li>';
+					$template = '<a class="sidebar-brand" href="index.php?category_id=%s&page=1">%s';
+					
 					$categories = CategoriesTable::select_all();
+					$hottest_categories = CategoriesTable::get_hottest_category();
 
 					$GLOBALS['category_id'] = $categories['ID'][0];
 					$GLOBALS['category_name'] = $categories['NAME'][0];
@@ -202,10 +193,17 @@
 
 					for ($i = 0; $i < count($categories['ID']); $i++) {
 						if ($categories['ID'][$i] == $GLOBALS['category_id']) {
-							echo sprintf($template_selected, $categories['ID'][$i], $categories['NAME'][$i]);
+							echo '<li class="selected">';
 						} else {
-							echo sprintf($template, $categories['ID'][$i], $categories['NAME'][$i]);
+							echo '<li>';
 						}
+						echo sprintf($template, $categories['ID'][$i], $categories['NAME'][$i]);
+						for($j = 0; $j < count($hottest_categories['CATEGORY_ID']); $j++){
+							if($hottest_categories['CATEGORY_ID'][$j] == $categories['ID'][$i]){
+								echo '<span class="glyphicon glyphicon-fire" style="color:red"></span>';
+							}
+						}
+						echo '</a></li>';
 					}
 					?>
                 </ul>
@@ -284,7 +282,7 @@
 					 */
 
 					$start_num = ($GLOBALS['page'] - ($GLOBALS['page'] % 5)) + 1;
-					$template = '<li><a href="index.php?category=%s&page=%s">%s</a></li>';
+					$template = '<li><a href="index.php?category_id=%s&page=%s">%s</a></li>';
 
 					if ($start_num - 1 > 0) {
 						echo sprintf($template, $GLOBALS['category_id'], $start_num - 1, '&laquo;');

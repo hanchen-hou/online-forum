@@ -18,6 +18,9 @@ define('MSGS_SEQ', 'CS_MSGS_SEQ');
 // Triggers Name
 define('CATEGORIES_TRIGGER', 'CS_ADD_CATEGORIES');
 
+//Views Name
+define('POSTS_VIEW', 'CS_POSTS_DETAIL');
+define('CATEGORIES_VIEW', 'CS_CATEGORIES_DETAIL');
 
 define('USER_ID_LENGTH', 9);
 define('ADMIN_ID_LENGTH', 9);
