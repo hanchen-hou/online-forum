@@ -56,7 +56,10 @@ if (isset($_GET['post_id']) && is_numeric($_GET['post_id'])) {
 			#post_field {
 				width: 100%;
 				border: 1px solid;
-				background-color: #e4e4e4;
+				background-image: url('https://wp-themes.com/wp-content/themes/gule/images/pattern.png'); 
+				background-repeat: repeat; 
+				background-position: top left; 
+				background-attachment: scroll; 
 				border-style: solid;
 			}
 			#Category_title {
@@ -189,9 +192,10 @@ if (isset($_GET['post_id']) && is_numeric($_GET['post_id'])) {
 					 */
 
 					require_once (dirname(__FILE__) . "/model/categories.php");
-					$template = '<li><a class="sidebar-brand" href="index.php?category_id=%s&page=1">%s</a></li>';
-					$template_selected = '<li class="selected"><a class="sidebar-brand" href="index.php?category=%s&page=1">%s</a></li>';
+					$template = '<a class="sidebar-brand" href="index.php?category_id=%s&page=1">%s';
+					
 					$categories = CategoriesTable::select_all();
+					$hottest_categories = CategoriesTable::get_hottest_category();
 
 					$GLOBALS['category_id'] = $categories['ID'][0];
 					$GLOBALS['category_name'] = $categories['NAME'][0];
@@ -207,10 +211,17 @@ if (isset($_GET['post_id']) && is_numeric($_GET['post_id'])) {
 
 					for ($i = 0; $i < count($categories['ID']); $i++) {
 						if ($categories['ID'][$i] == $GLOBALS['category_id']) {
-							echo sprintf($template_selected, $categories['ID'][$i], $categories['NAME'][$i]);
+							echo '<li class="selected">';
 						} else {
-							echo sprintf($template, $categories['ID'][$i], $categories['NAME'][$i]);
+							echo '<li>';
 						}
+						echo sprintf($template, $categories['ID'][$i], $categories['NAME'][$i]);
+						for($j = 0; $j < count($hottest_categories['CATEGORY_ID']); $j++){
+							if($hottest_categories['CATEGORY_ID'][$j] == $categories['ID'][$i]){
+								echo '<span class="glyphicon glyphicon-fire" style="color:red"></span>';
+							}
+						}
+						echo '</a></li>';
 					}
 					?>
 				</ul>

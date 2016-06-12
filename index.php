@@ -41,7 +41,10 @@
 			#post_field {
 				width: 100%;
 				border: 1px solid;
-				background-color: #e4e4e4;
+				background-image: url('https://wp-themes.com/wp-content/themes/gule/images/pattern.png'); 
+				background-repeat: repeat; 
+				background-position: top left; 
+				background-attachment: scroll; 
 				border-style: solid;
 			}
 			#Category_title {
