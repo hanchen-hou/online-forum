@@ -28,21 +28,21 @@ function main() {
 		$GLOBALS['result'] = 'Please Login';
 		return;
 	}
-	if (!isset($_POST['user_id']) || $_POST['user_id'] == FALSE) {
+	if (!isset($_GET['user_id']) || $_GET['user_id'] == FALSE) {
 		$GLOBALS['result'] = 'No User ID';
 		return;
 	}
-	if (AdminsTable::select_by_id($_COOKIE['id'])){
+	if (AdminsTable::select_by_id($_COOKIE['id']) == FALSE){
 		$GLOBALS['result'] = 'Only admins can unban users.';
 		return;
 	}
-	if (!BannedUsersTable::select_by_id($_POST['user_id'])){
+	if (!BannedUsersTable::select_by_id($_GET['user_id'])){
 		$GLOBALS['result'] = 'This user is not banned!';
 		return;
 	}
 
 	$data = array();
-	$data['user_id'] = $_POST['user_id'];
+	$data['user_id'] = $_GET['user_id'];
 	$data['admin_id'] = $_COOKIE['id'];
 	
 	if (BannedUsersTable::unban_by_id($data['user_id'], $data['admin_id'])) {

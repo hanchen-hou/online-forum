@@ -28,21 +28,21 @@ function main() {
 		$GLOBALS['result'] = 'Please Login';
 		return;
 	}
-	if (!isset($_POST['user_id']) || $_POST['user_id'] == FALSE) {
+	if (!isset($_GET['user_id']) || $_GET['user_id'] == FALSE) {
 		$GLOBALS['result'] = 'No User ID';
 		return;
 	}
-	if ($_POST['user_id'] == $_COOKIE['id']){
+	if ($_GET['user_id'] == $_COOKIE['id']){
 		$GLOBALS['result'] = 'You cannot ban yourself!';
 		return;
 	}
-	if (AdminsTable::select_by_id($_POST['user_id'])){
+	if (AdminsTable::select_by_id($_GET['user_id'])){
 		$GLOBALS['result'] = 'You cannot ban an admin.';
 		return;
 	}
 
 	$data = array();
-	$data['user_id'] = $_POST['user_id'];
+	$data['user_id'] = $_GET['user_id'];
 	$data['admin_id'] = $_COOKIE['id'];
 	
 	if (BannedUsersTable::ban_by_id($data['user_id'], $data['admin_id'])) {
