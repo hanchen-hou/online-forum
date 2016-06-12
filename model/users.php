@@ -41,8 +41,8 @@ class UsersTable {
 		oci_bind_by_name($stmt, ":name", $data['name']);
 		oci_bind_by_name($stmt, ":pw_md5", $pw_md5);
 		oci_bind_by_name($stmt, ":salt", $salt);
-		oci_bind_by_name($stmt, ":status", $statue);
 		//0=good/1=ban
+		oci_bind_by_name($stmt, ":status", $statue);
 
 		$result = oci_execute($stmt);
 		oci_close($conn);
@@ -158,6 +158,49 @@ class UsersTable {
 		}
 	}
 
+	// how many posts a user makes in each category
+	static function posts_summary($user_id){
+		$conn = connect_db();
+		$sql = "select category_name, count(*)
+				from CS_POSTS_DETAIL
+				where user_id = :id
+				group by category_name
+				UNION
+				select category_name, 0
+				from CS_POSTS_DETAIL
+				where category_name not in (select category_name
+											from CS_POSTS_DETAIL
+											where user_id = :id)";
+		$stmt = oci_parse($conn, $sql);
+		oci_bind_by_name($stmt, ":id", $user_id);
+		oci_execute($stmt);
+		oci_close($conn);
+
+		$row = oci_fetch_all($stmt, $res);
+		return $res;
+	}
+	
+	// which categories that a user seldom goes
+	// this use division
+	static function seldom_go($user_id){
+		$conn = connect_db();
+		$sql = "select c.name
+				from CS_CATEGORIES c
+				where c.id in (Select distinct id
+				                from CS_CATEGORIES
+				                MINUS
+				                Select distinct p.category_id
+				                from cs_posts_detail p
+				                where p.USER_ID = :id)";
+		$stmt = oci_parse($conn, $sql);
+		oci_bind_by_name($stmt, ":id", $user_id);
+		oci_execute($stmt);
+		oci_close($conn);
+
+		$row = oci_fetch_all($stmt, $res);
+		return $res;
+	}
+	
 	static function create() {
 		$conn = connect_db();
 		$sql = "create table " . USERS_TABLE . " 

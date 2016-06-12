@@ -118,5 +118,28 @@ class PostsTable {
 		return $result;
 	}
 
+	static function create_view() {
+		$conn = connect_db();
+		$sql = "create view ".POSTS_VIEW."(CATEGORY_ID, CATEGORY_NAME, USER_ID, USER_NAME, POST_ID, TITLE, CONTENT, DATETIME) As
+				  select c.id, c.name, u.id, u.name, p.id, p.title, m.content, m.datetime
+				  from ".MSGS_TABLE." m, ".POSTS_TABLE." p, ".USERS_TABLE." u, ".CATEGORIES_TABLE." c 
+				  where m.id = p.id and u.id = m.user_id and c.id = p.category_id";
+
+		$stmt = oci_parse($conn, $sql);
+
+		$result = oci_execute($stmt);
+		oci_close($conn);
+
+		return $result;
+	}
+	
+	static function drop_view() {
+		$conn = connect_db();
+		$sql = "drop view " . POSTS_VIEW;
+		$stmt = oci_parse($conn, $sql);
+		$result = oci_execute($stmt);
+		oci_close($conn);
+		return $result;
+	}
 }
 ?>

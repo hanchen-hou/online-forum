@@ -35,6 +35,12 @@ function main() {
 		$GLOBALS['result'] = 'Post content cannot be empty';
 		return;
 	}
+	
+	// check if the user is banned
+	if(UsersTable::is_banned($_COOKIE['id'])){
+		$GLOBALS['result'] = 'Sorry, you are banned.';
+		return;
+	}
 
 	$data = array();
 	$data['post_id'] = $_POST['post_id'];
