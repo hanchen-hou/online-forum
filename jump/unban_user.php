@@ -1,7 +1,7 @@
 <?php
 /*
  * require:
- * $_POST['user_id']
+ * $_GET['user_id']
  * $_COOKIE['id'] // must be admin
  * $_COOKIE['type']
  * 
