@@ -63,11 +63,14 @@
                 font-family: Verdana;
                 font-size: 100%;
             }
+            .writing_style_ForTitle{font-size:110%;}
+            .writing_style_Forinput{font-size:100%;font-weight:normal}
             .selected {
                 background-color: rgb(206,255,104);
                 color:black;
             }
             .marginleft{margin-left:2%;}
+            .margintopbypx{margin-top:8px}
             #margintop{margin-top:59px;}
             .mypanel{width:84%; margin-left:16%;}
             #create_post{margin-left:16%;width:84;}
@@ -91,22 +94,32 @@
     </head>
     <body>
         <div class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container">
-
-                <div class="navbar-header col-md-9">
-                    <span class="navbar-brand glyphicon glyphicon glyphicon-align-justify" aria-hidden="true"></span>
-                    <label class="navbar-brand" style="">Society Community</label>
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="../../index.php">Society Community</a>
                 </div>
-                <div class="navbar-header navbar-brand" style="color:green">
-                    Welcome
+                <div class="collapse navbar-collapse user_field">
+                    <ul class="nav navbar-nav navbar-right" >
+                        <div class="navbar-header navbar-brand" style="color:green">
+                            Welcome
+                        </div>
+                        <li>
+                            <a href="../jump.php"></a>
+                        </li>
+                        <form class="navbar-form navbar-left" role="logout">
+                            <a href="../../jump/logout.php">
+                            <button type="button" class="btn btn-danger">
+                                Logout
+                            </button> </a>
+                        </form>
+                    </ul>
                 </div>
-                <div class="navbar-header navbar-brand">
-                    User
-                </div>
-                <div class="navbar-header navbar-brand">
-                    <a href=" #">Logout</a>
-                </div>
-
             </div>
         </div>
 
@@ -145,72 +158,81 @@
                
 
                     <div class="panel panel-success">
-                      <div class="panel-heading">
-                            <button type="button" class="btn btn-default pull-right">
-                                <span class="glyphicon glyphicon-flag"></span>
-                            </button>
+                      <div class="panel-heading">                            
                             <div class="btn-group pull-left">
-                              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="glyphicon glyphicon-info-sign"></span>
-                              </button>
-                              <ul class="dropdown-menu">
-                                <li class="text-center">Date/Time</li>
-                                <li role="separator" class="divider"></li>
-                                <li class="text-center">Username</li>
-                              </ul>
+                              <button type="button" class="btn btn-default" name="unban1">
+                                    UNBAN
+                              </button>                           
                             </div>
-                        <h3 class="panel-title title-center">Post Title</h3>
+                        <label class="marginleft margintopbypx writing_style_ForTitle" >User ID:</label><label name="user_id1" class="writing_style_Forinput">123</label>
+                        <label class="marginleft margintopbypx writing_style_ForTitle" >User Name:</label><label name="user_name1" class="writing_style_Forinput">Trisha</label>
                             <div class="clearfix"></div>
-                      </div>
-                      <div class="panel-body">
-                            Post 1
-                      </div>
+                      </div>                    
                     </div>
                     
                      <div class="panel panel-success">
-                      <div class="panel-heading">
-                            <button type="button" class="btn btn-default pull-right">
-                                <span class="glyphicon glyphicon-flag"></span>
-                            </button>
+                      <div class="panel-heading">                            
                             <div class="btn-group pull-left">
-                              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="glyphicon glyphicon-info-sign"></span>
-                              </button>
-                              <ul class="dropdown-menu">
-                                <li class="text-center">Date/Time</li>
-                                <li role="separator" class="divider"></li>
-                                <li class="text-center">Username</li>
-                              </ul>
+                              <button type="button" class="btn btn-default" name="unban2">
+                                    UNBAN
+                              </button>                           
                             </div>
-                        <h3 class="panel-title title-center">User ID</h3>
+                        <label class="marginleft margintopbypx writing_style_ForTitle" >User ID:</label><label name="user_id2" class="writing_style_Forinput">123</label>
+                        <label class="marginleft margintopbypx writing_style_ForTitle" >User Name:</label><label name="user_name2" class="writing_style_Forinput">Trisha</label>
                             <div class="clearfix"></div>
-                      </div>
-                      <div class="panel-body">
-                            Post 1
-                      </div>
+                      </div>                    
                     </div>
                     
                      <div class="panel panel-success">
-                      <div class="panel-heading">
-                            <button type="button" class="btn btn-default pull-right">
-                                <span class="glyphicon glyphicon-flag"></span>
-                            </button>
+                      <div class="panel-heading">                            
                             <div class="btn-group pull-left">
-                              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="glyphicon glyphicon-info-sign"></span>
-                              </button>
-                              <ul class="dropdown-menu">
-                                <li class="text-center">Date/Time</li>
-                                <li role="separator" class="divider"></li>
-                                <li class="text-center">Username</li>
-                              </ul>
+                              <button type="button" class="btn btn-default" name="unban3">
+                                    UNBAN
+                              </button>                           
                             </div>
-                        <h3 class="panel-title title-center">Post Title</h3>
+                        <label class="marginleft margintopbypx writing_style_ForTitle" >User ID:</label><label name="user_id3" class="writing_style_Forinput">123</label>
+                        <label class="marginleft margintopbypx writing_style_ForTitle" >User Name:</label><label name="user_name3" class="writing_style_Forinput">Trisha</label>
                             <div class="clearfix"></div>
-                      </div>
-                      <div class="panel-body">
-                            Post 1
-                      </div>
+                      </div>                    
+                    </div>
+                    
+                    <div class="panel panel-success">
+                      <div class="panel-heading">                            
+                            <div class="btn-group pull-left">
+                              <button type="button" class="btn btn-default" name="unban3">
+                                    UNBAN
+                              </button>                           
+                            </div>
+                        <label class="marginleft margintopbypx writing_style_ForTitle" >User ID:</label><label name="user_id3" class="writing_style_Forinput">123</label>
+                        <label class="marginleft margintopbypx writing_style_ForTitle" >User Name:</label><label name="user_name3" class="writing_style_Forinput">Trisha</label>
+                            <div class="clearfix"></div>
+                      </div>                    
+                    </div>
+                    
+                    <div class="panel panel-success">
+                      <div class="panel-heading">                            
+                            <div class="btn-group pull-left">
+                              <button type="button" class="btn btn-default" name="unban3">
+                                    UNBAN
+                              </button>                           
+                            </div>
+                        <label class="marginleft margintopbypx writing_style_ForTitle" >User ID:</label><label name="user_id3" class="writing_style_Forinput">123</label>
+                        <label class="marginleft margintopbypx writing_style_ForTitle" >User Name:</label><label name="user_name3" class="writing_style_Forinput">Trisha</label>
+                            <div class="clearfix"></div>
+                      </div>                    
+                    </div>
+                    
+                    <div class="panel panel-success">
+                      <div class="panel-heading">                            
+                            <div class="btn-group pull-left">
+                              <button type="button" class="btn btn-default" name="unban3">
+                                    UNBAN
+                              </button>                           
+                            </div>
+                        <label class="marginleft margintopbypx writing_style_ForTitle" >User ID:</label><label name="user_id3" class="writing_style_Forinput">123</label>
+                        <label class="marginleft margintopbypx writing_style_ForTitle" >User Name:</label><label name="user_name3" class="writing_style_Forinput">Trisha</label>
+                            <div class="clearfix"></div>
+                      </div>                    
                     </div>
                     
                     
