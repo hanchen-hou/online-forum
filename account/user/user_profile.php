@@ -1,5 +1,7 @@
 <?php
 require_once (dirname(dirname(dirname(__FILE__))) . "/model/users.php");
+require_once (dirname(dirname(dirname(__FILE__))) . "/model/categories.php");
+
 /*
  * check cookie
  * otherwise, cannot access this page
@@ -8,14 +10,19 @@ if (isset($_COOKIE['id']) && isset($_COOKIE['type'])) {
 	if ($_COOKIE['type'] == 'user') {
 		$user = UsersTable::select_by_id($_COOKIE['id']);
 		if ($user) {
+			$GLOBALS['user_id'] = $user['ID'];
 			$GLOBALS['user_name'] = $user['NAME'];
+			$GLOBALS['email'] = $user['EMAIL'];
 		}
 	}
 }
 
-if(!isset($GLOBALS['user_name'])){
+if (!isset($GLOBALS['user_name'])) {
 	exit("No Permission");
 }
+
+$GLOBALS['posts_summary'] = UsersTable::posts_summary($_COOKIE['id']);
+$GLOBALS['most_diligent'] = UsersTable::most_diligent();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -30,97 +37,97 @@ if(!isset($GLOBALS['user_name'])){
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../css/simple-sidebar.css" rel="stylesheet">
         <style>
-            .user_field li {
-                display: inline
-            }
-            .content {
-                min-height: 670px;
-                margin-top: 5px;
-            }
-            .detail {
-                margin-left: 9%;
-            }
-            .detail_frameSize {
-                width: 70%;
-                min-height: 100px;
-                margin-top: 23px;
-                background-color: white
-            }
-            #category_field {
-                height: 30px;
-                width: 15%;
-                background-color: white;
-                position: fixed;
-                border-radius: 2px;
-                margin-top: 0;
-                overflow-x: hidden;
-                overflow-y: auto;
-            }
-            #post_field {
+			.user_field li {
+				display: inline
+			}
+			.content {
+				min-height: 670px;
+				margin-top: 5px;
+			}
+			.detail {
+				margin-left: 9%;
+			}
+			.detail_frameSize {
+				width: 70%;
+				min-height: 100px;
+				margin-top: 23px;
+				background-color: white
+			}
+			#category_field {
+				height: 30px;
+				width: 15%;
+				background-color: white;
+				position: fixed;
+				border-radius: 2px;
+				margin-top: 0;
+				overflow-x: hidden;
+				overflow-y: auto;
+			}
+			#post_field {
 				width: 100%;
 				border: 1px solid;
 				background-image: url('https://wp-themes.com/wp-content/themes/gule/images/pattern.png'
-					);
-					background-repeat: repeat;
-					background-position: top left;
-					background-attachment: scroll;
-					border-style: solid;
-					}
-					#Category_title {
-						width: 78%;
-						text-align: center;
-						color: #01DF3A;
-						height: 10%
-					}
-					.page_clicker {
-						margin-left: 26%
-					}
-					.writing_style h1 {
-						font-family: Arial Black;
-						color: #a3cf62;
-						font-size: 200%;
-					}
-					.writing_style p {
-						font-family: Verdana;
-						font-size: 100%;
-					}
-					.selected {
-						background-color: rgb(206,255,104);
-						color: black;
-					}
-					.big-title {
-						font-size: 20px;
-					}
-					.marginleft {
-						margin-left: 2%;
-					}
-					#margintop {
-						margin-top: 59px;
-					}
-					.mypanel {
-						width: 84%;
-						margin-left: 16%;
-					}
-					#create_post {
-						margin-left: 16%;
-						width: 84;
-					}
-					.center {
-						text-align: center;
-					}
-					#post_field {
-						width: 100%;
-						border: 1px solid;
-						background-color: #e4e4e4;
-						border-style: solid;
-						margin-left: 0;
-					}
-					ul {
-					  list-style-type: none;
-					}
-					.profile-info-text {
-						font-size: 20px;
-					}
+				);
+				background-repeat: repeat;
+				background-position: top left;
+				background-attachment: scroll;
+				border-style: solid;
+			}
+			#Category_title {
+				width: 78%;
+				text-align: center;
+				color: #01DF3A;
+				height: 10%
+			}
+			.page_clicker {
+				margin-left: 26%
+			}
+			.writing_style h1 {
+				font-family: Arial Black;
+				color: #a3cf62;
+				font-size: 200%;
+			}
+			.writing_style p {
+				font-family: Verdana;
+				font-size: 100%;
+			}
+			.selected {
+				background-color: rgb(206,255,104);
+				color: black;
+			}
+			.big-title {
+				font-size: 20px;
+			}
+			.marginleft {
+				margin-left: 2%;
+			}
+			#margintop {
+				margin-top: 59px;
+			}
+			.mypanel {
+				width: 84%;
+				margin-left: 16%;
+			}
+			#create_post {
+				margin-left: 16%;
+				width: 84;
+			}
+			.center {
+				text-align: center;
+			}
+			#post_field {
+				width: 100%;
+				border: 1px solid;
+				background-color: #e4e4e4;
+				border-style: solid;
+				margin-left: 0;
+			}
+			ul {
+				list-style-type: none;
+			}
+			.profile-info-text {
+				font-size: 20px;
+			}
         </style>
 
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -182,35 +189,60 @@ if(!isset($GLOBALS['user_name'])){
                     <!--Posts-->
                     <div class="panel panel-primary marginleft" >
                         <div class="panel-body">
-													<ul class="profile-info-text">
-														<li>ID:</li>
-														<li>Name:</li>
-														<li>Email:</li>
-													</ul>
+							<ul class="profile-info-text">
+								<li>ID: <?php echo $GLOBALS['user_id'] ?></li>
+								<li>Name: <?php echo $GLOBALS['user_name'] ?></li>
+								<li>Email: <?php echo $GLOBALS['email'] ?></li>
+							</ul>
                         </div>
                     </div>
-										<div class="panel panel-danger marginleft" >
-											<div class="panel-heading">
-												Posts Summary
-											</div>
-                        <div class="panel-body">
-													<ul>
-														<li>Category 1:</li>
-														<li>Category 2:</li>
-														<li>Category 3:</li>
-													</ul>
-                        </div>
-                    </div>
-										<div class="panel panel-info marginleft" >
-											<div class="panel-heading">
-												Best Users in the last 24 hours
-											</div>
-                        <div class="panel-body">
-													<ul>
-														<li>Name 1</li>
-														<li>Name 2</li>
-														<li>Name 3</li>
-													</ul>
+					<div class="panel panel-danger marginleft" >
+						<div class="panel-heading">
+							Posts Summary
+						</div>
+						<div class="panel-body">
+							<ul>
+								<?php 
+								$posts_summary = $GLOBALS['posts_summary'];
+								if(count($posts_summary['CATEGORY_NAME']) > 0){
+									for($i = 0; $i < count($posts_summary['CATEGORY_NAME']); $i++){
+										echo '<li>';
+										echo $posts_summary['CATEGORY_NAME'][$i];
+										echo ': ';
+										echo $posts_summary['POSTS_NUM'][$i];
+										//echo ' posts';
+										echo '</li>';
+									}
+								}else{
+									echo '<li>Error</li>';
+								}
+								?>
+							</ul>
+						</div>
+					</div>
+					<div class="panel panel-info marginleft" >
+						<div class="panel-heading">
+							Best Users in the last 24 hours
+						</div>
+						<div class="panel-body">
+							<ul>
+								<?php 
+								$most_diligent = $GLOBALS['most_diligent'];
+								if(count($most_diligent['ID']) > 0){
+									for($i = 0; $i < count($most_diligent['EMAIL']); $i++){
+										echo '<li>';
+										echo ($i+1).'. ';
+										echo $posts_summary['NAME'][$i];
+										echo ' makes ';
+										echo $posts_summary['POSTS_NUM'][$i];
+										//echo ' posts';
+										echo '</li>';
+									}
+								}else{
+									echo '<li>Nobody is here... </li>';
+								}
+								?>
+							</ul>
                         </div>
                     </div>
                 </div>
