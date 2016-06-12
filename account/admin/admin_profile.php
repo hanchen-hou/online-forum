@@ -1,5 +1,7 @@
 <?php
 require_once (dirname(dirname(dirname(__FILE__))) . "/model/admins.php");
+require_once (dirname(dirname(dirname(__FILE__))) . "/model/users.php");
+require_once (dirname(dirname(dirname(__FILE__))) . "/model/categories.php");
 /*
  * check cookie
  * otherwise, cannot access this page
@@ -8,7 +10,9 @@ if (isset($_COOKIE['id']) && isset($_COOKIE['type'])) {
 	if ($_COOKIE['type'] == 'admin') {
 		$admin = AdminsTable::select_by_id($_COOKIE['id']);
 		if ($admin) {
+			$GLOBALS['user_id'] = $admin['ID'];
 			$GLOBALS['user_name'] = $admin['NAME'];
+			$GLOBALS['email'] = $admin['EMAIL'];
 		}
 	}
 }
@@ -16,6 +20,9 @@ if (isset($_COOKIE['id']) && isset($_COOKIE['type'])) {
 if (!isset($GLOBALS['user_name'])) {
 	exit("No Permission");
 }
+
+$GLOBALS['posts_summary'] = UsersTable::posts_summary($_COOKIE['id']);
+$GLOBALS['most_diligent'] = UsersTable::most_diligent();
 ?>
 
 <!DOCTYPE html>
@@ -164,24 +171,24 @@ if (!isset($GLOBALS['user_name'])) {
 
         <div class="container-fluid" style="overflow-x: hidden;overflow-y:auto">
             <div class="content" id="category_field" style="margin-top:5%;margin-right:2%;overflow-x: hidden;overflow-y:auto" >
-							<ul class="sidebar-nav" style="width: 90%" >
-								<label>Admin Settings</label>
-								<li class="selected">
-										<a class="sidebar-brand" href="admin_profile.php">Profile</a>
-								</li>
-								<li>
-									<a class="sidebar-brand" href="change_password.php">Change Password</a>
-								</li>
-								<li>
-									<a class="sidebar-brand" href="manage_users.php">Manage Users</a>
-								</li>
-								<li>
-									<a class="sidebar-brand" href="add_admin.php">Add Admin</a>
-								</li>
-								<li>
-									<a class="sidebar-brand" href="add_category.php">Add Category</a>
-								</li>
-							</ul>
+				<ul class="sidebar-nav" style="width: 90%" >
+					<label>Admin Settings</label>
+					<li class="selected">
+						<a class="sidebar-brand" href="admin_profile.php">Profile</a>
+					</li>
+					<li>
+						<a class="sidebar-brand" href="change_password.php">Change Password</a>
+					</li>
+					<li>
+						<a class="sidebar-brand" href="manage_users.php">Manage Users</a>
+					</li>
+					<li>
+						<a class="sidebar-brand" href="add_admin.php">Add Admin</a>
+					</li>
+					<li>
+						<a class="sidebar-brand" href="add_category.php">Add Category</a>
+					</li>
+				</ul>
             </div>
             <div class="panel panel-primary mypanel " id="margintop">
                 <div class="panel-heading center">
@@ -192,35 +199,60 @@ if (!isset($GLOBALS['user_name'])) {
                     <!--Posts-->
                     <div class="panel panel-primary marginleft" >
                         <div class="panel-body">
-													<ul class="profile-info-text">
-														<li>ID:</li>
-														<li>Name:</li>
-														<li>Email:</li>
-													</ul>
+							<ul class="profile-info-text">
+								<li>ID: <?php echo $GLOBALS['user_id'] ?></li>
+								<li>Name: <?php echo $GLOBALS['user_name'] ?></li>
+								<li>Email: <?php echo $GLOBALS['email'] ?></li>
+							</ul>
                         </div>
                     </div>
-										<div class="panel panel-danger marginleft" >
-											<div class="panel-heading">
-												Posts Summary
-											</div>
-                        <div class="panel-body">
-													<ul>
-														<li>Category 1:</li>
-														<li>Category 2:</li>
-														<li>Category 3:</li>
-													</ul>
-                        </div>
-                    </div>
-										<div class="panel panel-info marginleft" >
-											<div class="panel-heading">
-												Best Users in the last 24 hours
-											</div>
-                        <div class="panel-body">
-													<ul>
-														<li>Name 1</li>
-														<li>Name 2</li>
-														<li>Name 3</li>
-													</ul>
+					<div class="panel panel-danger marginleft" >
+						<div class="panel-heading">
+							Posts Summary
+						</div>
+						<div class="panel-body">
+							<ul>
+								<?php 
+								$posts_summary = $GLOBALS['posts_summary'];
+								if(count($posts_summary['CATEGORY_NAME']) > 0){
+									for($i = 0; $i < count($posts_summary['CATEGORY_NAME']); $i++){
+										echo '<li>';
+										echo $posts_summary['CATEGORY_NAME'][$i];
+										echo ': ';
+										echo $posts_summary['POSTS_NUM'][$i];
+										//echo ' posts';
+										echo '</li>';
+									}
+								}else{
+									echo '<li>Error</li>';
+								}
+								?>
+							</ul>
+						</div>
+					</div>
+					<div class="panel panel-info marginleft" >
+						<div class="panel-heading">
+							Best Users in the last 24 hours
+						</div>
+						<div class="panel-body">
+							<ul>
+								<?php 
+								$most_diligent = $GLOBALS['most_diligent'];
+								if(count($most_diligent['ID']) > 0){
+									for($i = 0; $i < count($most_diligent['EMAIL']); $i++){
+										echo '<li>';
+										echo ($i+1).'. ';
+										echo $posts_summary['NAME'][$i];
+										echo ' makes ';
+										echo $posts_summary['POSTS_NUM'][$i];
+										//echo ' posts';
+										echo '</li>';
+									}
+								}else{
+									echo '<li>Nobody is here... </li>';
+								}
+								?>
+							</ul>
                         </div>
                     </div>
                 </div>
