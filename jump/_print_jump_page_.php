@@ -74,7 +74,7 @@ function print_jump_page($result, $jump_link){
 						pgo = 1;
 						}
 					}
-					setTimeout('jump()',5000);
+					setTimeout('jump()',2000);
 				</script>
 			</div>
 		</center>

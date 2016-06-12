@@ -125,7 +125,7 @@ if (!isset($GLOBALS['user_name'])) {
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="./index.php">Society Community</a>
+					<a class="navbar-brand" href="../../index.php">Society Community</a>
 				</div>
 				<div class="collapse navbar-collapse user_field">
 					<ul class="nav navbar-nav navbar-right" >
@@ -133,7 +133,7 @@ if (!isset($GLOBALS['user_name'])) {
 							Welcome
 						</div>
 						<li>
-							<a href="./account/jump.php"><?php echo $GLOBALS['user_name'] ?></a>
+							<a href="../jump.php"><?php echo $GLOBALS['user_name'] ?></a>
 						</li>
 						<form class="navbar-form navbar-left" role="logout">
 							<a href="../../jump/logout.php">
@@ -192,7 +192,7 @@ if (!isset($GLOBALS['user_name'])) {
 								</div>
 								<input style="display: none" name="senior_id" value="<?php echo $_COOKIE['id'] ?>"/>
 								<div class="form-group">
-									<input type="submit" class="btn btn-primary " id="submit" value="Submit" style="margin-top:10px">
+									<input type="submit" class="btn btn-primary " id="submit" value="Add" style="margin-top:10px">
 								</div>
 							</form>
 

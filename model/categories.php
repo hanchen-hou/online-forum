@@ -7,6 +7,7 @@ class CategoriesTable{
 	// Require:
 	/* [
 	 * 'name'=> STR
+	 * 'admin_id'=> STR
 	 * ]
 	 */ 
 	static function insert($data){
@@ -59,7 +60,7 @@ class CategoriesTable{
 		$sql_1 = "create table ".CATEGORIES_TABLE." 
 			(
 			id INT PRIMARY KEY, 
-			name VARCHAR2(20) NOT NULL,
+			name VARCHAR2(20) NOT NULL UNIQUE,
 			datetime TIMESTAMP NOT NULL,
 			admin_id INT,
 			FOREIGN KEY (admin_id) REFERENCES ".ADMINS_TABLE."(id)

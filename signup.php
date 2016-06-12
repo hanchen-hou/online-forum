@@ -10,7 +10,7 @@
 		<!-- Bootstrap -->
 		<link href="css/bootstrap.min.css" rel="stylesheet">
 		<script type="text/javascript" src="jquery-1.12.4.min.js"></script>
-		<script type="text/javascript" src="js/ja"></script>
+
 		<style>
 			.user_field li {
 				display: inline
@@ -76,18 +76,17 @@
 		<![endif]-->
 	</head>
 	<body>
-		<div class="navbar navbar-inverse navbar-fixed-top">
-			<div class="container">
-				<div class="navbar-header">
-					<span class="navbar-brand glyphicon glyphicon glyphicon-align-justify" aria-hidden="true"></span>
-					<label class="navbar-brand">Society Community</label>
-					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                	<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
 						<span class="sr-only">Toggle navigation</span>
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-				</div>
+      				<a class="navbar-brand" href="./index.php">Society Community</a>
+    			</div>
 			</div>
 		</div>
 		<div class="container">
@@ -95,12 +94,12 @@
 			<div id="error" class=""></div>
 			<form name="form" method="post" id="user_form" action="./jump/add_user.php">
 				<div class="form-group">
-					<label for="user name">User Name</label>
-					<input type="text" class="form-control" name="user_name" id="user_name" placeholder="user name">
+					<label for="user name">Username</label>
+					<input type="text" class="form-control" name="user_name" id="user_name" placeholder="Username">
 				</div>
 				<div class="form-group">
-					<label for="email">Email address</label>
-					<input type="email" class="form-control" name="email" id="email" placeholder="email">
+					<label for="email">Email Address</label>
+					<input type="email" class="form-control" name="email" id="email" placeholder="Email Address">
 				</div>
 				<div class="form-group">
 					<label for="password">Password</label>
@@ -108,18 +107,64 @@
 				</div>
 				<!--TODO: Check password and confirm_password in javascript, should be same -->
 				<div class="form-group">
-					<label for="confirm_password">Password Confirmation</label>
+					<label for="confirm_password">Confirm Password</label>
 					<input type="password" class="form-control" id="confirm_password" placeholder="Confirm Password">
 				</div>
-				<input type="submit" class="btn btn-primary" id="submit" value="submit" style="margin-top:10px">
+				<input type="submit" class="btn btn-primary" id="submit" value="Submit" style="margin-top:10px">
 			</form>
 		</div>
 		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 		<!-- Include all compiled plugins (below), or include individual files as needed -->
 		<script src="js/bootstrap.min.js"></script>
-		<script src="js/form.js"></script>
-		
+		<script>
+            $('#user_form').submit(function(event) {
+
+                var error_message = checkform();
+                if (error_message != "")
+                    event.preventDefault();
+
+                $('#error').html(error_message);
+            });
+            function checkform() {
+                var error_M = "";
+                var error_color="rgb(217,83,79)";
+                var correct_color="rgb(76,175,80)";
+                if ($('#user_name').val() == "") {
+                    error_M += "User name is empty<br>";
+                    $('#user_name').css("background-color",error_color);
+                }
+                else
+                {
+                    $('#user_name').css("background-color",correct_color);
+                }
+                if ($('#email').val() == "") {
+                    error_M += "Email is empty<br>";
+                    $('#email').css("background-color",error_color);
+                }
+                else
+                {
+                    $('#email').css("background-color",correct_color);
+                }
+
+                if ($('#password').val() == "") {
+                    error_M += "Password field is empty<br>";
+                     $('#password').css("background-color",error_color);
+                }
+                 else
+                {
+                    $('#password').css("background-color",correct_color);
+                }
+                if ($('#confirm_password').val() == "") {
+                    error_M += "Confirm password is empty<br>";
+                     $('#confirm_password').css("background-color",error_color);
+                }
+                 else
+                {
+                    $('#confirm_password').css("background-color",correct_color);
+                }
+                return error_M;
+            }
+        </script>
 	</body>
 </html>
-

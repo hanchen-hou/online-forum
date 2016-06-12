@@ -108,7 +108,7 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-      				<a class="navbar-brand" href="./index.php">Society Community</a>
+      				<a class="navbar-brand" href="./index.php"><b>Society Community</b></a>
     			</div>
 
                 <div class="collapse navbar-collapse user_field">
@@ -129,7 +129,7 @@
 					                    <a href="signup.php"><button type="button" class="btn btn-default">Register</button></a>
 					                </form>
 									';
-									
+
 						$after_login = '<div class="navbar-header navbar-brand" style="color:green">Welcome</div>
 										<li><a href="./account/jump.php">%s</a></li>
 										<form class="navbar-form navbar-left" role="logout">
@@ -174,8 +174,18 @@
 					 */
 
 					require_once (dirname(__FILE__) . "/model/categories.php");
-					$template = '<li><a class="sidebar-brand" href="index.php?category_id=%s&page=1">%s</a></li>';
-					$template_selected = '<li class="selected"><a class="sidebar-brand" href="index.php?category_id=%s&page=1">%s</a></li>';
+					$template = '<li>
+                        <a class="sidebar-brand" href="index.php?category_id=%s&page=1">
+                          %s
+                          <span class="glyphicon glyphicon-fire" style="color:red"></span>
+                        </a>
+                       </li>';
+					$template_selected = '<li class="selected">
+                                  <a class="sidebar-brand" href="index.php?category_id=%s&page=1">
+                                    %s
+                                    <span class="glyphicon glyphicon-fire" style="color:red"></span>
+                                  </a>
+                                </li>';
 					$categories = CategoriesTable::select_all();
 
 					$GLOBALS['category_id'] = $categories['ID'][0];

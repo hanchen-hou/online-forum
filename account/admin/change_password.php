@@ -110,22 +110,32 @@ if(!isset($GLOBALS['user_name'])){
         <![endif]-->
     </head>
     <body>
-        <div class="navbar navbar-inverse navbar-fixed-top">
-			<div class="container">
-				<div class="navbar-header col-md-9">
-					<span class="navbar-brand glyphicon glyphicon glyphicon-align-justify" aria-hidden="true"></span>
-					<label class="navbar-brand">Society Community</label>
+		<div class="navbar navbar-inverse navbar-fixed-top">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="../../index.php">Society Community</a>
 				</div>
-				<div class="navbar-header navbar-brand" style="color:green">
-					Welcome
-				</div>
-				<div class="navbar-header navbar-brand">
-					<a href=""><?php echo $GLOBALS['user_name'] ?></a>
-				</div>
-				<div class="navbar-header navbar-brand">
-					<a href="../../jump/logout.php">
-						<button type="button" class="btn btn-danger">Logout</button>
-					</a>
+				<div class="collapse navbar-collapse user_field">
+					<ul class="nav navbar-nav navbar-right" >
+						<div class="navbar-header navbar-brand" style="color:green">
+							Welcome
+						</div>
+						<li>
+							<a href="../jump.php"><?php echo $GLOBALS['user_name'] ?></a>
+						</li>
+						<form class="navbar-form navbar-left" role="logout">
+							<a href="../../jump/logout.php">
+							<button type="button" class="btn btn-danger">
+								Logout
+							</button> </a>
+						</form>
+					</ul>
 				</div>
 			</div>
 		</div>
@@ -133,7 +143,7 @@ if(!isset($GLOBALS['user_name'])){
         <div class="container-fluid" style="overflow-x: hidden;overflow-y:auto">
             <div class="content" id="category_field" style="margin-top:5%;margin-right:2%;overflow-x: hidden;overflow-y:auto" >
                 <ul class="sidebar-nav" style="width: 90%" >
-                    <label>Admin's setting</label>
+                    <label>Admin Settings</label>
                     <li class="selected">
                         <a class="sidebar-brand" href="change_password.php">Change Password</a>
                     </li>
@@ -157,21 +167,21 @@ if(!isset($GLOBALS['user_name'])){
                     <!--Posts-->
                     <div class="panel panel-primary marginleft" >
                         <div class="panel-body">
-                            <form method="post" action="#">
+                            <form method="post" action="../../jump/change_password.php">
                                 <div class="form-group">
-                                    <label for="Old password">Old Password: </label>
-                                    <input name="password" type="password" class="form-control" id="old_password" placeholder="Old Password">
+                                    <label for="Old password">Old Password</label>
+                                    <input name="old_pw" type="password" class="form-control" id="old_password" placeholder="Old Password">
                                 </div>
 
                                 <div class="form-group"><label>New Password</label>
-                                <input name="new_password" type="password" class="form-control" id="new_password" placeholder="New Password">
+                                <input name="new_pw" type="password" class="form-control" id="new_password" placeholder="New Password">
                                 </div>
 
                                 <div class="form-group">
                                 <label for="new_password">Confirm New Password</label>
-                                <input name="confirm_password" type="password" class="form-control" id="confirm_password" placeholder="Confirm New Password">
+                                <input name="confirm_pw" type="password" class="form-control" id="confirm_password" placeholder="Confirm New Password">
                                 </div>
-                                <div class="form-group"><input type="submit" class="btn btn-primary " id="submit" value="Submit" style="margin-top:10px"></div>
+                                <div class="form-group"><input type="submit" class="btn btn-primary " id="submit" value="Confirm" style="margin-top:10px"></div>
                             </form>
 
                         </div>

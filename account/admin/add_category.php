@@ -13,7 +13,7 @@ if (isset($_COOKIE['id']) && isset($_COOKIE['type'])) {
 	}
 }
 
-if(!isset($GLOBALS['user_name'])){
+if (!isset($GLOBALS['user_name'])) {
 	exit("No Permission");
 }
 ?>
@@ -32,69 +32,80 @@ if(!isset($GLOBALS['user_name'])){
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../css/simple-sidebar.css" rel="stylesheet">
         <style>
-            .user_field li {
-                display: inline
-            }
-            .content {
-                min-height: 670px;
-                margin-top: 5px;
-            }
-            .detail {
-                margin-left: 10%;
-            }
-            .detail_frameSize {
-                width: 70%;
-                min-height: 100px;
-                margin-top: 23px;
-                background-color: white
-            }
-            #category_field {
-                height: 30px;
-                width: 15%;
-                background-color: white;
-                position: fixed;
-                border-radius: 2px;
-                margin-top: 0;
-                overflow-x: hidden;
-                overflow-y: auto;
-            }
-            #post_field {
-                width: 100%;
-
-                border: 1px solid;
-                background-color: #e4e4e4;
-                border-style: solid;
-            }
-            #Category_title {
-                width: 78%;
-                text-align: center;
-                color: #01DF3A;
-                height: 10%
-            }
-            .page_clicker {
-                margin-left: 26%
-            }
-            .writing_style h1 {
-                font-family: Arial Black;
-                color: #a3cf62;
-                font-size: 200%;
-            }
-            .writing_style p {
-                font-family: Verdana;
-                font-size: 100%;
-            }
-            .selected {
-                background-color: rgb(206,255,104);
-                color: black;
-            }
-            .big-title{
-              font-size: 20px;
-            }
-            .marginleft{margin-left:2%;}
-            #margintop{margin-top:59px;}
-            .mypanel{width:84%; margin-left:16%;}
-            #create_post{margin-left:16%;width:84;}
-            .center{text-align: center;}
+			.user_field li {
+				display: inline
+			}
+			.content {
+				min-height: 670px;
+				margin-top: 5px;
+			}
+			.detail {
+				margin-left: 10%;
+			}
+			.detail_frameSize {
+				width: 70%;
+				min-height: 100px;
+				margin-top: 23px;
+				background-color: white
+			}
+			#category_field {
+				height: 30px;
+				width: 15%;
+				background-color: white;
+				position: fixed;
+				border-radius: 2px;
+				margin-top: 0;
+				overflow-x: hidden;
+				overflow-y: auto;
+			}
+			#post_field {
+				width: 100%;
+				border: 1px solid;
+				background-color: #e4e4e4;
+				border-style: solid;
+			}
+			#Category_title {
+				width: 78%;
+				text-align: center;
+				color: #01DF3A;
+				height: 10%
+			}
+			.page_clicker {
+				margin-left: 26%
+			}
+			.writing_style h1 {
+				font-family: Arial Black;
+				color: #a3cf62;
+				font-size: 200%;
+			}
+			.writing_style p {
+				font-family: Verdana;
+				font-size: 100%;
+			}
+			.selected {
+				background-color: rgb(206,255,104);
+				color: black;
+			}
+			.big-title {
+				font-size: 20px;
+			}
+			.marginleft {
+				margin-left: 2%;
+			}
+			#margintop {
+				margin-top: 59px;
+			}
+			.mypanel {
+				width: 84%;
+				margin-left: 16%;
+			}
+			#create_post {
+				margin-left: 16%;
+				width: 84;
+			}
+			.center {
+				text-align: center;
+			}
         </style>
 
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -105,22 +116,32 @@ if(!isset($GLOBALS['user_name'])){
         <![endif]-->
     </head>
     <body>
-        <div class="navbar navbar-inverse navbar-fixed-top">
-			<div class="container">
-				<div class="navbar-header col-md-9">
-					<span class="navbar-brand glyphicon glyphicon glyphicon-align-justify" aria-hidden="true"></span>
-					<label class="navbar-brand">Society Community</label>
+		<div class="navbar navbar-inverse navbar-fixed-top">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="../../index.php">Society Community</a>
 				</div>
-				<div class="navbar-header navbar-brand" style="color:green">
-					Welcome
-				</div>
-				<div class="navbar-header navbar-brand">
-					<a href=""><?php echo $GLOBALS['user_name'] ?></a>
-				</div>
-				<div class="navbar-header navbar-brand">
-					<a href="../../jump/logout.php">
-						<button type="button" class="btn btn-danger">Logout</button>
-					</a>
+				<div class="collapse navbar-collapse user_field">
+					<ul class="nav navbar-nav navbar-right" >
+						<div class="navbar-header navbar-brand" style="color:green">
+							Welcome
+						</div>
+						<li>
+							<a href="../jump.php"><?php echo $GLOBALS['user_name'] ?></a>
+						</li>
+						<form class="navbar-form navbar-left" role="logout">
+							<a href="../../jump/logout.php">
+							<button type="button" class="btn btn-danger">
+								Logout
+							</button> </a>
+						</form>
+					</ul>
 				</div>
 			</div>
 		</div>
@@ -150,27 +171,22 @@ if(!isset($GLOBALS['user_name'])){
               </div>
               <div class="panel-body Post_Info"id="post_field">
 
-                    <!--Posts-->
-                    <div class="panel panel-primary marginleft" >
+               <div class="panel panel-primary marginleft" >
                 <div class="panel-body">
-                    <form class="form" method="post" action="#">
+                    <form class="form" method="post" action="../../jump/add_category.php">
                         <div class="form-group">
-                            <label>New Category:</label><input class="form-control" type="text" name="title" />
+                            <label>New Category:</label>
+                            <input class="form-control" type="text" name="name" />
                         </div>
+                        <input style="display: none" name="admin_id" value="<?php echo $_COOKIE['id'] ?>"/>
                         <div class="form-group">
-                            <input type="submit" value="Submit" name="submit" class="btn btn-primary" />
+                            <input type="submit" value="Add" name="submit" class="btn btn-primary" />
                         </div>
-                        </form>
-
+                    </form>
                 </div>
             </div>
-                    <!--Posts-->
               </div>
             </div>
-            <!--End of post area-->
-
-            <!--Create new post-->
-
         </div>
 
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
