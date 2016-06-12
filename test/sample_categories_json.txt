@@ -15,7 +15,7 @@
 		"name": "Games"
 	},
 	{
-		"name": "Movies&TV Shows"
+		"name": "Movies"
 	},
 	{
 		"name": "Food"
