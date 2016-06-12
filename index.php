@@ -174,8 +174,18 @@
 					 */
 
 					require_once (dirname(__FILE__) . "/model/categories.php");
-					$template = '<li><a class="sidebar-brand" href="index.php?category_id=%s&page=1">%s</a></li>';
-					$template_selected = '<li class="selected"><a class="sidebar-brand" href="index.php?category_id=%s&page=1">%s</a></li>';
+					$template = '<li>
+                        <a class="sidebar-brand" href="index.php?category_id=%s&page=1">
+                          %s
+                          <span class="glyphicon glyphicon-fire" style="color:red"></span>
+                        </a>
+                       </li>';
+					$template_selected = '<li class="selected">
+                                  <a class="sidebar-brand" href="index.php?category_id=%s&page=1">
+                                    %s
+                                    <span class="glyphicon glyphicon-fire" style="color:red"></span>
+                                  </a>
+                                </li>';
 					$categories = CategoriesTable::select_all();
 
 					$GLOBALS['category_id'] = $categories['ID'][0];
