@@ -25,7 +25,7 @@ if (!isset($GLOBALS['user_name'])) {
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-        <title>Add Category</title>
+        <title>Manage Users</title>
 
         <!-- Bootstrap -->
 
@@ -74,7 +74,7 @@ if (!isset($GLOBALS['user_name'])) {
 				height: 10%
 			}
 			.page_clicker {
-				margin-left: 26%
+				margin-left: 34%
 			}
 			.writing_style h1 {
 				font-family: Arial Black;
@@ -85,15 +85,25 @@ if (!isset($GLOBALS['user_name'])) {
 				font-family: Verdana;
 				font-size: 100%;
 			}
+			.writing_style_ForTitle {
+				font-size: 110%;
+			}
+			.writing_style_Forinput {
+				font-size: 100%;
+				font-weight: normal
+			}
 			.selected {
 				background-color: rgb(206,255,104);
 				color: black;
 			}
-			.big-title {
-				font-size: 20px;
-			}
+			.big-title{
+              font-size: 20px;
+            }
 			.marginleft {
 				margin-left: 2%;
+			}
+			.margintopbypx {
+				margin-top: 8px
 			}
 			#margintop {
 				margin-top: 59px;
@@ -108,6 +118,13 @@ if (!isset($GLOBALS['user_name'])) {
 			}
 			.center {
 				text-align: center;
+			}
+			#post_field {
+				width: 100%;
+				border: 1px solid;
+				background-color: #e4e4e4;
+				border-style: solid;
+				margin-left: 0;
 			}
         </style>
 
@@ -149,45 +166,56 @@ if (!isset($GLOBALS['user_name'])) {
 			</div>
 		</div>
 
-        <div class="container-fluid">
-
-            <div class="content" id="category_field" style="margin-top:5%;margin-right:2%" style="overflow-x: hidden;overflow-y: scroll;" >
-                <ul class="sidebar-nav" style="width:90%" >
+        <div class="container-fluid" style="overflow-x: hidden;overflow-y: auto;margin-top: ">
+            <div class="content" id="category_field" style="margin-top:5%;margin-right:2%;overflow-x: hidden;overflow-y: auto;" >
+                <ul class="sidebar-nav" style="width: 90%" >
                     <label>Admin Settings</label>
-                    <li>
-                        <a class="sidebar-brand" href="change_password.php">Change Password</a>
-                    </li>
-                    <li>
-                        <a class="sidebar-brand" href="manage_users.php">Manage Users</a>
-                    </li>
-                    <li>
-                        <a class="sidebar-brand" href="add_admin.php">Add Admin</a>
-                    </li>
-                    <li class="selected">
-                        <a class="sidebar-brand" href="add_category.php">Add Category</a>
-                    </li>
+                   	<li>
+						<a class="sidebar-brand" href="change_password.php">Change Password</a>
+					</li>
+					<li class="selected">
+						<a class="sidebar-brand" href="manage_users.php">Manage Users</a>
+					</li>
+					<li>
+						<a class="sidebar-brand" href="add_admin.php">Add Admin</a>
+					</li>
+					<li>
+						<a class="sidebar-brand" href="add_category.php">Add Category</a>
+					</li>
                 </ul>
             </div>
             <div class="panel panel-primary mypanel " id="margintop">
               <div class="panel-heading center">
-                <h3 class="panel-title big-title">Add Category</h3>
+                    <h3 class="panel-title big-title">Manage Users</h3>
               </div>
               <div class="panel-body Post_Info"id="post_field">
-
-               <div class="panel panel-primary marginleft" >
-                <div class="panel-body">
-                    <form class="form" method="post" action="../../jump/add_category.php">
-                        <div class="form-group">
-                            <label>New Category:</label>
-                            <input class="form-control" type="text" name="name" />
-                        </div>
-                        <input style="display: none" name="admin_id" value="<?php echo $_COOKIE['id'] ?>"/>
-                        <div class="form-group">
-                            <input type="submit" value="Add" name="submit" class="btn btn-primary" />
-                        </div>
-                    </form>
-                </div>
-            </div>
+                    <!--Posts-->
+                    <?php
+                    require_once (dirname(dirname(dirname(__FILE__))) . "/model/banned_users.php");
+                    $template = '
+                    <div class="panel panel-success">
+                      <div class="panel-heading">                            
+                            <div class="btn-group pull-left">
+                            	<a href="../../jump/unban_user.php?user_id=%s">
+	                              <button type="button" class="btn btn-default" name="unban1">
+	                                    UNBAN
+	                              </button>
+                              	</a>                      
+                            </div>
+	                        <label class="marginleft margintopbypx writing_style_ForTitle" >User ID:</label>
+	                        <label name="user_id" class="writing_style_Forinput">%s</label>
+	                        <label class="marginleft margintopbypx writing_style_ForTitle" >User Name:</label>
+	                        <label name="user_name" class="writing_style_Forinput">%s</label>
+                        <div class="clearfix"></div>
+                      </div>                    
+                    </div>';
+					$banned_users = BannedUsersTable::select_all();
+					
+					for($i = 0; $i<count($banned_users['ID']);$i++){
+						echo sprintf($template, $banned_users['ID'][$i], $banned_users['ID'][$i], $banned_users['NAME'][$i]);
+					}
+                    ?>
+                    <!--Posts-->
               </div>
             </div>
         </div>

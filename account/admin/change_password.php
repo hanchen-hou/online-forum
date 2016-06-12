@@ -57,49 +57,64 @@ if(!isset($GLOBALS['user_name'])){
                 overflow-y: auto;
             }
             #post_field {
-                width: 83%;
-                margin-left: 17%;
-                border: 1px solid;
-                background-color: #e4e4e4;
-                border-style: solid;
-            }
-            #Category_title {
-                width: 78%;
-                text-align: center;
-                color: #01DF3A;
-                height: 10%
-            }
-            .page_clicker {
-                margin-left: 26%
-            }
-            .writing_style h1 {
-                font-family: Arial Black;
-                color: #a3cf62;
-                font-size: 200%;
-            }
-            .writing_style p {
-                font-family: Verdana;
-                font-size: 100%;
-            }
-             .selected {
-                background-color: rgb(206,255,104);
-                color:black;
-            }
-            .big-title{
-              font-size: 20px;
-            }
-             .marginleft{margin-left:2%;}
-            #margintop{margin-top:59px;}
-            .mypanel{width:84%; margin-left:16%;}
-            #create_post{margin-left:16%;width:84;}
-            .center{text-align: center;}
-            #post_field {
-                width: 100%;
-                border: 1px solid;
-                background-color: #e4e4e4;
-                border-style: solid;
-                margin-left:0;
-            }
+				width: 100%;
+				border: 1px solid;
+				background-image: url('https://wp-themes.com/wp-content/themes/gule/images/pattern.png'
+					);
+					background-repeat: repeat;
+					background-position: top left;
+					background-attachment: scroll;
+					border-style: solid;
+					}
+					#Category_title {
+						width: 78%;
+						text-align: center;
+						color: #01DF3A;
+						height: 10%
+					}
+					.page_clicker {
+						margin-left: 26%
+					}
+					.writing_style h1 {
+						font-family: Arial Black;
+						color: #a3cf62;
+						font-size: 200%;
+					}
+					.writing_style p {
+						font-family: Verdana;
+						font-size: 100%;
+					}
+					.selected {
+						background-color: rgb(206,255,104);
+						color: black;
+					}
+					.big-title {
+						font-size: 20px;
+					}
+					.marginleft {
+						margin-left: 2%;
+					}
+					#margintop {
+						margin-top: 59px;
+					}
+					.mypanel {
+						width: 84%;
+						margin-left: 16%;
+					}
+					#create_post {
+						margin-left: 16%;
+						width: 84;
+					}
+					.center {
+						text-align: center;
+					}
+					#post_field {
+						width: 100%;
+						border: 1px solid;
+						background-color: #e4e4e4;
+						border-style: solid;
+						margin-left: 0;
+					}
         </style>
 
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -143,12 +158,12 @@ if(!isset($GLOBALS['user_name'])){
         <div class="container-fluid" style="overflow-x: hidden;overflow-y:auto">
             <div class="content" id="category_field" style="margin-top:5%;margin-right:2%;overflow-x: hidden;overflow-y:auto" >
                 <ul class="sidebar-nav" style="width: 90%" >
-                    <label>Admin Settings</label>
+                    <label>Admin's setting</label>
                     <li class="selected">
                         <a class="sidebar-brand" href="change_password.php">Change Password</a>
                     </li>
                     <li>
-                        <a class="sidebar-brand" href="Admin_report.html">Report</a>
+                        <a class="sidebar-brand" href="manage_users.php">Manage Users</a>
                     </li>
                     <li>
                         <a class="sidebar-brand" href="add_admin.php">Add Admin</a>

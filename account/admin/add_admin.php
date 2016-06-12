@@ -100,7 +100,10 @@ if (!isset($GLOBALS['user_name'])) {
 			#post_field {
 				width: 100%;
 				border: 1px solid;
-				background-color: #e4e4e4;
+				background-image: url('https://wp-themes.com/wp-content/themes/gule/images/pattern.png');
+				background-repeat: repeat;
+				background-position: top left;
+				background-attachment: scroll;
 				border-style: solid;
 			}
 			.big-title {
@@ -154,7 +157,7 @@ if (!isset($GLOBALS['user_name'])) {
 						<a class="sidebar-brand" href="change_password.php">Change Password</a>
 					</li>
 					<li>
-						<a class="sidebar-brand" href="Admin_report.html">Report</a>
+						<a class="sidebar-brand" href="manage_users.php">Manage Users</a>
 					</li>
 					<li class="selected">
 						<a class="sidebar-brand" href="add_admin.php">Add Admin</a>
