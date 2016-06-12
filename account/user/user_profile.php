@@ -24,7 +24,7 @@ if(!isset($GLOBALS['user_name'])){
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-        <title>Change Password</title>
+        <title>Profile</title>
 
         <!-- Bootstrap -->
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
@@ -115,6 +115,12 @@ if(!isset($GLOBALS['user_name'])){
 						border-style: solid;
 						margin-left: 0;
 					}
+					ul {
+					  list-style-type: none;
+					}
+					.profile-info-text {
+						font-size: 20px;
+					}
         </style>
 
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -176,8 +182,35 @@ if(!isset($GLOBALS['user_name'])){
                     <!--Posts-->
                     <div class="panel panel-primary marginleft" >
                         <div class="panel-body">
-
-
+													<ul class="profile-info-text">
+														<li>ID:</li>
+														<li>Name:</li>
+														<li>Email:</li>
+													</ul>
+                        </div>
+                    </div>
+										<div class="panel panel-danger marginleft" >
+											<div class="panel-heading">
+												Posts Summary
+											</div>
+                        <div class="panel-body">
+													<ul>
+														<li>Category 1:</li>
+														<li>Category 2:</li>
+														<li>Category 3:</li>
+													</ul>
+                        </div>
+                    </div>
+										<div class="panel panel-info marginleft" >
+											<div class="panel-heading">
+												Best Users in the last 24 hours
+											</div>
+                        <div class="panel-body">
+													<ul>
+														<li>Name 1</li>
+														<li>Name 2</li>
+														<li>Name 3</li>
+													</ul>
                         </div>
                     </div>
                 </div>
