@@ -9,14 +9,14 @@ if(isset($_POST['user_name']) && isset($_POST['email']) && isset($_POST['passwor
 	$data['password'] =  $_POST['password'];
 	if(!empty($data['name']) && !empty($data['email']) && !empty($data['password'])){
 		if(UsersTable::insert($data)){
-			$GLOBAL['result'] = 'Register Successed';
+			$GLOBALS['result'] = 'Register Successed';
 		}else{
-			$GLOBAL['result'] = 'Database Error';
+			$GLOBALS['result'] = 'Database Error';
 		}
 	}
 }else{
-	$GLOBAL['result'] = "Register Error";
+	$GLOBALS['result'] = "Register Error";
 }
 
-print_jump_page($GLOBAL['result'], "../index.php");
+print_jump_page($GLOBALS['result'], "../index.php");
 ?>

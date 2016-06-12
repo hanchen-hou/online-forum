@@ -55,6 +55,21 @@ class CategoriesTable{
 		return $res;
 	}
 	
+	// the category which has the most number of posts
+	// P.s. can return more than one categories
+	static function get_hottest_category(){
+		$conn = connect_db();
+		$sql = "select CATEGORY_ID, CATEGORY_NAME, POSTS_NUM
+				from ".CATEGORIES_VIEW."
+				where POSTS_NUM = (select max(POSTS_NUM) from ".CATEGORIES_VIEW.")";
+		$stmt = oci_parse($conn, $sql);
+		oci_execute($stmt);
+		oci_close($conn);
+		
+		$row = oci_fetch_all($stmt, $res);
+		return $res;
+	}
+	
 	static function create(){
 		$conn = connect_db();
 		$sql_1 = "create table ".CATEGORIES_TABLE." 
@@ -102,6 +117,32 @@ class CategoriesTable{
 		$stmt_3 = oci_parse($conn, $sql_3);
 		$result = oci_execute($stmt_3) && $result;
 		
+		oci_close($conn);
+		return $result;
+	}
+	
+	static function create_view(){
+		$conn = connect_db();
+		$sql = "create view ".CATEGORIES_VIEW."(category_id, category_name, posts_num) AS
+				select c.id, c.name, count(*)
+				from ".CATEGORIES_TABLE." c, ".POSTS_TABLE." p
+				where c.ID = p.CATEGORY_ID
+				group by c.name, c.id
+				order by c.id";
+
+		$stmt = oci_parse($conn, $sql);
+
+		$result = oci_execute($stmt);
+		oci_close($conn);
+
+		return $result;
+	}
+	
+	static function drop_view() {
+		$conn = connect_db();
+		$sql = "drop view " . CATEGORIES_VIEW;
+		$stmt = oci_parse($conn, $sql);
+		$result = oci_execute($stmt);
 		oci_close($conn);
 		return $result;
 	}

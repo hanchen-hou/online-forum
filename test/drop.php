@@ -12,6 +12,9 @@ require_once (dirname(dirname(__FILE__)) . "/model/msgs.php");
 require_once (dirname(dirname(__FILE__)) . "/model/posts.php");
 require_once (dirname(dirname(__FILE__)) . "/model/comments.php");
 
+CategoriesTable::drop_view();
+PostsTable::drop_view();
+
 CommentsTable::drop();
 PostsTable::drop();
 MsgsTable::drop();

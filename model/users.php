@@ -41,8 +41,8 @@ class UsersTable {
 		oci_bind_by_name($stmt, ":name", $data['name']);
 		oci_bind_by_name($stmt, ":pw_md5", $pw_md5);
 		oci_bind_by_name($stmt, ":salt", $salt);
-		oci_bind_by_name($stmt, ":status", $statue);
 		//0=good/1=ban
+		oci_bind_by_name($stmt, ":status", $statue);
 
 		$result = oci_execute($stmt);
 		oci_close($conn);
@@ -143,7 +143,64 @@ class UsersTable {
 
 		return $result;
 	}
+	
+	static function is_banned($user_id){
+		$user = UsersTable::select_by_id($user_id);
+		if($user){
+			if($user['STATUE'] == 0){
+				return FALSE;
+			}else{
+				return TRUE;
+			}
+		}else{
+			// cannot find the user
+			return TRUE;
+		}
+	}
 
+	// how many posts a user makes in each category
+	static function posts_summary($user_id){
+		$conn = connect_db();
+		$sql = "select category_name, count(*)
+				from CS_POSTS_DETAIL
+				where user_id = :id
+				group by category_name
+				UNION
+				select category_name, 0
+				from CS_POSTS_DETAIL
+				where category_name not in (select category_name
+											from CS_POSTS_DETAIL
+											where user_id = :id)";
+		$stmt = oci_parse($conn, $sql);
+		oci_bind_by_name($stmt, ":id", $user_id);
+		oci_execute($stmt);
+		oci_close($conn);
+
+		$row = oci_fetch_all($stmt, $res);
+		return $res;
+	}
+	
+	// find the most diligent user
+	// the most diligent user means a user makes posts in each category in the last 24 hours
+	static function most_diligentest($user_id){
+		$conn = connect_db();
+		$sql = "select *
+				from CS_Users u
+				where not exists ((select c.id
+				                  from CS_CATEGORIES c)
+				                  MINUS
+				                  (select category_id
+				                  from CS_POSTS_DETAIL pd
+				                  where pd.user_id = u.id and pd.DATETIME > (select current_timestamp - 1 from dual)))";
+		$stmt = oci_parse($conn, $sql);
+		oci_bind_by_name($stmt, ":id", $user_id);
+		oci_execute($stmt);
+		oci_close($conn);
+
+		$row = oci_fetch_all($stmt, $res);
+		return $res;
+	}
+	
 	static function create() {
 		$conn = connect_db();
 		$sql = "create table " . USERS_TABLE . " 

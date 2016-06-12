@@ -20,4 +20,8 @@ MsgsSeq::create();
 MsgsTable::create();
 PostsTable::create();
 CommentsTable::create();
+
+CategoriesTable::create_view();
+PostsTable::create_view();
+
 ?>

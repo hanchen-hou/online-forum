@@ -28,13 +28,13 @@ if (isset($_POST['name']) && isset($_POST['admin_id'])) {
 	$data['admin_id'] = $_POST['admin_id'];
 	if (!empty($data['name']) && !empty($data['admin_id'])) {
 		if (CategoriesTable::insert($data)) {
-			$GLOBAL['result'] = 'Add New Category Successfully';
+			$GLOBALS['result'] = 'Add New Category Successfully';
 		} else {
-			$GLOBAL['result'] = 'Database Error';
+			$GLOBALS['result'] = 'Database Error';
 		}
 	}
 } else {
-	$GLOBAL['result'] = "Category Name cannot be none";
+	$GLOBALS['result'] = "Category Name cannot be none";
 }
 
 if (isset($_SERVER['HTTP_REFERER']) && !empty($_SERVER['HTTP_REFERER'])) {
@@ -43,5 +43,5 @@ if (isset($_SERVER['HTTP_REFERER']) && !empty($_SERVER['HTTP_REFERER'])) {
 	$GLOBALS['referer'] = '../index.php';
 }
 
-print_jump_page($GLOBAL['result'], $GLOBALS['referer']);
+print_jump_page($GLOBALS['result'], $GLOBALS['referer']);
 ?>

@@ -9,6 +9,7 @@
  * 
  */
 require_once (dirname(dirname(__FILE__)) . "/model/posts.php");
+require_once (dirname(dirname(__FILE__)) . "/model/users.php");
 require_once (dirname(__FILE__) . "/_print_jump_page_.php");
 
 $GLOBALS['result'] = 'Cannot Make post';
@@ -49,8 +50,15 @@ function main() {
 		$GLOBALS['result'] = 'Post title cannot only be spaces';
 		return;
 	}
+
 	if(trim($data['content']) == FALSE){
 		$GLOBALS['result'] = 'Post content cannot only be spaces';
+		return;
+	}
+	
+	// check if the user is banned
+	if(UsersTable::is_banned($_COOKIE['id'])){
+		$GLOBALS['result'] = 'Sorry, you are banned.';
 		return;
 	}
 	

@@ -87,7 +87,11 @@ class CommentsTable {
 		$row = oci_fetch_all($stmt, $res);
 		return $res;
 	}
-
+	
+	static function delete_by_id($id) {
+		return MsgsTable::delete_by_id($id);
+	}
+	
 	static function create() {
 		$conn = connect_db();
 		$sql = "create table " . COMMENTS_TABLE . " 

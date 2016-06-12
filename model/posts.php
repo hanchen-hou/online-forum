@@ -58,7 +58,7 @@ class PostsTable {
 
 	static function select_by_id($id) {
 		if (is_null($id))
-			return;
+			return FALSE;
 
 		$conn = connect_db();
 		$sql = "select p.id, p.title, m.content, TO_CHAR(m.datetime,'YYYY-MM-DD HH24:MI:SS') as DATETIME, u.name as user_name 
@@ -71,10 +71,10 @@ class PostsTable {
 
 		return oci_fetch_array($stmt);
 	}
-	
+
 	static function select_by_category_id($category_id) {
 		if (is_null($category_id))
-			return;
+			return FALSE;
 
 		$conn = connect_db();
 		$sql = "select p.id, p.title, m.content, TO_CHAR(m.datetime,'YYYY-MM-DD HH24:MI:SS') as DATETIME, u.name 
@@ -88,6 +88,10 @@ class PostsTable {
 
 		$row = oci_fetch_all($stmt, $res);
 		return $res;
+	}
+
+	static function delete_by_id($id) {
+		return MsgsTable::delete_by_id($id);
 	}
 
 	static function create() {
@@ -114,5 +118,28 @@ class PostsTable {
 		return $result;
 	}
 
+	static function create_view() {
+		$conn = connect_db();
+		$sql = "create view ".POSTS_VIEW."(CATEGORY_ID, CATEGORY_NAME, USER_ID, USER_NAME, POST_ID, TITLE, CONTENT, DATETIME) As
+				  select c.id, c.name, u.id, u.name, p.id, p.title, m.content, m.datetime
+				  from ".MSGS_TABLE." m, ".POSTS_TABLE." p, ".USERS_TABLE." u, ".CATEGORIES_TABLE." c 
+				  where m.id = p.id and u.id = m.user_id and c.id = p.category_id";
+
+		$stmt = oci_parse($conn, $sql);
+
+		$result = oci_execute($stmt);
+		oci_close($conn);
+
+		return $result;
+	}
+	
+	static function drop_view() {
+		$conn = connect_db();
+		$sql = "drop view " . POSTS_VIEW;
+		$stmt = oci_parse($conn, $sql);
+		$result = oci_execute($stmt);
+		oci_close($conn);
+		return $result;
+	}
 }
 ?>

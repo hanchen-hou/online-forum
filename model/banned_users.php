@@ -4,7 +4,11 @@ require_once (dirname(dirname(__FILE__)) . '/lib/common.php');
 require_once (dirname(__FILE__) . '/admins.php');
 
 class BannedUsersTable {
-
+	/*
+	 * require:
+	 * $_POST['user_id']
+	 * $_POST['admin_id']
+	 */
 	static function ban_by_id($user_id, $admin_id) {
 		if (!isset($user_id))
 			return FALSE;
