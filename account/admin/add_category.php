@@ -154,6 +154,9 @@ if (!isset($GLOBALS['user_name'])) {
             <div class="content" id="category_field" style="margin-top:5%;margin-right:2%" style="overflow-x: hidden;overflow-y: scroll;" >
                 <ul class="sidebar-nav" style="width:90%" >
                     <label>Admin Settings</label>
+										<li>
+                        <a class="sidebar-brand" href="admin_profile.php">Profile</a>
+                    </li>
                     <li>
                         <a class="sidebar-brand" href="change_password.php">Change Password</a>
                     </li>

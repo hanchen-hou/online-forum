@@ -1,5 +1,5 @@
 <?php
-require_once( dirname(dirname(dirname(__FILE__))) . "/model/admins.php");
+require_once (dirname(dirname(dirname(__FILE__))) . "/model/admins.php");
 /*
  * check cookie
  * otherwise, cannot access this page
@@ -13,10 +13,11 @@ if (isset($_COOKIE['id']) && isset($_COOKIE['type'])) {
 	}
 }
 
-if(!isset($GLOBALS['user_name'])){
+if (!isset($GLOBALS['user_name'])) {
 	exit("No Permission");
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -24,7 +25,7 @@ if(!isset($GLOBALS['user_name'])){
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-        <title>Change Password</title>
+        <title>Profile</title>
 
         <!-- Bootstrap -->
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
@@ -115,6 +116,12 @@ if(!isset($GLOBALS['user_name'])){
 						border-style: solid;
 						margin-left: 0;
 					}
+					ul {
+					  list-style-type: none;
+					}
+					.profile-info-text {
+						font-size: 20px;
+					}
         </style>
 
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -157,51 +164,63 @@ if(!isset($GLOBALS['user_name'])){
 
         <div class="container-fluid" style="overflow-x: hidden;overflow-y:auto">
             <div class="content" id="category_field" style="margin-top:5%;margin-right:2%;overflow-x: hidden;overflow-y:auto" >
-                <ul class="sidebar-nav" style="width: 90%" >
-                    <label>Admin Settings</label>
-										<li>
-												<a class="sidebar-brand" href="admin_profile.php">Profile</a>
-										</li>
-										<li class="selected">
-                        <a class="sidebar-brand" href="change_password.php">Change Password</a>
-                    </li>
-                    <li>
-                        <a class="sidebar-brand" href="manage_users.php">Manage Users</a>
-                    </li>
-                    <li>
-                        <a class="sidebar-brand" href="add_admin.php">Add Admin</a>
-                    </li>
-                    <li>
-                        <a class="sidebar-brand" href="add_category.php">Add Category</a>
-                    </li>
-                </ul>
+							<ul class="sidebar-nav" style="width: 90%" >
+								<label>Admin Settings</label>
+								<li class="selected">
+										<a class="sidebar-brand" href="admin_profile.php">Profile</a>
+								</li>
+								<li>
+									<a class="sidebar-brand" href="change_password.php">Change Password</a>
+								</li>
+								<li>
+									<a class="sidebar-brand" href="manage_users.php">Manage Users</a>
+								</li>
+								<li>
+									<a class="sidebar-brand" href="add_admin.php">Add Admin</a>
+								</li>
+								<li>
+									<a class="sidebar-brand" href="add_category.php">Add Category</a>
+								</li>
+							</ul>
             </div>
             <div class="panel panel-primary mypanel " id="margintop">
                 <div class="panel-heading center">
-                    <h3 class="panel-title big-title">Change Password</h3>
+                    <h3 class="panel-title big-title">Profile</h3>
                 </div>
                 <div class="panel-body Post_Info" id="post_field">
 
                     <!--Posts-->
                     <div class="panel panel-primary marginleft" >
                         <div class="panel-body">
-                            <form method="post" action="../../jump/change_password.php">
-                                <div class="form-group">
-                                    <label for="Old password">Old Password</label>
-                                    <input name="old_pw" type="password" class="form-control" id="old_password" placeholder="Old Password">
-                                </div>
-
-                                <div class="form-group"><label>New Password</label>
-                                <input name="new_pw" type="password" class="form-control" id="new_password" placeholder="New Password">
-                                </div>
-
-                                <div class="form-group">
-                                <label for="new_password">Confirm New Password</label>
-                                <input name="confirm_pw" type="password" class="form-control" id="confirm_password" placeholder="Confirm New Password">
-                                </div>
-                                <div class="form-group"><input type="submit" class="btn btn-primary " id="submit" value="Confirm" style="margin-top:10px"></div>
-                            </form>
-
+													<ul class="profile-info-text">
+														<li>ID:</li>
+														<li>Name:</li>
+														<li>Email:</li>
+													</ul>
+                        </div>
+                    </div>
+										<div class="panel panel-danger marginleft" >
+											<div class="panel-heading">
+												Posts Summary
+											</div>
+                        <div class="panel-body">
+													<ul>
+														<li>Category 1:</li>
+														<li>Category 2:</li>
+														<li>Category 3:</li>
+													</ul>
+                        </div>
+                    </div>
+										<div class="panel panel-info marginleft" >
+											<div class="panel-heading">
+												Best Users in the last 24 hours
+											</div>
+                        <div class="panel-body">
+													<ul>
+														<li>Name 1</li>
+														<li>Name 2</li>
+														<li>Name 3</li>
+													</ul>
                         </div>
                     </div>
                 </div>
