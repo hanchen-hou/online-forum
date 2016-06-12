@@ -214,23 +214,34 @@
 
 				require_once (dirname(__FILE__) . "/model/posts.php");
 				$template = '<div class="panel panel-success">
+				
                       <div class="panel-heading">
                             <button type="button" class="btn btn-default pull-right">
-                                <span class="glyphicon glyphicon-flag"></span>
+                                <span class="glyphicon glyphicon-trash"></span>
                             </button>
-                            <div class="btn-group pull-left">
-                              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="glyphicon glyphicon-info-sign"></span>
-                              </button>
-                              <ul class="dropdown-menu">
-                                <li class="text-center">%s</li>
-                                <li role="separator" class="divider"></li>
-                                <li class="text-center">%s</li>
-                              </ul>
+                            
+							<div class= "pull-left">
+							  	<button type="button" class="btn btn-default aria-haspopup="true" aria-expanded="false">
+                                    <span class="none"></span> Ban
+                                </button>
                             </div>
-                            <h3 class="panel-title text-center post-title">
-                            	<a href="post.php?category_id=%s&post_id=%s&page=1">%s</a>
-                            </h3>
+                      
+							<div class= "pull-left">
+							    <ul style="padding: 6px 0px 0px 6px" "left">
+							      <li style = "display: inline" class="text-left">%s</li>
+							      <li style = "display: inline" class="text-left">%s</li>
+							    </ul>
+                            
+                            </div>
+                            
+                            <div class = "row" style = "padding: 40px 100px 0px 8px;">
+							   <ul style= "padding: 0px 0px 0px 6px" "left">
+                            		<h3 class="panel-title text-left post-title">
+                            			<a href="post.php?category_id=%s&post_id=%s&page=1">%s</a>
+                            		</h3>
+                            	</ul>
+                            </div>
+                            
                             <div class="clearfix"></div>
                         </div>
                       <div class="panel-body">%s</div>
@@ -248,7 +259,7 @@
 				}
 				$offset = ($GLOBALS['page'] - 1) * POSTS_NUM_ONE_PAGE;
 				for ($i = $offset, $j = 0; $i < count($posts['ID']) && $j < 10; $i++, $j++) {
-					echo sprintf($template, $posts['DATETIME'][$i], $posts['NAME'][$i], $GLOBALS['category_id'], $posts['ID'][$i], $posts['TITLE'][$i], $posts['CONTENT'][$i]);
+					echo sprintf($template, $posts['NAME'][$i], $posts['DATETIME'][$i], $GLOBALS['category_id'], $posts['ID'][$i], $posts['TITLE'][$i], $posts['CONTENT'][$i]);
 				}
 				?>
                     <!--Posts End-->
