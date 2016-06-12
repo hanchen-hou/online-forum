@@ -91,6 +91,24 @@
 			.big-title {
 				font-size: 28px;
 			}
+			 .buttonmargin {
+                margin-left: 6px;
+                margin-top: -4px;
+            }
+            .dateTimeANDUser {
+                clear: both;
+                margin-top: 2px;
+            }
+            .writing_style_ForTitle {
+                font-size: 110%;
+            }
+            .writing_style_ForPostTitle {
+                font-size: 130%;
+            }
+            .writing_style_Forinput {
+                font-size: 100%;
+                font-weight: normal
+            }
 
         </style>
 
@@ -227,35 +245,30 @@
 				$template = '<div class="panel panel-success">
 				
                       <div class="panel-heading">
-                            <button type="button" class="btn btn-default pull-right">
-                                <span class="glyphicon glyphicon-trash"></span>
-                            </button>
-                            
-							<div class= "pull-left">
-							  	<button type="button" class="btn btn-default aria-haspopup="true" aria-expanded="false">
-                                    <span class="none"></span> Ban
+                            <div style="float: left">
+                                <label class="writing_style_ForPostTitle"><a href="post.php?category_id=%s&post_id=%s&page=1">%s</a> </label>
+                            </div>
+                            <div class="dateTimeANDUser">
+
+                                <label class="marginleft margintopbypx writing_style_ForTitle" >Date/Time: </label>
+                                <label name="DateOrTime" class="writing_style_Forinput">%s</label>
+                                <label class="marginleft margintopbypx writing_style_ForTitle" >User Name: </label>
+                                <label name="user_name" class="writing_style_Forinput">%s</label>
+                                <button type="button" class="btn btn-danger btn-xs buttonmargin">
+                                    Ban
                                 </button>
+                                <div class= "pull-right">
+                                    <button type="button" class="btn btn-default pull-right">
+                                        <span class="glyphicon glyphicon-trash"></span>
+                                    </button>
+                                </div>
                             </div>
-                      
-							<div class= "pull-left">
-							    <ul style="padding: 6px 0px 0px 6px" "left">
-							      <li style = "display: inline" class="text-left">%s</li>
-							      <li style = "display: inline" class="text-left">%s</li>
-							    </ul>
-                            
-                            </div>
-                            
-                            <div class = "row" style = "padding: 40px 100px 0px 8px;">
-							   <ul style= "padding: 0px 0px 0px 6px" "left">
-                            		<h3 class="panel-title text-left post-title">
-                            			<a href="post.php?category_id=%s&post_id=%s&page=1">%s</a>
-                            		</h3>
-                            	</ul>
-                            </div>
-                            
+
                             <div class="clearfix"></div>
                         </div>
-                      <div class="panel-body">%s</div>
+                        <div class="panel-body">
+                            %s
+                        </div>
                     </div>';
 
 				$posts = PostsTable::select_by_category_id($GLOBALS['category_id']);
