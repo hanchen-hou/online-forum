@@ -245,25 +245,32 @@
 				$template = '<div class="panel panel-success">
 
                       <div class="panel-heading">
-                            <div style="float: left">
-                                <label class="writing_style_ForPostTitle"><a href="post.php?category_id=%s&post_id=%s&page=1">%s</a> </label>
-                            </div>
-                            <div class="dateTimeANDUser">
-
-                                <label class="marginleft margintopbypx writing_style_ForTitle" >Date/Time: </label>
-                                <label name="DateOrTime" class="writing_style_Forinput">%s</label>
-                                <label class="marginleft margintopbypx writing_style_ForTitle" >Username: </label>
-                                <label name="user_name" class="writing_style_Forinput">%s</label>
+                       <div class-"row">
+                       
+					   		<div class="col-sm-3" style="margin-left:-14px">
+					   		<label class="marginleft margintopbypx writing_style_ForTitle" >%s</label>					   		
+							</div>
+							<div class="col-md-6">
+							<center>
+					   		<label class="marginleft margintopbypx writing_style_ForTitle" > %s</label>	
+					   		</center>			   		
+							</div>                 
+                       </div>
+                            <div class="dateTimeANDUser">  
+                                <label class="marginleft margintopbypx writing_style_ForTitle" >Username: </label>                                
+                                <label name="user_name" class="writing_style_Forinput">%s</label>                               
                                 <button type="button" class="btn btn-danger btn-xs buttonmargin">
                                     Ban
                                 </button>
+                                
                                 <div class= "pull-right">
                                     <button type="button" class="btn btn-default pull-right">
                                         <span class="glyphicon glyphicon-trash"></span>
                                     </button>
                                 </div>
+                                
                             </div>
-
+						
                             <div class="clearfix"></div>
                         </div>
                         <div class="panel-body">
@@ -283,7 +290,7 @@
 				}
 				$offset = ($GLOBALS['page'] - 1) * POSTS_NUM_ONE_PAGE;
 				for ($i = $offset, $j = 0; $i < count($posts['ID']) && $j < 10; $i++, $j++) {
-					echo sprintf($template, $GLOBALS['category_id'], $posts['ID'][$i], $posts['TITLE'][$i], $posts['DATETIME'][$i], $posts['NAME'][$i], $posts['CONTENT'][$i]);
+					echo sprintf($template, $posts['DATETIME'][$i], $posts['TITLE'][$i], $posts['NAME'][$i], $posts['CONTENT'][$i], $GLOBALS['category_id'], $posts['ID'][$i] );
 				}
 				?>
                     <!--Posts End-->
