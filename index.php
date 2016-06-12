@@ -248,13 +248,20 @@
                        <div class-"row">
                        
 					   		<div class="col-sm-3" style="margin-left:-14px">
-					   		<label class="marginleft margintopbypx writing_style_ForTitle" >%s</label>					   		
+					   		<label class="marginleft margintopbypx writing_style_ForTitle" >Date:</label>
+					   		<label class="marginleft margintopbypx writing_style_Forinput" >%s</label>					   		
 							</div>
 							<div class="col-md-6">
 							<center>
-					   		<label class="marginleft margintopbypx writing_style_ForTitle" > %s</label>	
+					   		<label class="marginleft margintopbypx writing_style_ForTitle" > %s</label>
+					   			
 					   		</center>			   		
-							</div>                 
+							</div>       
+							<div class= "pull-right">
+                                    <button type="button" class="btn btn-default pull-right">
+                                        <span class="glyphicon glyphicon-trash"></span>
+                                    </button>
+                                </div>          
                        </div>
                             <div class="dateTimeANDUser">  
                                 <label class="marginleft margintopbypx writing_style_ForTitle" >Username: </label>                                
@@ -263,11 +270,7 @@
                                     Ban
                                 </button>
                                 
-                                <div class= "pull-right">
-                                    <button type="button" class="btn btn-default pull-right">
-                                        <span class="glyphicon glyphicon-trash"></span>
-                                    </button>
-                                </div>
+                                
                                 
                             </div>
 						

@@ -281,18 +281,19 @@ if (isset($_GET['post_id']) && is_numeric($_GET['post_id'])) {
 							
 							<div class="dateTimeANDUser">
 
-                                <label class="marginleft margintopbypx writing_style_ForTitle" >Date/Time: </label>
-                                <label name="DateOrTime" class="writing_style_Forinput">%s</label>
-                                <label class="marginleft margintopbypx writing_style_ForTitle" >User Name: </label>
-                                <label name="user_name" class="writing_style_Forinput">%s</label>
-                                <button type="button" class="btn btn-danger btn-xs buttonmargin">
-                                    Ban
-                                </button>
+                                <label class="marginleft margintopbypx writing_style_ForTitle" >Date: </label>
                                 <div class= "pull-right">
                                     <button type="button" class="btn btn-default pull-right">
                                         <span class="glyphicon glyphicon-trash"></span>
                                     </button>
                                 </div>
+                                <label name="DateOrTime" class="writing_style_Forinput">%s</label><br>
+                                <label class="marginleft margintopbypx writing_style_ForTitle" >User Name: </label>
+                                <label name="user_name" class="writing_style_Forinput">%s</label>
+                                <button type="button" class="btn btn-danger btn-xs buttonmargin">
+                                    Ban
+                                </button>
+                                
                             </div>
 							<div class="clearfix"></div>
 						</div>
