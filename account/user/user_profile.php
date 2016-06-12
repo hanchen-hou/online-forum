@@ -159,40 +159,24 @@ if(!isset($GLOBALS['user_name'])){
             <div class="content" id="category_field" style="margin-top:5%;margin-right:2%;overflow-x: hidden;overflow-y:auto" >
                 <ul class="sidebar-nav" style="width: 90%" >
                     <label>User Settings</label>
-                    <li>
+                    <li class="selected">
                         <a class="sidebar-brand" href="user_profile.php">Profile</a>
                     </li>
-										<li class="selected">
+                    <li>
                         <a class="sidebar-brand" href="change_password.php">Change Password</a>
                     </li>
                 </ul>
             </div>
             <div class="panel panel-primary mypanel " id="margintop">
                 <div class="panel-heading center">
-                    <h3 class="panel-title big-title">Change Password</h3>
+                    <h3 class="panel-title big-title">Profile</h3>
                 </div>
                 <div class="panel-body Post_Info" id="post_field">
 
                     <!--Posts-->
                     <div class="panel panel-primary marginleft" >
                         <div class="panel-body">
-													<form method="post" action="../../jump/change_password.php" id="user_form">
-														<div class="form-group">
-															<label for="old_password">Old Password</label>
-															<input name="old_pw" type="password" class="form-control" id="old_password" placeholder="Old Password">
-														</div>
-														<div class="form-group">
-															<label for="new_password">New Password</label>
-															<input name="new_pw" type="password" class="form-control" id="new_password" placeholder="New Password">
-														</div>
-														<div class="form-group">
-															<label for="new_password">Confirm New Password</label>
-															<input name="confirm_pw" type="password" class="form-control" id="confirm_password" placeholder="Confirm New Password">
-														</div>
-														<div class="form-group">
-															<input type="submit" class="btn btn-primary " id="submit" value="Confirm" style="margin-top:10px">
-														</div>
-													</form>
+
 
                         </div>
                     </div>
@@ -204,51 +188,5 @@ if(!isset($GLOBALS['user_name'])){
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <!-- Include all compiled plugins (below), or include individual files as needed -->
         <script src="js/bootstrap.min.js"></script>
-				<script>
-					$('#user_form').submit(function(event) {
-
-						var error_message = checkform();
-						if (error_message != "")
-							event.preventDefault();
-
-						$('#error').html(error_message);
-					});
-					function checkform() {
-						var error_M = "";
-						var error_color = "rgb(217,83,79)";
-						var correct_color = "rgb(76,175,80)";
-						if ($('#user_name').val() == "") {
-							error_M += "User name is empty<br>";
-							$('#user_name').css("background-color", error_color);
-						} else {
-							$('#user_name').css("background-color", correct_color);
-						}
-
-						if ($('#old_password').val() == "") {
-							error_M += "Old password is empty<br>";
-							$('#old_password').css("background-color", error_color);
-						} else {
-							$('#old_password').css("background-color", correct_color);
-						}
-						if ($('#new_password').val() == "") {
-							error_M += "New password is empty<br>";
-							$('#new_password').css("background-color", error_color);
-						} else {
-							$('#new_password').css("background-color", correct_color);
-						}
-						if ($('#confirm_password').val() == "") {
-							error_M += "Confirm password is empty<br>";
-							$('#confirm_password').css("background-color", error_color);
-						} else {
-							$('#confirm_password').css("background-color", correct_color);
-						}
-						if ($('#new_password').val() != $('#confirm_password').val()) {
-							error_M += "Confirm password does not match the new password";
-							$('#new_password').css("background-color", error_color);
-							$('#confirm_password').css("background-color", error_color);
-						}
-						return error_M;
-					}
-				</script>
     </body>
 </html>

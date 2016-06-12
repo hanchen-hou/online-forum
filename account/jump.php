@@ -17,7 +17,7 @@ if (isset($_COOKIE['id']) && isset($_COOKIE['type'])) {
 	} else if ($_COOKIE['type'] == 'user') {
 		$user = UsersTable::select_by_id($_COOKIE['id']);
 		if (count($user['ID']) > 0) {
-			header('Location: ./user/change_password.php');
+			header('Location: ./user/user_profile.php');
 		}
 	}
 }else{
