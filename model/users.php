@@ -143,6 +143,20 @@ class UsersTable {
 
 		return $result;
 	}
+	
+	static function is_banned($user_id){
+		$user = UsersTable::select_by_id($user_id);
+		if($user){
+			if($user['STATUE'] == 0){
+				return FALSE;
+			}else{
+				return TRUE;
+			}
+		}else{
+			// cannot find the user
+			return TRUE;
+		}
+	}
 
 	static function create() {
 		$conn = connect_db();

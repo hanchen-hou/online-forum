@@ -58,7 +58,7 @@ class PostsTable {
 
 	static function select_by_id($id) {
 		if (is_null($id))
-			return;
+			return FALSE;
 
 		$conn = connect_db();
 		$sql = "select p.id, p.title, m.content, TO_CHAR(m.datetime,'YYYY-MM-DD HH24:MI:SS') as DATETIME, u.name as user_name 
@@ -71,10 +71,10 @@ class PostsTable {
 
 		return oci_fetch_array($stmt);
 	}
-	
+
 	static function select_by_category_id($category_id) {
 		if (is_null($category_id))
-			return;
+			return FALSE;
 
 		$conn = connect_db();
 		$sql = "select p.id, p.title, m.content, TO_CHAR(m.datetime,'YYYY-MM-DD HH24:MI:SS') as DATETIME, u.name 
@@ -88,6 +88,10 @@ class PostsTable {
 
 		$row = oci_fetch_all($stmt, $res);
 		return $res;
+	}
+
+	static function delete_by_id($id) {
+		return MsgsTable::delete_by_id($id);
 	}
 
 	static function create() {
