@@ -180,18 +180,18 @@ class UsersTable {
 		return $res;
 	}
 	
-	// which categories that a user seldom goes
-	// this use division
-	static function seldom_go($user_id){
+	// find the most diligent user
+	// the most diligent user means a user makes posts in each category in the last 24 hours
+	static function most_diligentest($user_id){
 		$conn = connect_db();
-		$sql = "select c.name
-				from CS_CATEGORIES c
-				where c.id in (Select distinct id
-				                from CS_CATEGORIES
-				                MINUS
-				                Select distinct p.category_id
-				                from cs_posts_detail p
-				                where p.USER_ID = :id)";
+		$sql = "select *
+				from CS_Users u
+				where not exists ((select c.id
+				                  from CS_CATEGORIES c)
+				                  MINUS
+				                  (select category_id
+				                  from CS_POSTS_DETAIL pd
+				                  where pd.user_id = u.id and pd.DATETIME > (select current_timestamp - 1 from dual)))";
 		$stmt = oci_parse($conn, $sql);
 		oci_bind_by_name($stmt, ":id", $user_id);
 		oci_execute($stmt);
