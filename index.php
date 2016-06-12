@@ -41,10 +41,10 @@
 			#post_field {
 				width: 100%;
 				border: 1px solid;
-				background-image: url('https://wp-themes.com/wp-content/themes/gule/images/pattern.png'); 
-				background-repeat: repeat; 
-				background-position: top left; 
-				background-attachment: scroll; 
+				background-image: url('https://wp-themes.com/wp-content/themes/gule/images/pattern.png');
+				background-repeat: repeat;
+				background-position: top left;
+				background-attachment: scroll;
 				border-style: solid;
 			}
 			#Category_title {
@@ -196,7 +196,7 @@
 
 					require_once (dirname(__FILE__) . "/model/categories.php");
 					$template = '<a class="sidebar-brand" href="index.php?category_id=%s&page=1">%s';
-					
+
 					$categories = CategoriesTable::select_all();
 					$hottest_categories = CategoriesTable::get_hottest_category();
 
@@ -243,7 +243,7 @@
 
 				require_once (dirname(__FILE__) . "/model/posts.php");
 				$template = '<div class="panel panel-success">
-				
+
                       <div class="panel-heading">
                             <div style="float: left">
                                 <label class="writing_style_ForPostTitle"><a href="post.php?category_id=%s&post_id=%s&page=1">%s</a> </label>
@@ -252,7 +252,7 @@
 
                                 <label class="marginleft margintopbypx writing_style_ForTitle" >Date/Time: </label>
                                 <label name="DateOrTime" class="writing_style_Forinput">%s</label>
-                                <label class="marginleft margintopbypx writing_style_ForTitle" >User Name: </label>
+                                <label class="marginleft margintopbypx writing_style_ForTitle" >Username: </label>
                                 <label name="user_name" class="writing_style_Forinput">%s</label>
                                 <button type="button" class="btn btn-danger btn-xs buttonmargin">
                                     Ban
@@ -283,7 +283,7 @@
 				}
 				$offset = ($GLOBALS['page'] - 1) * POSTS_NUM_ONE_PAGE;
 				for ($i = $offset, $j = 0; $i < count($posts['ID']) && $j < 10; $i++, $j++) {
-					echo sprintf($template, $posts['NAME'][$i], $posts['DATETIME'][$i], $GLOBALS['category_id'], $posts['ID'][$i], $posts['TITLE'][$i], $posts['CONTENT'][$i]);
+					echo sprintf($template, $GLOBALS['category_id'], $posts['ID'][$i], $posts['TITLE'][$i], $posts['DATETIME'][$i], $posts['NAME'][$i], $posts['CONTENT'][$i]);
 				}
 				?>
                     <!--Posts End-->
