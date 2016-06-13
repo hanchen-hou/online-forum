@@ -76,7 +76,7 @@ class MsgsTable {
 		oci_bind_by_name($stmt, ":id", $id);
 		$result = oci_execute($stmt);
 		
-		$sql = "delete from ".MSGS_TABLE." where id = :id;";
+		$sql = "delete from ".MSGS_TABLE." where id = :id";
 		$stmt = oci_parse($conn, $sql);
 		oci_bind_by_name($stmt, ":id", $id);
 		$result = oci_execute($stmt) && $result;
