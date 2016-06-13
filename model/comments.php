@@ -75,7 +75,7 @@ class CommentsTable {
 			return;
 
 		$conn = connect_db();
-		$sql = "Select m.id, m.content, TO_CHAR(m.datetime,'YYYY-MM-DD HH24:MI:SS') as DATETIME, m.user_id, u.name
+		$sql = "Select m.id, m.content, TO_CHAR(m.datetime,'YYYY-MM-DD HH24:MI:SS') as DATETIME, m.user_id, u.name as user_name
 				From " . COMMENTS_TABLE . " c, " . MSGS_TABLE . " m, " . USERS_TABLE . " u 
 				Where c.post_id=:post_id and c.id = m.id and u.id = m.user_id
 				Order BY m.datetime ASC";

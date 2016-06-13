@@ -56,10 +56,10 @@ if (isset($_GET['post_id']) && is_numeric($_GET['post_id'])) {
 			#post_field {
 				width: 100%;
 				border: 1px solid;
-				background-image: url('https://wp-themes.com/wp-content/themes/gule/images/pattern.png'); 
-				background-repeat: repeat; 
-				background-position: top left; 
-				background-attachment: scroll; 
+				background-image: url('https://wp-themes.com/wp-content/themes/gule/images/pattern.png');
+				background-repeat: repeat;
+				background-position: top left;
+				background-attachment: scroll;
 				border-style: solid;
 			}
 			#Category_title {
@@ -106,24 +106,24 @@ if (isset($_GET['post_id']) && is_numeric($_GET['post_id'])) {
 			.post-title {
 				font-size: 23px;
 			}
-			 .buttonmargin {
-                margin-left: 6px;
-                margin-top: -4px;
-            }
-            .dateTimeANDUser {
-                clear: both;
-                margin-top: 2px;
-            }
-            .writing_style_ForTitle {
-                font-size: 110%;
-            }
-            .writing_style_ForPostTitle {
-                font-size: 130%;
-            }
-            .writing_style_Forinput {
-                font-size: 100%;
-                font-weight: normal
-            }
+			.buttonmargin {
+				margin-left: 6px;
+				margin-top: -4px;
+			}
+			.dateTimeANDUser {
+				clear: both;
+				margin-top: 2px;
+			}
+			.writing_style_ForTitle {
+				font-size: 110%;
+			}
+			.writing_style_ForPostTitle {
+				font-size: 130%;
+			}
+			.writing_style_Forinput {
+				font-size: 100%;
+				font-weight: normal
+			}
 		</style>
 
 		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -184,11 +184,15 @@ if (isset($_GET['post_id']) && is_numeric($_GET['post_id'])) {
 								$admin = AdminsTable::select_by_id($_COOKIE['id']);
 								if (count($admin['ID']) > 0) {
 									$sub_page = sprintf($after_login, $admin['NAME']);
+								}else{
+									exit('Fake Administrator Account');
 								}
 							} else if ($_COOKIE['type'] == 'user') {
 								$user = UsersTable::select_by_id($_COOKIE['id']);
 								if (count($user['ID']) > 0) {
 									$sub_page = sprintf($after_login, $user['NAME']);
+								}else{
+									exit('You are not a USER');
 								}
 							}
 						}
@@ -211,7 +215,7 @@ if (isset($_GET['post_id']) && is_numeric($_GET['post_id'])) {
 
 					require_once (dirname(__FILE__) . "/model/categories.php");
 					$template = '<a class="sidebar-brand" href="index.php?category_id=%s&page=1">%s';
-					
+
 					$categories = CategoriesTable::select_all();
 					$hottest_categories = CategoriesTable::get_hottest_category();
 
@@ -234,8 +238,8 @@ if (isset($_GET['post_id']) && is_numeric($_GET['post_id'])) {
 							echo '<li>';
 						}
 						echo sprintf($template, $categories['ID'][$i], $categories['NAME'][$i]);
-						for($j = 0; $j < count($hottest_categories['CATEGORY_ID']); $j++){
-							if($hottest_categories['CATEGORY_ID'][$j] == $categories['ID'][$i]){
+						for ($j = 0; $j < count($hottest_categories['CATEGORY_ID']); $j++) {
+							if ($hottest_categories['CATEGORY_ID'][$j] == $categories['ID'][$i]) {
 								echo '<span class="glyphicon glyphicon-fire" style="color:red"></span>';
 							}
 						}
@@ -257,9 +261,7 @@ if (isset($_GET['post_id']) && is_numeric($_GET['post_id'])) {
 					<!--Current Post title and content-->
 					<div class="panel panel-primary">
 						<div class="panel-heading">
-							
-							<div class="btn-group pull-left">						
-							</div>
+							<div class="btn-group pull-left"></div>
 							<h3 class="panel-title text-center post-title"><b><?php $post = $GLOBALS['post']; echo $post['TITLE'] ?></b></h3>
 							<div class="clearfix"></div>
 						</div>
@@ -275,25 +277,39 @@ if (isset($_GET['post_id']) && is_numeric($_GET['post_id'])) {
 					 *  Comments Part
 					 */
 					$template = '
-					
 					<div class="panel panel-success comment-center">
 						<div class="panel-heading">
-							
 							<div class="dateTimeANDUser">
-
+                                <label class="marginleft margintopbypx writing_style_ForTitle" >Date: </label>
+                                <label name="DateOrTime" class="writing_style_Forinput">%s</label><br>
+                                <label class="marginleft margintopbypx writing_style_ForTitle" >User Name: </label>
+                                <label name="user_name" class="writing_style_Forinput">%s</label>
+                            </div>
+							<div class="clearfix"></div>
+						</div>
+						<div class="panel-body">
+							%s
+						</div>
+					</div>
+					';
+					$template_for_admin = '
+					<div class="panel panel-success comment-center">
+						<div class="panel-heading">
+							<div class="dateTimeANDUser">
                                 <label class="marginleft margintopbypx writing_style_ForTitle" >Date: </label>
                                 <div class= "pull-right">
-                                    <button type="button" class="btn btn-default pull-right">
-                                        <span class="glyphicon glyphicon-trash"></span>
-                                    </button>
+	                                <a href="./jump/delete_msgs.php?msgs_id=%s">
+	                                    <button type="button" class="btn btn-default pull-right">
+	                                        <span class="glyphicon glyphicon-trash"></span>
+	                                    </button>
+                                    </a>
                                 </div>
                                 <label name="DateOrTime" class="writing_style_Forinput">%s</label><br>
                                 <label class="marginleft margintopbypx writing_style_ForTitle" >User Name: </label>
                                 <label name="user_name" class="writing_style_Forinput">%s</label>
-                                <button type="button" class="btn btn-danger btn-xs buttonmargin">
-                                    Ban
-                                </button>
-                                
+                                <a href="./jump/ban_user.php?user_id=%s">
+	                                <button type="button" class="btn btn-danger btn-xs buttonmargin">Ban</button>
+                                </a>
                             </div>
 							<div class="clearfix"></div>
 						</div>
@@ -312,8 +328,23 @@ if (isset($_GET['post_id']) && is_numeric($_GET['post_id'])) {
 						}
 					}
 					$offset = ($GLOBALS['page'] - 1) * COMMENTS_NUM_ONE_PAGE;
-					for ($i = $offset, $j = 0; $i < count($comments['ID']) && $j < 10; $i++, $j++) {
-						echo sprintf($template,$comments['DATETIME'][$i] ,$comments['USER_NAME'][$i], $comments['CONTENT'][$i]);
+
+					if ($_COOKIE['type'] == 'admin') {
+						for ($i = $offset, $j = 0; $i < count($comments['ID']) && $j < 10; $i++, $j++) {
+							echo sprintf($template_for_admin, 
+											$comments['ID'][$i],
+											$comments['DATETIME'][$i], 
+											$comments['USER_NAME'][$i],
+											$comments['USER_ID'][$i], 
+											$comments['CONTENT'][$i]);
+						}
+					} else {
+						for ($i = $offset, $j = 0; $i < count($comments['ID']) && $j < 10; $i++, $j++) {
+							echo sprintf($template, 
+											$comments['DATETIME'][$i], 
+											$comments['USER_NAME'][$i], 
+											$comments['CONTENT'][$i]);
+						}
 					}
 					?>
 					<!--Posts-->
