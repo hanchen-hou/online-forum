@@ -147,7 +147,7 @@ class UsersTable {
 	static function is_banned($user_id){
 		$user = UsersTable::select_by_id($user_id);
 		if($user){
-			if($user['STATUE'] == 0){
+			if($user['STATUS'] == 0){
 				return FALSE;
 			}else{
 				return TRUE;
