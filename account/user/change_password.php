@@ -56,6 +56,7 @@ if(!isset($GLOBALS['user_name'])){
                 overflow-x: hidden;
                 overflow-y: auto;
             }
+            #error{color:red}
             #post_field {
 				width: 100%;
 				border: 1px solid;
@@ -176,6 +177,7 @@ if(!isset($GLOBALS['user_name'])){
                     <!--Posts-->
                     <div class="panel panel-primary marginleft" >
                         <div class="panel-body">
+                        	<div id="error"></div>
 													<form method="post" action="../../jump/change_password.php" id="user_form">
 														<div class="form-group">
 															<label for="old_password">Old Password</label>
@@ -220,33 +222,19 @@ if(!isset($GLOBALS['user_name'])){
 						if ($('#user_name').val() == "") {
 							error_M += "User name is empty<br>";
 							$('#user_name').css("background-color", error_color);
-						} else {
-							$('#user_name').css("background-color", correct_color);
-						}
-
+						} 
 						if ($('#old_password').val() == "") {
 							error_M += "Old password is empty<br>";
 							$('#old_password').css("background-color", error_color);
-						} else {
-							$('#old_password').css("background-color", correct_color);
-						}
+						} 
 						if ($('#new_password').val() == "") {
 							error_M += "New password is empty<br>";
 							$('#new_password').css("background-color", error_color);
-						} else {
-							$('#new_password').css("background-color", correct_color);
-						}
+						} 
 						if ($('#confirm_password').val() == "") {
 							error_M += "Confirm password is empty<br>";
 							$('#confirm_password').css("background-color", error_color);
-						} else {
-							$('#confirm_password').css("background-color", correct_color);
-						}
-						if ($('#new_password').val() != $('#confirm_password').val()) {
-							error_M += "Confirm password does not match the new password";
-							$('#new_password').css("background-color", error_color);
-							$('#confirm_password').css("background-color", error_color);
-						}
+						} 
 						return error_M;
 					}
 				</script>
