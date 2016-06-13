@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-        <title>Bootstrap 101 Template</title>
+        <title>Society Community</title>
 
         <!-- Bootstrap -->
 
@@ -91,24 +91,24 @@
 			.big-title {
 				font-size: 28px;
 			}
-			 .buttonmargin {
-                margin-left: 6px;
-                margin-top: -4px;
-            }
-            .dateTimeANDUser {
-                clear: both;
-                margin-top: 2px;
-            }
-            .writing_style_ForTitle {
-                font-size: 110%;
-            }
-            .writing_style_ForPostTitle {
-                font-size: 130%;
-            }
-            .writing_style_Forinput {
-                font-size: 100%;
-                font-weight: normal
-            }
+			.buttonmargin {
+				margin-left: 6px;
+				margin-top: -4px;
+			}
+			.dateTimeANDUser {
+				clear: both;
+				margin-top: 2px;
+			}
+			.writing_style_ForTitle {
+				font-size: 110%;
+			}
+			.writing_style_ForPostTitle {
+				font-size: 130%;
+			}
+			.writing_style_Forinput {
+				font-size: 100%;
+				font-weight: normal
+			}
 
         </style>
 
@@ -219,8 +219,8 @@
 							echo '<li>';
 						}
 						echo sprintf($template, $categories['ID'][$i], $categories['NAME'][$i]);
-						for($j = 0; $j < count($hottest_categories['CATEGORY_ID']); $j++){
-							if($hottest_categories['CATEGORY_ID'][$j] == $categories['ID'][$i]){
+						for ($j = 0; $j < count($hottest_categories['CATEGORY_ID']); $j++) {
+							if ($hottest_categories['CATEGORY_ID'][$j] == $categories['ID'][$i]) {
 								echo '<span class="glyphicon glyphicon-fire" style="color:red"></span>';
 							}
 						}
@@ -242,44 +242,71 @@
 				 */
 
 				require_once (dirname(__FILE__) . "/model/posts.php");
-				$template = '<div class="panel panel-success">
-
-                      <div class="panel-heading">
-                       <div class-"row">
-                       
-					   		<div class="col-sm-3" style="margin-left:-14px">
-					   		<label class="marginleft margintopbypx writing_style_ForTitle" >Date:</label>
-					   		<label class="marginleft margintopbypx writing_style_Forinput" >%s</label>					   		
-							</div>
-							<div class="col-md-6">
-							<center>
-					   		<label class="marginleft margintopbypx writing_style_ForTitle" > %s</label>
-					   			
-					   		</center>			   		
-							</div>       
-							<div class= "pull-right">
-                                    <button type="button" class="btn btn-default pull-right">
-                                        <span class="glyphicon glyphicon-trash"></span>
-                                    </button>
-                                </div>          
-                       </div>
-                            <div class="dateTimeANDUser">  
-                                <label class="marginleft margintopbypx writing_style_ForTitle" >Username: </label>                                
-                                <label name="user_name" class="writing_style_Forinput">%s</label>                               
-                                <button type="button" class="btn btn-danger btn-xs buttonmargin">
-                                    Ban
-                                </button>
-                                
-                                
-                                
-                            </div>
-						
-                            <div class="clearfix"></div>
-                        </div>
-                        <div class="panel-body">
-                            %s
-                        </div>
-                    </div>';
+				$template = 
+				'<div class="panel panel-success">
+				   <div class="panel-heading">
+				      <div class-"row">
+				         <div class="col-sm-3" style="margin-left:-14px">
+				            <label class="marginleft margintopbypx writing_style_ForTitle" >Date:</label>
+				            <label class="marginleft margintopbypx writing_style_Forinput" >%s</label>					   		
+				         </div>
+				         <div class="col-md-6">
+				            <center>
+				               <a href="./post.php?category_id=%s&post_id=%s&page=1">
+				               		<label class="marginleft margintopbypx writing_style_ForTitle" >%s</label>
+				               </a>
+				            </center>
+				         </div>
+				         <div class= "pull-right">
+				         </div>
+				      </div>
+				      <div class="dateTimeANDUser">  
+				         <label class="marginleft margintopbypx writing_style_ForTitle" >Username: </label>                                
+				         <label name="user_name" class="writing_style_Forinput">%s</label>
+				      </div>
+				      <div class="clearfix"></div>
+				   </div>
+				   <div class="panel-body">
+				      %s
+				   </div>
+				</div>';
+				
+				$template_for_admin =
+				'<div class="panel panel-success">
+				   <div class="panel-heading">
+				      <div class-"row">
+				         <div class="col-sm-3" style="margin-left:-14px">
+				            <label class="marginleft margintopbypx writing_style_ForTitle" >Date:</label>
+				            <label class="marginleft margintopbypx writing_style_Forinput" >%s</label>					   		
+				         </div>
+				         <div class="col-md-6">
+				            <center>
+				               	<a href="./post.php?category_id=%s&post_id=%s&page=1">
+				               		<label class="marginleft margintopbypx writing_style_ForTitle" >%s</label>
+				               	</a>
+				            </center>
+				         </div>
+				         <div class= "pull-right">
+				            <a href="./jump/delete_msgs.php?msgs_id=%s">
+				            	<button type="button" class="btn btn-default pull-right">
+				            		<span class="glyphicon glyphicon-trash"></span>
+				            	</button>
+				            </a>
+				         </div>
+				      </div>
+				      <div class="dateTimeANDUser">  
+				         <label class="marginleft margintopbypx writing_style_ForTitle" >Username: </label>                                
+				         <label name="user_name" class="writing_style_Forinput">%s</label>                               
+				         <a href="./jump/ban_user.php?user_id=%s">
+				         	<button type="button" class="btn btn-danger btn-xs buttonmargin">Ban</button>
+				         </a>
+				      </div>
+				      <div class="clearfix"></div>
+				   </div>
+				   <div class="panel-body">
+				      %s
+				   </div>
+				</div>';
 
 				$posts = PostsTable::select_by_category_id($GLOBALS['category_id']);
 
@@ -292,8 +319,28 @@
 					}
 				}
 				$offset = ($GLOBALS['page'] - 1) * POSTS_NUM_ONE_PAGE;
-				for ($i = $offset, $j = 0; $i < count($posts['ID']) && $j < 10; $i++, $j++) {
-					echo sprintf($template, $posts['DATETIME'][$i], $posts['TITLE'][$i], $posts['NAME'][$i], $posts['CONTENT'][$i], $GLOBALS['category_id'], $posts['ID'][$i] );
+				if ($_COOKIE['type'] == 'admin') {
+					for ($i = $offset, $j = 0; $i < count($posts['ID']) && $j < 10; $i++, $j++) {
+						echo sprintf($template_for_admin, 
+									$posts['DATETIME'][$i], 
+									$GLOBALS['category_id'], 
+									$posts['ID'][$i],
+									$posts['TITLE'][$i],
+									$posts['ID'][$i],
+									$posts['NAME'][$i],
+									$posts['USER_ID'][$i], 
+									$posts['CONTENT'][$i]);
+					}
+				}else{
+					for ($i = $offset, $j = 0; $i < count($posts['ID']) && $j < 10; $i++, $j++) {
+						echo sprintf($template, 
+									$posts['DATETIME'][$i], 
+									$GLOBALS['category_id'], 
+									$posts['ID'][$i], 
+									$posts['TITLE'][$i], 
+									$posts['NAME'][$i], 
+									$posts['CONTENT'][$i]);
+					}
 				}
 				?>
                     <!--Posts End-->
