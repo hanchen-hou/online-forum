@@ -24,6 +24,7 @@ if (!isset($GLOBALS['user_name'])) {
 $GLOBALS['posts_summary'] = UsersTable::posts_summary($_COOKIE['id']);
 $GLOBALS['most_diligent'] = UsersTable::most_diligent();
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
