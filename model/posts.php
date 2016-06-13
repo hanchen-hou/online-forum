@@ -77,7 +77,7 @@ class PostsTable {
 			return FALSE;
 
 		$conn = connect_db();
-		$sql = "select p.id, p.title, m.content, TO_CHAR(m.datetime,'YYYY-MM-DD') as DATETIME, m.user_id, u.name 
+		$sql = "select p.id, p.title, m.content, TO_CHAR(m.datetime,'YYYY-MM-DD') as DATETIME, m.user_id, u.name as user_name 
 				from " . POSTS_TABLE . " p, " . MSGS_TABLE . " m, " . USERS_TABLE . " u  
 				where p.category_id=:category_id and p.id = m.id and m.user_id = u.id 
 				Order BY m.datetime DESC";

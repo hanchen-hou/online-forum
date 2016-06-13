@@ -170,11 +170,15 @@
 								$admin = AdminsTable::select_by_id($_COOKIE['id']);
 								if (count($admin['ID']) > 0) {
 									$sub_page = sprintf($after_login, $admin['NAME']);
+								}else{
+									exit('Fake Administrator Account');
 								}
 							} else if ($_COOKIE['type'] == 'user') {
 								$user = UsersTable::select_by_id($_COOKIE['id']);
 								if (count($user['ID']) > 0) {
 									$sub_page = sprintf($after_login, $user['NAME']);
+								}else{
+									exit('You are not a USER');
 								}
 							}
 						}
@@ -319,6 +323,7 @@
 					}
 				}
 				$offset = ($GLOBALS['page'] - 1) * POSTS_NUM_ONE_PAGE;
+				
 				if ($_COOKIE['type'] == 'admin') {
 					for ($i = $offset, $j = 0; $i < count($posts['ID']) && $j < 10; $i++, $j++) {
 						echo sprintf($template_for_admin, 
@@ -327,7 +332,7 @@
 									$posts['ID'][$i],
 									$posts['TITLE'][$i],
 									$posts['ID'][$i],
-									$posts['NAME'][$i],
+									$posts['USER_NAME'][$i],
 									$posts['USER_ID'][$i], 
 									$posts['CONTENT'][$i]);
 					}
@@ -338,7 +343,7 @@
 									$GLOBALS['category_id'], 
 									$posts['ID'][$i], 
 									$posts['TITLE'][$i], 
-									$posts['NAME'][$i], 
+									$posts['USER_NAME'][$i], 
 									$posts['CONTENT'][$i]);
 					}
 				}
