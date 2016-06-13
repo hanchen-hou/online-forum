@@ -27,7 +27,7 @@ if (isset($_POST['user_name']) && isset($_POST['password']) && !empty($_POST['us
 		}
 	} else {
 		$user = UsersTable::select_by_name($_POST['user_name']);
-		if (count($user) > 0) {
+		if ($user) {
 			if ($user['PW_MD5'] == md5($_POST['password'] . $user['SALT'])) {
 				setcookie('id', $user['ID'], time() + 3600 * 24, '/');
 				setcookie('type', 'user', time() + 3600 * 24, '/');
@@ -35,6 +35,8 @@ if (isset($_POST['user_name']) && isset($_POST['password']) && !empty($_POST['us
 			} else {
 				$GLOBALS['result'] = 'Wrong Password';
 			}
+		}else{
+			$GLOBALS['result'] = 'User does not exists.';
 		}
 	}
 } else {
