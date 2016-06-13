@@ -21,18 +21,14 @@ class MsgsTable {
 		if (strlen($data['content']) > CONTENT_LENGTH)
 			return FALSE;
 
-		$visible = 0;
-
 		$conn = connect_db();
-		$sql = "insert into " . MSGS_TABLE . " (id, user_id, datetime, content, visible) values
-			(:id, :user_id, CURRENT_TIMESTAMP, :content, :visible)";
+		$sql = "insert into " . MSGS_TABLE . " (id, user_id, datetime, content) values
+			(:id, :user_id, CURRENT_TIMESTAMP, :content)";
 		$stmt = oci_parse($conn, $sql);
 		oci_bind_by_name($stmt, ":id", $id);
 		// id number get from MSGS_SEQ
 		oci_bind_by_name($stmt, ":user_id", $data['user_id']);
 		oci_bind_by_name($stmt, ":content", $data['content']);
-		oci_bind_by_name($stmt, ":visible", $visible);
-		//0=visible/1=invisible
 
 		$result = oci_execute($stmt);
 		oci_close($conn);
@@ -99,7 +95,6 @@ class MsgsTable {
 			user_id INT NOT NULL,
 			datetime TIMESTAMP NOT NULL,
 			content VARCHAR2(" . CONTENT_LENGTH . ") NOT NULL,
-			visible INT NOT NULL,
 			FOREIGN KEY (user_id) REFERENCES " . USERS_TABLE . "(id)
 			)";
 		$stmt = oci_parse($conn, $sql);
