@@ -161,16 +161,17 @@ class UsersTable {
 	// how many posts a user makes in each category
 	static function posts_summary($user_id){
 		$conn = connect_db();
-		$sql = "select category_name, count(*) AS POSTS_NUM
+		$sql = "select category_name,CATEGORY_ID, count(*) AS POSTS_NUM
 				from CS_POSTS_DETAIL
 				where user_id = :id
-				group by category_name
+				group by category_name,CATEGORY_ID
 				UNION
-				select distinct category_name, 0 AS POSTS_NUM
+				select distinct category_name,CATEGORY_ID, 0 AS POSTS_NUM
 				from CS_POSTS_DETAIL
 				where category_name not in (select category_name
-											from CS_POSTS_DETAIL
-											where user_id = :id)";
+				              from CS_POSTS_DETAIL
+				              where user_id = :id)
+				order by CATEGORY_ID";
 		$stmt = oci_parse($conn, $sql);
 		oci_bind_by_name($stmt, ":id", $user_id);
 		oci_execute($stmt);
