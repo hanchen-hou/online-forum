@@ -292,7 +292,7 @@ if (isset($_GET['post_id']) && is_numeric($_GET['post_id'])) {
 						</div>
 					</div>
 					';
-					$template_for_admin = '
+					$template_for_admin_to_ban = '
 					<div class="panel panel-success comment-center">
 						<div class="panel-heading">
 							<div class="dateTimeANDUser">
@@ -317,6 +317,32 @@ if (isset($_GET['post_id']) && is_numeric($_GET['post_id'])) {
 							%s
 						</div>
 					</div>';
+					
+					$template_for_admin_to_unban = '
+					<div class="panel panel-success comment-center">
+						<div class="panel-heading">
+							<div class="dateTimeANDUser">
+                                <label class="marginleft margintopbypx writing_style_ForTitle" >Date: </label>
+                                <div class= "pull-right">
+	                                <a href="./jump/delete_msgs.php?msgs_id=%s">
+	                                    <button type="button" class="btn btn-default pull-right">
+	                                        <span class="glyphicon glyphicon-trash"></span>
+	                                    </button>
+                                    </a>
+                                </div>
+                                <label name="DateOrTime" class="writing_style_Forinput">%s</label><br>
+                                <label class="marginleft margintopbypx writing_style_ForTitle" >User Name: </label>
+                                <label name="user_name" class="writing_style_Forinput">%s</label>
+                                <a href="./jump/unban_user.php?user_id=%s">
+	                                <button type="button" class="btn btn-danger btn-xs buttonmargin">Unban</button>
+                                </a>
+                            </div>
+							<div class="clearfix"></div>
+						</div>
+						<div class="panel-body">
+							%s
+						</div>
+					</div>';
 
 					$comments = $GLOBALS['comments'];
 					$GLOBALS['total_pages'] = ceil(count($comments['ID']) / COMMENTS_NUM_ONE_PAGE);
@@ -331,12 +357,21 @@ if (isset($_GET['post_id']) && is_numeric($_GET['post_id'])) {
 
 					if ($_COOKIE['type'] == 'admin') {
 						for ($i = $offset, $j = 0; $i < count($comments['ID']) && $j < 10; $i++, $j++) {
-							echo sprintf($template_for_admin, 
-											$comments['ID'][$i],
-											$comments['DATETIME'][$i], 
-											$comments['USER_NAME'][$i],
-											$comments['USER_ID'][$i], 
-											$comments['CONTENT'][$i]);
+							if($comments['USER_STATUS'][$i] == 1){
+								echo sprintf($template_for_admin_to_unban, 
+												$comments['ID'][$i],
+												$comments['DATETIME'][$i], 
+												$comments['USER_NAME'][$i],
+												$comments['USER_ID'][$i], 
+												$comments['CONTENT'][$i]);
+							}else{
+								echo sprintf($template_for_admin_to_ban, 
+												$comments['ID'][$i],
+												$comments['DATETIME'][$i], 
+												$comments['USER_NAME'][$i],
+												$comments['USER_ID'][$i], 
+												$comments['CONTENT'][$i]);
+							}
 						}
 					} else {
 						for ($i = $offset, $j = 0; $i < count($comments['ID']) && $j < 10; $i++, $j++) {
