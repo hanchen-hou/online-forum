@@ -1,4 +1,4 @@
-<?php
+	<?php
 require_once (dirname(dirname(__FILE__)) . '/lib/common.php');
 require_once (dirname(__FILE__) . '/msgs.php');
 require_once (dirname(__FILE__) . '/msgs_seq.php');
@@ -77,7 +77,7 @@ class PostsTable {
 			return FALSE;
 
 		$conn = connect_db();
-		$sql = "select p.id, p.title, m.content, TO_CHAR(m.datetime,'YYYY-MM-DD') as DATETIME, m.user_id, u.name as user_name 
+		$sql = "select p.id, p.title, m.content, TO_CHAR(m.datetime,'YYYY-MM-DD') as DATETIME, u.id as USER_ID, u.name as USER_NAME, u.status as USER_STATUS
 				from " . POSTS_TABLE . " p, " . MSGS_TABLE . " m, " . USERS_TABLE . " u  
 				where p.category_id=:category_id and p.id = m.id and m.user_id = u.id 
 				Order BY m.datetime DESC";
@@ -111,7 +111,7 @@ class PostsTable {
 
 	static function drop() {
 		$conn = connect_db();
-		$sql = "drop table " . POSTS_TABLE;
+		$sql = "drop table " . POSTS_TABLE ." CASCADE CONSTRAINTS PURGE";
 		$stmt = oci_parse($conn, $sql);
 		$result = oci_execute($stmt);
 		oci_close($conn);

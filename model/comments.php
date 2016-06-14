@@ -60,8 +60,7 @@ class CommentsTable {
 		$conn = connect_db();
 		$sql = "Select m.content, m.datetime, u.name, m.visible 
 				From " . COMMENTS_TABLE . " c, " . MSGS_TABLE . " m, " . USERS_TABLE . " u 
-				Where c.id = :id and m.id = c.id and u.id = m.user_id 
-				Order BY m.datetime ASC";
+				Where c.id = :id and m.id = c.id and u.id = m.user_id";
 		$stmt = oci_parse($conn, $sql);
 		oci_bind_by_name($stmt, ":id", $id);
 		oci_execute($stmt);
@@ -75,7 +74,7 @@ class CommentsTable {
 			return;
 
 		$conn = connect_db();
-		$sql = "Select m.id, m.content, TO_CHAR(m.datetime,'YYYY-MM-DD HH24:MI:SS') as DATETIME, m.user_id, u.name as user_name
+		$sql = "Select m.id, m.content, TO_CHAR(m.datetime,'YYYY-MM-DD HH24:MI:SS') as DATETIME, u.id as USER_ID, u.name as USER_NAME, u.status as USER_STATUS
 				From " . COMMENTS_TABLE . " c, " . MSGS_TABLE . " m, " . USERS_TABLE . " u 
 				Where c.post_id=:post_id and c.id = m.id and u.id = m.user_id
 				Order BY m.datetime ASC";
@@ -111,7 +110,7 @@ class CommentsTable {
 
 	static function drop() {
 		$conn = connect_db();
-		$sql = "drop table " . COMMENTS_TABLE;
+		$sql = "drop table " . COMMENTS_TABLE ." CASCADE CONSTRAINTS PURGE";
 		$stmt = oci_parse($conn, $sql);
 		$result = oci_execute($stmt);
 		oci_close($conn);

@@ -275,7 +275,7 @@
 				   </div>
 				</div>';
 				
-				$template_for_admin =
+				$template_for_admin_to_ban =
 				'<div class="panel panel-success">
 				   <div class="panel-heading">
 				      <div class-"row">
@@ -311,6 +311,43 @@
 				      %s
 				   </div>
 				</div>';
+				
+				$template_for_admin_to_unban =
+				'<div class="panel panel-success">
+				   <div class="panel-heading">
+				      <div class-"row">
+				         <div class="col-sm-3" style="margin-left:-14px">
+				            <label class="marginleft margintopbypx writing_style_ForTitle" >Date:</label>
+				            <label class="marginleft margintopbypx writing_style_Forinput" >%s</label>					   		
+				         </div>
+				         <div class="col-md-6">
+				            <center>
+				               	<a href="./post.php?category_id=%s&post_id=%s&page=1">
+				               		<label class="marginleft margintopbypx writing_style_ForTitle" >%s</label>
+				               	</a>
+				            </center>
+				         </div>
+				         <div class= "pull-right">
+				            <a href="./jump/delete_msgs.php?msgs_id=%s">
+				            	<button type="button" class="btn btn-default pull-right">
+				            		<span class="glyphicon glyphicon-trash"></span>
+				            	</button>
+				            </a>
+				         </div>
+				      </div>
+				      <div class="dateTimeANDUser">  
+				         <label class="marginleft margintopbypx writing_style_ForTitle" >Username: </label>                                
+				         <label name="user_name" class="writing_style_Forinput">%s</label>                               
+				         <a href="./jump/unban_user.php?user_id=%s">
+				         	<button type="button" class="btn btn-danger btn-xs buttonmargin">Unban</button>
+				         </a>
+				      </div>
+				      <div class="clearfix"></div>
+				   </div>
+				   <div class="panel-body">
+				      %s
+				   </div>
+				</div>';
 
 				$posts = PostsTable::select_by_category_id($GLOBALS['category_id']);
 
@@ -326,15 +363,27 @@
 				
 				if ($_COOKIE['type'] == 'admin') {
 					for ($i = $offset, $j = 0; $i < count($posts['ID']) && $j < 10; $i++, $j++) {
-						echo sprintf($template_for_admin, 
-									$posts['DATETIME'][$i], 
-									$GLOBALS['category_id'], 
-									$posts['ID'][$i],
-									$posts['TITLE'][$i],
-									$posts['ID'][$i],
-									$posts['USER_NAME'][$i],
-									$posts['USER_ID'][$i], 
-									$posts['CONTENT'][$i]);
+						if($posts['USER_STATUS'][$i] == 1){
+							echo sprintf($template_for_admin_to_unban, 
+										$posts['DATETIME'][$i], 
+										$GLOBALS['category_id'], 
+										$posts['ID'][$i],
+										$posts['TITLE'][$i],
+										$posts['ID'][$i],
+										$posts['USER_NAME'][$i],
+										$posts['USER_ID'][$i], 
+										$posts['CONTENT'][$i]);
+						}else{
+							echo sprintf($template_for_admin_to_ban, 
+										$posts['DATETIME'][$i], 
+										$GLOBALS['category_id'], 
+										$posts['ID'][$i],
+										$posts['TITLE'][$i],
+										$posts['ID'][$i],
+										$posts['USER_NAME'][$i],
+										$posts['USER_ID'][$i], 
+										$posts['CONTENT'][$i]);
+						}
 					}
 				}else{
 					for ($i = $offset, $j = 0; $i < count($posts['ID']) && $j < 10; $i++, $j++) {
