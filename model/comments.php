@@ -53,7 +53,7 @@ class CommentsTable {
 			}
 			
 			oci_close($conn);
-			return $msgs_insert_result;
+			return $comments_insert_result;
 		} else {
 			oci_close($conn);
 			return FALSE;
