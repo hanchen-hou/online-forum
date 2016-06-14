@@ -1,23 +1,26 @@
 --
 -- First drop any existing tables. Any errors are ignored.
 --
-drop view CS_CATEGORIES_DETAIL cascade constraints;
-drop view CS_POSTS_DETAIL cascade constraints;
-drop table CS_COMMENTS cascade constraints;
-drop table CS_POSTS cascade constraints;
-drop table CS_MSGS cascade constraints;
+DROP VIEW CS_CATEGORIES_DETAIL cascade constraints;
+DROP VIEW CS_POSTS_DETAIL cascade constraints;
+DROP TRIGGER CS_ADD_COMMENTS;
+DROP TABLE CS_COMMENTS cascade constraints;
+DROP TRIGGER CS_ADD_POSTS;
+DROP TABLE CS_POSTS cascade constraints;
+DROP TRIGGER CS_ADD_MSGS;
+DROP TABLE CS_MSGS cascade constraints;
 DROP SEQUENCE CS_MSGS_SEQ;
 DROP TRIGGER CS_ADD_CATEGORIES;
 DROP SEQUENCE CS_CATEGORIES_SEQ;
 DROP TABLE CS_CATEGORIES cascade constraints;
-drop table CS_BANNED_USERS cascade constraints;
-drop table CS_ADMINS cascade constraints;
-drop table CS_USERS cascade constraints;
+DROP TABLE CS_BANNED_USERS cascade constraints;
+DROP TABLE CS_ADMINS cascade constraints;
+DROP TABLE CS_USERS cascade constraints;
 
 --
 -- Now, add each table.
 --
-create table CS_USERS 
+CREATE TABLE CS_USERS 
 			(
 			id INT PRIMARY KEY,
 			email VARCHAR2(256) UNIQUE NOT NULL,
@@ -28,7 +31,7 @@ create table CS_USERS
 			status INT NOT NULL
 			);
 			
-create table CS_ADMINS 
+CREATE TABLE CS_ADMINS 
 			(
 			id INT PRIMARY KEY, 
 			senior_id INT,
@@ -36,7 +39,7 @@ create table CS_ADMINS
 			FOREIGN KEY (senior_id ) REFERENCES CS_ADMINS (id)
 			);
 
-create table CS_BANNED_USERS 
+CREATE TABLE CS_BANNED_USERS 
 				(
 				id INT PRIMARY KEY, 
 				banned_datetime TIMESTAMP NOT NULL,
@@ -45,7 +48,7 @@ create table CS_BANNED_USERS
 				FOREIGN KEY (admin_id) REFERENCES CS_ADMINS (id)
 				);
 
-create table CS_CATEGORIES 
+CREATE TABLE CS_CATEGORIES 
 			(
 			id INT PRIMARY KEY, 
 			name VARCHAR2(20) NOT NULL UNIQUE,
@@ -68,17 +71,26 @@ CREATE OR REPLACE TRIGGER CS_ADD_CATEGORIES
 		
 CREATE SEQUENCE CS_MSGS_SEQ;
 
-create table CS_MSGS 
+CREATE TABLE CS_MSGS 
 			(
 			id INT PRIMARY KEY,
 			user_id INT NOT NULL,
 			datetime TIMESTAMP NOT NULL,
 			content VARCHAR2( 512 ) NOT NULL,
-			visible INT NOT NULL,
 			FOREIGN KEY (user_id) REFERENCES CS_USERS (id)
 			);
-			
-create table CS_POSTS 
+
+CREATE OR REPLACE TRIGGER CS_ADD_MSGS 
+			BEFORE INSERT ON CS_MSGS 
+			FOR EACH ROW
+			BEGIN
+			  SELECT CS_MSGS_SEQ.NEXTVAL
+			  INTO   :new.id
+			  FROM   dual;
+			END;
+/
+
+CREATE TABLE CS_POSTS 
 			(
 			id INT PRIMARY KEY,
 			category_id INT NOT NULL,
@@ -86,15 +98,35 @@ create table CS_POSTS
 			FOREIGN KEY (id) REFERENCES CS_MSGS (id) ON DELETE CASCADE,
 			FOREIGN KEY (category_id) REFERENCES CS_CATEGORIES (id) ON DELETE CASCADE
 			);
-			
-create table CS_COMMENTS 
+
+CREATE OR REPLACE TRIGGER CS_ADD_POSTS 
+			BEFORE INSERT ON CS_POSTS 
+			FOR EACH ROW
+			BEGIN
+			  SELECT CS_MSGS_SEQ.CURRVAL
+			  INTO   :new.id
+			  FROM   dual;
+			END;
+/
+
+CREATE TABLE CS_COMMENTS 
 			(
 			id INT PRIMARY KEY,
 			post_id INT NOT NULL,
 			FOREIGN KEY (id) REFERENCES CS_MSGS (id) ON DELETE CASCADE,
 			FOREIGN KEY (post_id) REFERENCES CS_POSTS (id) ON DELETE CASCADE
 			);
-			
+
+CREATE OR REPLACE TRIGGER CS_ADD_COMMENTS 
+			BEFORE INSERT ON CS_COMMENTS 
+			FOR EACH ROW
+			BEGIN
+			  SELECT CS_MSGS_SEQ.CURRVAL
+			  INTO   :new.id
+			  FROM   dual;
+			END;
+/
+		
 create view CS_CATEGORIES_DETAIL(category_id, category_name, posts_num) AS
 				select c.id, c.name, count(*)
 				from CS_CATEGORIES c, CS_POSTS p

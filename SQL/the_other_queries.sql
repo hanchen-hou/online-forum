@@ -132,13 +132,13 @@ insert into CS_POSTS (id, category_id, title) values
 -- select all
 select * from CS_POSTS
 
--- select by post_id
-select p.id, p.title, m.content, TO_CHAR(m.datetime,'YYYY-MM-DD HH24:MI:SS') as DATETIME, u.name as user_name 
+-- select a post by post_id
+select p.id, p.title, m.content, TO_CHAR(m.datetime,'YYYY-MM-DD') as DATETIME, u.name as USER_NAME
 from CS_POSTS p, CS_MSGS m, CS_USERS u 
 where p.id = :id and p.id = m.id and m.user_id = u.id
 
--- select by category_id
-select p.id, p.title, m.content, TO_CHAR(m.datetime,'YYYY-MM-DD') as DATETIME, m.user_id, u.name as user_name 
+-- select posts by category_id
+select p.id, p.title, m.content, TO_CHAR(m.datetime,'YYYY-MM-DD') as DATETIME, u.id as USER_ID, u.name as USER_NAME, u.status as USER_STATUS
 from CS_POSTS p, CS_MSGS m, CS_USERS u 
 where p.category_id=:category_id and p.id = m.id and m.user_id = u.id 
 Order BY m.datetime DESC
@@ -160,7 +160,7 @@ From CS_COMMENTS c, CS_MSGS m, CS_USERS u
 Where c.id = :id and m.id = c.id and u.id = m.user_id 
 
 -- select all comments in a post by post_id
-Select m.id, m.content, TO_CHAR(m.datetime,'YYYY-MM-DD HH24:MI:SS') as DATETIME, m.user_id, u.name as user_name
+Select m.id, m.content, TO_CHAR(m.datetime,'YYYY-MM-DD') as DATETIME, u.id as USER_ID, u.name as USER_NAME, u.status as USER_STATUS
 From CS_COMMENTS c, CS_MSGS m, CS_USERS u 
 Where c.post_id=:post_id and c.id = m.id and u.id = m.user_id
 Order BY m.datetime ASC
