@@ -21,23 +21,41 @@ class CommentsTable {
 			return FALSE;
 		if (!isset($data['user_id']))
 			return FALSE;
+		if (!isset($data['content']))
+			return FALSE;
+		if (strlen($data['content']) > CONTENT_LENGTH)
+			return FALSE;
 		if (!PostsTable::select_by_id($data['post_id']))
 			return FALSE;
 
-		$id = MsgsSeq::next_value();
-		if (MsgsTable::insert($id, $data)) {
-			$conn = connect_db();
-			$sql = "insert into " . COMMENTS_TABLE . " (id, post_id) values
-			(:id, :post_id)";
-			$stmt = oci_parse($conn, $sql);
+		$conn = connect_db();
+		
+		$msgs_insert_sql = "insert into " . MSGS_TABLE . " (user_id, datetime, content) values
+			(:user_id, CURRENT_TIMESTAMP, :content)";
+		$stmt = oci_parse($conn, $msgs_insert_sql);
+		oci_bind_by_name($stmt, ":user_id", $data['user_id']);
+		oci_bind_by_name($stmt, ":content", $data['content']);
+		$msgs_insert_result = oci_execute($stmt, OCI_DEFAULT);
+
+		if ($msgs_insert_result) {
+			$comments_insert_sql = "insert into " . COMMENTS_TABLE . " (post_id) values
+			(:post_id)";
+			$stmt = oci_parse($conn, $comments_insert_sql);
 			oci_bind_by_name($stmt, ":id", $id);
 			oci_bind_by_name($stmt, ":post_id", $data['post_id']);
 
-			$result = oci_execute($stmt);
+			$comments_insert_result = oci_execute($stmt);
+			
+			if($comments_insert_result){
+				oci_commit($conn);
+			}else{
+				oci_rollback($conn);
+			}
+			
 			oci_close($conn);
-
-			return $result;
+			return $msgs_insert_result;
 		} else {
+			oci_close($conn);
 			return FALSE;
 		}
 	}
@@ -68,13 +86,13 @@ class CommentsTable {
 
 		return oci_fetch_array($stmt);
 	}
-	
+
 	static function select_by_post_id($post_id) {
 		if (is_null($post_id))
 			return;
 
 		$conn = connect_db();
-		$sql = "Select m.id, m.content, TO_CHAR(m.datetime,'YYYY-MM-DD HH24:MI:SS') as DATETIME, u.id as USER_ID, u.name as USER_NAME, u.status as USER_STATUS
+		$sql = "Select m.id, m.content, TO_CHAR(m.datetime,'YYYY-MM-DD') as DATETIME, u.id as USER_ID, u.name as USER_NAME, u.status as USER_STATUS
 				From " . COMMENTS_TABLE . " c, " . MSGS_TABLE . " m, " . USERS_TABLE . " u 
 				Where c.post_id=:post_id and c.id = m.id and u.id = m.user_id
 				Order BY m.datetime ASC";
@@ -86,23 +104,32 @@ class CommentsTable {
 		$row = oci_fetch_all($stmt, $res);
 		return $res;
 	}
-	
+
 	static function delete_by_id($id) {
 		return MsgsTable::delete_by_id($id);
 	}
-	
+
 	static function create() {
 		$conn = connect_db();
-		$sql = "create table " . COMMENTS_TABLE . " 
+		$sql_1 = "create table " . COMMENTS_TABLE . " 
 			(
 			id INT PRIMARY KEY,
 			post_id INT NOT NULL,
 			FOREIGN KEY (id) REFERENCES " . MSGS_TABLE . "(id) ON DELETE CASCADE,
 			FOREIGN KEY (post_id) REFERENCES " . POSTS_TABLE . "(id) ON DELETE CASCADE
 			)";
-		$stmt = oci_parse($conn, $sql);
-
-		$result = oci_execute($stmt);
+		$sql_2 = "CREATE OR REPLACE TRIGGER " . COMMENTS_TRIGGER . " 
+			BEFORE INSERT ON " . COMMENTS_TABLE . " 
+			FOR EACH ROW
+			BEGIN
+			  SELECT " . MSGS_SEQ . ".CURRVAL
+			  INTO   :new.id
+			  FROM   dual;
+			END;";
+		$stmt_1 = oci_parse($conn, $sql_1);
+		$result = oci_execute($stmt_1);
+		$stmt_2 = oci_parse($conn, $sql_2);
+		$result = oci_execute($stmt_2) && $result;
 		oci_close($conn);
 
 		return $result;
@@ -110,9 +137,14 @@ class CommentsTable {
 
 	static function drop() {
 		$conn = connect_db();
-		$sql = "drop table " . COMMENTS_TABLE ." CASCADE CONSTRAINTS PURGE";
-		$stmt = oci_parse($conn, $sql);
-		$result = oci_execute($stmt);
+		$sql_1 = "DROP TRIGGER " . COMMENTS_TRIGGER;
+		$sql_2 = "DROP TABLE " . COMMENTS_TABLE . " CASCADE CONSTRAINTS PURGE";
+
+		$stmt_1 = oci_parse($conn, $sql_1);
+		$result = oci_execute($stmt_1);
+		$stmt_2 = oci_parse($conn, $sql_2);
+		$result = oci_execute($stmt_2) && $result;
+
 		oci_close($conn);
 		return $result;
 	}

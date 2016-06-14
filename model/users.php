@@ -224,7 +224,7 @@ class UsersTable {
 
 	static function drop() {
 		$conn = connect_db();
-		$sql = "drop table " . USERS_TABLE;
+		$sql = "drop table " . USERS_TABLE ." CASCADE CONSTRAINTS PURGE";
 		$stmt = oci_parse($conn, $sql);
 		$result = oci_execute($stmt);
 		oci_close($conn);

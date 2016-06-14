@@ -98,18 +98,13 @@ class CategoriesTable{
 		oci_close($conn);
 		
 		return $result;
-		
-		$result = oci_execute($stmt);
-		oci_close($conn);
-		
-		return $result;
 	}
 	
 	static function drop(){
 		$conn = connect_db();
 		$sql_1 = "DROP TRIGGER ".CATEGORIES_TRIGGER;
 		$sql_2 = "DROP SEQUENCE ".CATEGORIES_SEQ;
-		$sql_3 = "DROP TABLE ".CATEGORIES_TABLE;
+		$sql_3 = "DROP TABLE ".CATEGORIES_TABLE ." CASCADE CONSTRAINTS PURGE";
 		$stmt_1 = oci_parse($conn, $sql_1);
 		$result = oci_execute($stmt_1);
 		$stmt_2 = oci_parse($conn, $sql_2);
