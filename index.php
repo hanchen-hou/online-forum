@@ -171,14 +171,14 @@
 								if (count($admin['ID']) > 0) {
 									$sub_page = sprintf($after_login, $admin['NAME']);
 								}else{
-									exit('Fake Administrator Account');
+									//exit('Fake Administrator Account');
 								}
 							} else if ($_COOKIE['type'] == 'user') {
 								$user = UsersTable::select_by_id($_COOKIE['id']);
 								if (count($user['ID']) > 0) {
 									$sub_page = sprintf($after_login, $user['NAME']);
 								}else{
-									exit('You are not a USER');
+									//exit('You are not a USER');
 								}
 							}
 						}
