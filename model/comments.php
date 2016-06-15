@@ -41,7 +41,6 @@ class CommentsTable {
 			$comments_insert_sql = "insert into " . COMMENTS_TABLE . " (post_id) values
 			(:post_id)";
 			$stmt = oci_parse($conn, $comments_insert_sql);
-			oci_bind_by_name($stmt, ":id", $id);
 			oci_bind_by_name($stmt, ":post_id", $data['post_id']);
 
 			$comments_insert_result = oci_execute($stmt);
