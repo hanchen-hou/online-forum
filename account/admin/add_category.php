@@ -167,13 +167,13 @@ if (!isset($GLOBALS['user_name'])) {
                         <a class="sidebar-brand" href="add_admin.php">Add Admin</a>
                     </li>
                     <li class="selected">
-                        <a class="sidebar-brand" href="add_category.php">Add Category</a>
+                        <a class="sidebar-brand" href="add_category.php">Manage Category</a>
                     </li>
                 </ul>
             </div>
             <div class="panel panel-primary mypanel " id="margintop">
               <div class="panel-heading center">
-                <h3 class="panel-title big-title">Add Category</h3>
+                <h3 class="panel-title big-title">Manage Category</h3>
               </div>
               <div class="panel-body Post_Info"id="post_field">
 
@@ -191,6 +191,22 @@ if (!isset($GLOBALS['user_name'])) {
                     </form>
                 </div>
             </div>
+            
+            <div class="panel panel-primary marginleft" >
+                <div class="panel-body">
+                    <form class="form" method="post" action="../../jump/delete_category.php">
+                        <div class="form-group">
+                            <label>Delete Category by Name:</label>
+                            <input class="form-control" type="text" name="name" />
+                        </div>
+                        <input style="display: none" name="admin_id" value="<?php echo $_COOKIE['id'] ?>"/>
+                        <div class="form-group">
+                            <input type="submit" value="Add" name="submit" class="btn btn-primary" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
               </div>
             </div>
         </div>

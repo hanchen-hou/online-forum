@@ -186,7 +186,7 @@ $GLOBALS['most_diligent'] = UsersTable::most_diligent();
 						<a class="sidebar-brand" href="add_admin.php">Add Admin</a>
 					</li>
 					<li>
-						<a class="sidebar-brand" href="add_category.php">Add Category</a>
+						<a class="sidebar-brand" href="add_category.php">Manage Category</a>
 					</li>
 				</ul>
             </div>

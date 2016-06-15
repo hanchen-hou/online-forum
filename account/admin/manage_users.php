@@ -173,7 +173,7 @@ if (!isset($GLOBALS['user_name'])) {
 									<li>
 											<a class="sidebar-brand" href="admin_profile.php">Profile</a>
 									</li>
-                  <li>
+                  					<li>
 										<a class="sidebar-brand" href="change_password.php">Change Password</a>
 									</li>
 									<li class="selected">
@@ -183,7 +183,7 @@ if (!isset($GLOBALS['user_name'])) {
 										<a class="sidebar-brand" href="add_admin.php">Add Admin</a>
 									</li>
 									<li>
-										<a class="sidebar-brand" href="add_category.php">Add Category</a>
+										<a class="sidebar-brand" href="add_category.php">Manage Category</a>
 									</li>
                 </ul>
             </div>
@@ -196,6 +196,7 @@ if (!isset($GLOBALS['user_name'])) {
                     <?php
                     require_once (dirname(dirname(dirname(__FILE__))) . "/model/banned_users.php");
                     $template = '
+                    
                     <div class="panel panel-success">
                       <div class="panel-heading">
                             <div class="btn-group pull-left">
