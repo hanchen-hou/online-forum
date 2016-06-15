@@ -89,6 +89,10 @@ select CATEGORY_ID, CATEGORY_NAME, POSTS_NUM
 from CATEGORIES_VIEW
 where POSTS_NUM = (select max(POSTS_NUM) from CATEGORIES_VIEW)
 
+-- delete category by name
+delete from CS_CATEGORIES c
+where c.name=:name
+
 -- //
 -- // CS_MSGS
 -- // msgs.php
