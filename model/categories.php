@@ -55,6 +55,33 @@ class CategoriesTable{
 		return $res;
 	}
 	
+	static function delete_by_name($name){
+		$conn = connect_db();
+		$sql = "select * 
+				from ".POSTS_TABLE ." p, ".CATEGORIES_TABLE." c
+				where p.category_id = c.id and c.name=:name";
+		$stmt = oci_parse($conn, $sql);
+		oci_bind_by_name($stmt, ":name", $name);
+		oci_execute($stmt);
+		
+		$row = oci_fetch_all($stmt, $res);
+		
+		if($row == 0){
+			$sql = "delete from ".CATEGORIES_TABLE." c
+					where c.name=:name";
+			$stmt = oci_parse($conn, $sql);
+			oci_bind_by_name($stmt, ":name", $name);
+			oci_execute($stmt);
+			oci_close($conn);
+			return TRUE;
+		}else{
+			// the category is not empty
+			// cannot delete it
+			oci_close($conn);
+			return FALSE;
+		}
+	}
+	
 	// the category which has the most number of posts
 	// P.s. can return more than one categories
 	static function get_hottest_category(){
