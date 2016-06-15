@@ -55,20 +55,22 @@ function banned_user_insert_test() {
 	}
 }
 
-insert_test("sample_users_json.txt", "UsersTable::insert");
-insert_test("sample_admins_json.txt", "AdminsTable::insert");
-insert_test("sample_categories_json.txt", "CategoriesTable::insert");
+//insert_test("sample_users_json.txt", "UsersTable::insert");
+//insert_test("sample_admins_json.txt", "AdminsTable::insert");
+//insert_test("sample_categories_json.txt", "CategoriesTable::insert");
 
-posts_insert_test();
+//posts_insert_test();
 comments_insert_test();
 
-//var_dump(UsersTable::posts_summary("408704"));
-//var_dump(UsersTable::seldom_go("408704"));
+//var_dump(UsersTable::posts_summary("866854203"));
+//var_dump(UsersTable::most_diligent());
+//MsgsTable::delete_by_id(282);
 
 //BannedUsersTable::ban_by_id(410623015, 483717659);
 //BannedUsersTable::unban_by_id(725339596, 929429655);
 //banned_user_insert_test();
 //var_dump(BannedUsersTable::select_all());
+//var_dump(UsersTable::is_banned(384619638));
 
 //echo random_get_id("UsersTable::select_all");
 //echo random_get_id("AdminsTable::select_all");
