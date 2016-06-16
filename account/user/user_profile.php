@@ -229,13 +229,13 @@ $GLOBALS['most_diligent'] = UsersTable::most_diligent();
 							<ul>
 								<?php 
 								$most_diligent = $GLOBALS['most_diligent'];
-								if(count($most_diligent['ID']) > 0){
-									for($i = 0; $i < count($most_diligent['EMAIL']); $i++){
+								if(count($most_diligent['USER_ID']) > 0){
+									for($i = 0; $i < count($most_diligent['USER_ID']); $i++){
 										echo '<li>';
 										echo ($i+1).'. ';
-										echo $posts_summary['NAME'][$i];
+										echo $most_diligent['USER_NAME'][$i];
 										echo ' makes ';
-										echo $posts_summary['POSTS_NUM'][$i];
+										echo $most_diligent['POSTS_NUM'][$i];
 										//echo ' posts';
 										echo '</li>';
 									}
